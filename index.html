@@ -580,15 +580,15 @@
 
   <!-- SPLASH SCREEN -->
   <div id="splash">
-    <div class="splash-brand">Artwall</div>
-    <div class="splash-tagline">Curated Prints for Your Space</div>
+    <div class="splash-brand">PNiktrix</div>
+    <div class="splash-tagline">Create Prints for Your Space</div>
     <div class="splash-bar"></div>
   </div>
 
   <!-- PAGE: GALLERY -->
   <div id="page-gallery" class="page active">
     <header class="header">
-      <div class="header-brand">Artwall</div>
+      <div class="header-brand">PNiktrix</div>
       <button class="header-cart-pill" id="header-continue-btn" style="display:none" onclick="App.goToForm()">
         Continue
         <span class="cart-count-badge" id="header-count">0</span>
@@ -619,7 +619,7 @@
   <div id="page-form" class="page">
     <header class="header">
       <button style="background:none;border:none;cursor:pointer;color:var(--ink-light);font-size:0.8rem;letter-spacing:0.05em;font-family:var(--font-body);" onclick="App.goBack()">Back</button>
-      <div class="header-brand">Artwall</div>
+      <div class="header-brand">Pniktrix</div>
       <div style="width:60px"></div>
     </header>
 
@@ -689,7 +689,7 @@
     const CONFIG = {
       FORMSPREE_URL:   "https://formspree.io/f/YOUR_FORM_ID_HERE",  // replace YOUR_FORM_ID_HERE
       WHATSAPP_NUMBER: "91XXXXXXXXXX",   // with country code, no + sign
-      BRAND_NAME:      "Artwall",
+      BRAND_NAME:      "Pniktrix",
       PRODUCTS_JSON:   "products.json"
     };
 
@@ -1005,7 +1005,7 @@
       _showThankYou(name, phone, artNames) {
         const artList  = artNames.join(", ");
         const msg      = encodeURIComponent(
-          `Hi, I just placed a request on Artwall.\nName: ${name}\nInterested in: ${artList}`
+          `Hi, I just placed a request on Pniktrix.\nName: ${name}\nInterested in: ${artList}`
         );
         const waEl = document.getElementById("wa-link");
         if (waEl) waEl.href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${msg}`;
