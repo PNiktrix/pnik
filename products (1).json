@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Golden Horizon",
+    "price": "799",
+    "image": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&q=80",
+    "tag": "Bestseller"
+  },
+  {
+    "id": 2,
+    "name": "Midnight Forest",
+    "price": "899",
+    "image": "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&q=80",
+    "tag": ""
+  },
+  {
+    "id": 3,
+    "name": "Desert Bloom",
+    "price": "749",
+    "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+    "tag": "New"
+  },
+  {
+    "id": 4,
+    "name": "Ocean Calm",
+    "price": "849",
+    "image": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=600&q=80",
+    "tag": ""
+  },
+  {
+    "id": 5,
+    "name": "Urban Geometry",
+    "price": "999",
+    "image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    "tag": "Popular"
+  },
+  {
+    "id": 6,
+    "name": "Soft Botanicals",
+    "price": "699",
+    "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80",
+    "tag": ""
+  },
+  {
+    "id": 7,
+    "name": "Mountain Dawn",
+    "price": "849",
+    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+    "tag": "Trending"
+  },
+  {
+    "id": 8,
+    "name": "Abstract Waves",
+    "price": "799",
+    "image": "https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&q=80",
+    "tag": ""
+  },
+  {
+    "id": 9,
+    "name": "Warm Minimal",
+    "price": "649",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    "tag": "New"
+  },
+  {
+    "id": 10,
+    "name": "Stone & Light",
+    "price": "929",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+    "tag": ""
+  },
+  {
+    "id": 11,
+    "name": "Sakura Drift",
+    "price": "779",
+    "image": "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=600&q=80",
+    "tag": "Popular"
+  },
+  {
+    "id": 12,
+    "name": "Lush Green",
+    "price": "729",
+    "image": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80",
+    "tag": ""
+  }
+]
