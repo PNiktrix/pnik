@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Best art",
     "price": "799",
-    "image": "https://PNiktrix.github.io/Art/FlowerArt1.jpeg",
+    "image": "https://PNiktrix.github.io/Art/Art1.jpeg",
     "tag": "Bestseller"
   },
   {
@@ -17,7 +17,7 @@
     "id": 3,
     "name": "Desert Bloom",
     "price": "749",
-    "image": "https://PNiktrix.github.io/Art/BirdArt2.jpeg",
+    "image": "https://PNiktrix.github.io/Art/Art2.jpeg",
     "tag": "New"
   },
   {
