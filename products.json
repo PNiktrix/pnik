@@ -10,42 +10,42 @@
     "id": 2,
     "name": "Midnight Forest",
     "price": "899",
-    "image": "https://PNiktrix.github.io/Art/TreeofLove.jpeg",
+    "image": "https://PNiktrix.github.io/Art/Art2.jpeg",
     "tag": ""
   },
   {
     "id": 3,
     "name": "Desert Bloom",
     "price": "749",
-    "image": "https://PNiktrix.github.io/Art/Art2.jpeg",
+    "image": "https://PNiktrix.github.io/Art/Art3.jpeg",
     "tag": "New"
   },
   {
     "id": 4,
     "name": "Ocean Calm",
     "price": "849",
-    "image": "https://PNiktrix.github.io/Art/Art3",
+    "image": "https://PNiktrix.github.io/Art/Art4.jpeg",
     "tag": ""
   },
   {
     "id": 5,
     "name": "Urban Geometry",
     "price": "999",
-    "image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+    "image": "https://PNiktrix.github.io/Art/Art5.jpeg",
     "tag": "Popular"
   },
   {
     "id": 6,
     "name": "Soft Botanicals",
     "price": "699",
-    "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80",
+    "image": "https://PNiktrix.github.io/Art/Art6.jpeg",
     "tag": ""
   },
   {
     "id": 7,
     "name": "Mountain Dawn",
     "price": "849",
-    "image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80",
+    "image": "https://PNiktrix.github.io/Art/Art7.jpeg",
     "tag": "Trending"
   },
   {
