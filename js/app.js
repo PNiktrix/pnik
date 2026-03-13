@@ -82,6 +82,7 @@ class AppController {
     this.ui.sync();
   }
 
+  openBar()     { this.tally.open(); }   // Header "Order Now" pill
   goWhatsApp()  { this.wa.open(); }
   goInstagram() { this.ig.open(); }
   openTally()   { this.tally.open(); }
