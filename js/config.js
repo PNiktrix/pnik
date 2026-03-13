@@ -41,12 +41,12 @@ const CONFIG = {
 
   // ── Splash Screen ───────────────────────────────────────
   // How long splash stays visible in milliseconds
-  SPLASH_DURATION: 1600,
+  SPLASH_DURATION: 600,
 
   // ── Hero Slider ─────────────────────────────────────────
   // How many products show in the hero slider (from top of list)
-  HERO_SLIDE_COUNT: 6,
+  HERO_SLIDE_COUNT: 4,
   // Milliseconds between auto-slide
-  HERO_INTERVAL: 3800,
+  HERO_INTERVAL: 2000,
 
 };
