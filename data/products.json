@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Golden Horizon",
     "price": "799",
-    "image": "images/art1.jpeg",
+    "image": "https://github.com/PNiktrix/pnik/blob/main/images/Art1.jpeg",
     "tag": "Bestseller"
   },
   {
