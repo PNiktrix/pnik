@@ -17,20 +17,17 @@ class MessageBuilder {
       return (
         `Hello Pniktrix,\n\n` +
         `I came across your wall art collection and would love to explore it further.\n\n` +
-        `Kindly assist me in choosing the right piece for my space.\n\n` +
-        `Thank you.`
+        `Kindly assist me in choosing the right piece for my space.`
       );
     }
 
     const artLines = MessageBuilder._artList(repo, cart);
 
     return (
-      `Hello Pniktrix,\n\n` +
-      `I would like to place an order for the following pieces from your collection:\n\n` +
+      `Hello Pniktrix,\n` +
+      `I would like to place an order for the following pieces from your collection:\n` +
       `${artLines}\n\n` +
-      `Kindly share the available sizes, finishes, and delivery details at your earliest convenience.\n\n` +
-      `Looking forward to hearing from you.\n` +
-      `Thank you.`
+      `share the details of this Selected art`
     );
   }
 
@@ -61,7 +58,7 @@ class MessageBuilder {
   // Short summary shown inside the Tally form modal
   static forTallySubtitle(repo, cart) {
     if (cart.isEmpty()) {
-      return "Leave your details and we will reach out personally on WhatsApp.";
+      return "Leave your details and we will reach out you on WhatsApp.";
     }
     const names = cart.ids()
       .map(id => repo.byId(id)?.name)
