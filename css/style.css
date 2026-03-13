@@ -381,80 +381,107 @@ body {
 }
 
 
-/* ── 10. Tally Modal ─────────────────────────────────────── */
-#tally-modal {
+/* ── 10. Google Form Popup ───────────────────────────────── */
+#gform-overlay {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(10,9,8,0.88);
-  backdrop-filter: blur(10px);
-  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(6,5,4,0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   opacity: 0; visibility: hidden;
-  transition: opacity 0.35s, visibility 0.35s;
+  transition: opacity 0.38s ease, visibility 0.38s ease;
 }
-#tally-modal.show { opacity:1; visibility:visible; }
+#gform-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
 
-.tm-card {
+.gf-sheet {
+  width: 100%;
+  max-width: 480px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 20px 20px 0 0;
-  width: 100%; max-width: 520px;
-  padding: 1.5rem 1.25rem 2.5rem;
-  position: relative;
-  transform: translateY(60px);
-  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  border-radius: 22px 22px 0 0;
+  overflow: hidden;
+  transform: translateY(100%);
+  transition: transform 0.42s cubic-bezier(0.16,1,0.3,1);
+  /* Max height — leaves a small gap at top so user sees they're on the site */
+  max-height: 92dvh;
+  display: flex;
+  flex-direction: column;
 }
-#tally-modal.show .tm-card { transform: translateY(0); }
+#gform-overlay.show .gf-sheet {
+  transform: translateY(0);
+}
 
-.tm-handle {
-  width: 36px; height: 3px; border-radius: 2px;
-  background: var(--border); margin: 0 auto 1.25rem;
+/* Top bar — classic chrome feel */
+.gf-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--card);
 }
-.tm-title {
+.gf-top-left {
+  display: flex; align-items: center; gap: 0.55rem;
+}
+.gf-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold-glow);
+  animation: dot-pulse 2.2s ease-in-out infinite;
+}
+@keyframes dot-pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.8); }
+}
+.gf-label {
   font-family: var(--fh);
-  font-size: 1.5rem; font-weight: 300; font-style: italic;
-  color: var(--ink); margin-bottom: 0.3rem;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.04em;
 }
-.tm-sub {
-  font-size: 0.72rem; color: var(--ink-dim);
-  margin-bottom: 1rem; line-height: 1.55;
+.gf-close {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--ink-dim);
+  width: 28px; height: 28px;
+  font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
 }
-.tm-note {
-  font-size: 0.68rem; color: var(--ink-dim);
-  border-left: 2px solid var(--gold-dim);
-  padding-left: 0.7rem; margin-bottom: 1rem; line-height: 1.6;
+.gf-close:hover { background: rgba(255,255,255,0.12); color: var(--ink); }
+
+/* iframe container — scrollable */
+.gf-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: #fff; /* Google Forms is white */
 }
-.tm-close {
-  position: absolute; top: 1rem; right: 1rem;
-  background: none; border: none;
-  color: var(--ink-dim); font-size: 1.1rem;
-  cursor: pointer; padding: 4px;
+#gform-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  border: none;
+  display: block;
 }
 
-/* Form fields */
-.tf { margin-bottom: 0.9rem; }
-.tf label {
-  display: block;
-  font-size: 0.62rem; font-weight: 500;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ink-dim); margin-bottom: 0.35rem;
+/* On tall phones give more room */
+@media (min-height: 700px) {
+  .gf-sheet { max-height: 88dvh; }
+  #gform-frame { min-height: 600px; }
 }
-.tf input {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 0.75rem 0.9rem;
-  font-family: var(--fb); font-size: 0.85rem; font-weight: 300;
-  color: var(--ink); outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.tf input:focus { border-color: var(--gold); }
-.tf.err input   { border-color: var(--danger); }
-.fe {
-  font-size: 0.65rem; color: var(--danger);
-  margin-top: 0.25rem; display: none;
-}
-.tf.err .fe { display: block; }
 
 
 /* ── 11. Buttons ─────────────────────────────────────────── */
