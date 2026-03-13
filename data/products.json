@@ -3,42 +3,42 @@
     "id": 1,
     "name": "Golden Horizon",
     "price": "799",
-    "image": "https://github.com/PNiktrix/pnik/blob/main/images/Art1.jpeg",
+    "image": "images/Art1.jpeg",
     "tag": "Bestseller"
   },
   {
     "id": 2,
     "name": "Midnight Forest",
     "price": "899",
-    "image": "images/art2.jpeg",
+    "image": "images/Art2.jpeg",
     "tag": ""
   },
   {
     "id": 3,
     "name": "Desert Bloom",
     "price": "749",
-    "image": "images/art3.jpeg",
+    "image": "images/Art3.jpeg",
     "tag": "New"
   },
   {
     "id": 4,
     "name": "Ocean Calm",
     "price": "849",
-    "image": "images/art4.jpeg",
+    "image": "images/Art4.jpeg",
     "tag": ""
   },
   {
     "id": 5,
     "name": "Urban Lines",
     "price": "999",
-    "image": "images/art5.jpeg",
+    "image": "images/Art5.jpeg",
     "tag": "Trending"
   },
   {
     "id": 6,
     "name": "Soft Botanicals",
     "price": "699",
-    "image": "images/art6.jpeg",
+    "image": "images/Art6.jpeg",
     "tag": ""
   }
 ]
