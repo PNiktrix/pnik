@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
 
+  <!-- Tally Embed — loads Tally popup engine -->
+  <script async src="https://tally.so/widgets/embed.js"></script>
+
   <!-- Styles -->
   <link rel="stylesheet" href="css/style.css"/>
 </head>
@@ -92,42 +95,21 @@
     </button>
   </div>
 
-  <!-- ── TALLY MODAL ────────────────────────────── -->
-  <div id="tally-modal">
-    <div class="tm-card">
-      <button class="tm-close" onclick="App.closeTally()">&#x2715;</button>
-      <div class="tm-handle"></div>
-      <div class="tm-title">Your Details</div>
-      <div class="tm-sub" id="tm-sub">
-        Leave your details and we will reach out personally on WhatsApp.
-      </div>
-      <div class="tm-note">
-        No payment required now. We confirm everything before shipping.
-      </div>
-
-      <div class="tf" id="tf-name">
-        <label for="fi-name">Full Name</label>
-        <input id="fi-name" type="text" placeholder="Your name" autocomplete="name"/>
-        <div class="fe">Please enter your name.</div>
-      </div>
-
-      <div class="tf" id="tf-phone">
-        <label for="fi-phone">WhatsApp Number</label>
-        <input id="fi-phone" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit number"/>
-        <div class="fe">Enter a valid 10-digit number.</div>
-      </div>
-
-      <div class="tf" id="tf-city">
-        <label for="fi-city">City</label>
-        <input id="fi-city" type="text" placeholder="Your city"/>
-        <div class="fe">Please enter your city.</div>
-      </div>
-
-      <button class="btn btn-gold" onclick="App.submitTally()">
-        Send My Request
-      </button>
-    </div>
-  </div>
+  <!-- ── TALLY POPUP TRIGGER ───────────────────── -->
+  <!-- Hidden button — Tally embed.js watches for clicks on this -->
+  <!-- All popup behaviour is controlled by data attributes below -->
+  <button
+    id="tally-trigger"
+    data-tally-open="PdEKa0"
+    data-tally-width="450"
+    data-tally-align-left="1"
+    data-tally-overlay="1"
+    data-tally-emoji-text="👋"
+    data-tally-auto-close="3000"
+    data-tally-form-events-forwarding="1"
+    style="display:none;"
+    aria-hidden="true"
+  ></button>
 
   <!-- ── TOAST ──────────────────────────────────── -->
   <div id="toast"></div>
