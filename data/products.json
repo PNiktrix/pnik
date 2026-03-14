@@ -7,6 +7,7 @@
     "tag": "Bestseller",
     "image": "data/Art1.jpeg",
     "images": [
+      "data/Art1.jpeg",
       "data/Art1s1.jpeg",
       "data/Art1s2.jpeg"
     ]
@@ -19,6 +20,7 @@
     "tag": "",
     "image": "data/Art2.jpeg",
     "images": [
+      "data/Art2.jpeg",
       "data/Art2s1.jpeg",
       "data/Art2s2.jpeg"
     ]
@@ -31,6 +33,7 @@
     "tag": "New",
     "image": "data/Art3.jpeg",
     "images": [
+      "data/Art3.jpeg",
       "data/Art3s1.jpeg",
       "data/Art3s2.jpeg"
     ]
@@ -43,6 +46,7 @@
     "tag": "",
     "image": "data/Art4.jpeg",
     "images": [
+      "data/Art4.jpeg",
       "data/Art4s1.jpeg",
       "data/Art4s2.jpeg"
     ]
@@ -55,6 +59,7 @@
     "tag": "Trending",
     "image": "data/Art5.jpeg",
     "images": [
+      "data/Art5.jpeg",
       "data/Art5s1.jpeg",
       "data/Art5s2.jpeg"
     ]
@@ -67,6 +72,7 @@
     "tag": "",
     "image": "data/Art6.jpeg",
     "images": [
+      "data/Art6.jpeg",
       "data/Art6s1.jpeg",
       "data/Art6s2.jpeg"
     ]
@@ -79,6 +85,7 @@
     "tag": "",
     "image": "data/Art7.jpeg",
     "images": [
+      "data/Art7.jpeg",
       "data/Art7s1.jpeg",
       "data/Art7s2.jpeg"
     ]
@@ -91,6 +98,7 @@
     "tag": "",
     "image": "data/Art8.jpeg",
     "images": [
+      "data/Art8.jpeg",
       "data/Art8s1.jpeg",
       "data/Art8s2.jpeg"
     ]
@@ -103,6 +111,7 @@
     "tag": "",
     "image": "data/Art9.jpeg",
     "images": [
+      "data/Art9.jpeg",
       "data/Art9s1.jpeg",
       "data/Art9s2.jpeg"
     ]
@@ -115,6 +124,7 @@
     "tag": "Bestseller",
     "image": "data/Art10.jpeg",
     "images": [
+      "data/Art10.jpeg",
       "data/Art10s1.jpeg",
       "data/Art10s2.jpeg"
     ]
@@ -127,6 +137,7 @@
     "tag": "",
     "image": "data/Art11.jpeg",
     "images": [
+      "data/Art11.jpeg",
       "data/Art11s1.jpeg",
       "data/Art11s2.jpeg"
     ]
@@ -139,6 +150,7 @@
     "tag": "New",
     "image": "data/Art12.jpeg",
     "images": [
+      "data/Art12.jpeg",
       "data/Art12s1.jpeg",
       "data/Art12s2.jpeg"
     ]
@@ -151,6 +163,7 @@
     "tag": "",
     "image": "data/Art13.jpeg",
     "images": [
+      "data/Art13.jpeg",
       "data/Art13s1.jpeg",
       "data/Art13s2.jpeg"
     ]
@@ -163,6 +176,7 @@
     "tag": "Trending",
     "image": "data/Art14.jpeg",
     "images": [
+      "data/Art14.jpeg",
       "data/Art14s1.jpeg",
       "data/Art14s2.jpeg"
     ]
@@ -175,6 +189,7 @@
     "tag": "",
     "image": "data/Art15.jpeg",
     "images": [
+      "data/Art15.jpeg",
       "data/Art15s1.jpeg",
       "data/Art15s2.jpeg"
     ]
@@ -187,6 +202,7 @@
     "tag": "",
     "image": "data/Art16.jpeg",
     "images": [
+      "data/Art16.jpeg",
       "data/Art16s1.jpeg",
       "data/Art16s2.jpeg"
     ]
@@ -199,6 +215,7 @@
     "tag": "",
     "image": "data/Art17.jpeg",
     "images": [
+      "data/Art17.jpeg",
       "data/Art17s1.jpeg",
       "data/Art17s2.jpeg"
     ]
@@ -211,6 +228,7 @@
     "tag": "",
     "image": "data/Art18.jpeg",
     "images": [
+      "data/Art18.jpeg",
       "data/Art18s1.jpeg",
       "data/Art18s2.jpeg"
     ]
@@ -223,6 +241,7 @@
     "tag": "Bestseller",
     "image": "data/Art19.jpeg",
     "images": [
+      "data/Art19.jpeg",
       "data/Art19s1.jpeg",
       "data/Art19s2.jpeg"
     ]
@@ -235,6 +254,7 @@
     "tag": "",
     "image": "data/Art20.jpeg",
     "images": [
+      "data/Art20.jpeg",
       "data/Art20s1.jpeg",
       "data/Art20s2.jpeg"
     ]
@@ -247,6 +267,7 @@
     "tag": "New",
     "image": "data/Art21.jpeg",
     "images": [
+      "data/Art21.jpeg",
       "data/Art21s1.jpeg",
       "data/Art21s2.jpeg"
     ]
@@ -259,6 +280,7 @@
     "tag": "",
     "image": "data/Art22.jpeg",
     "images": [
+      "data/Art22.jpeg",
       "data/Art22s1.jpeg",
       "data/Art22s2.jpeg"
     ]
@@ -271,6 +293,7 @@
     "tag": "Trending",
     "image": "data/Art23.jpeg",
     "images": [
+      "data/Art23.jpeg",
       "data/Art23s1.jpeg",
       "data/Art23s2.jpeg"
     ]
@@ -283,6 +306,7 @@
     "tag": "",
     "image": "data/Art24.jpeg",
     "images": [
+      "data/Art24.jpeg",
       "data/Art24s1.jpeg",
       "data/Art24s2.jpeg"
     ]
@@ -295,6 +319,7 @@
     "tag": "",
     "image": "data/Art25.jpeg",
     "images": [
+      "data/Art25.jpeg",
       "data/Art25s1.jpeg",
       "data/Art25s2.jpeg"
      ]
