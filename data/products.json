@@ -214,5 +214,89 @@
       "data/Art18s1.jpeg",
       "data/Art18s2.jpeg"
     ]
-  }
+  },
+  {
+    "id": 19,
+    "name": "Golden Horizon",
+    "price": "799",
+    "category": "Abstract",
+    "tag": "Bestseller",
+    "image": "data/Art19.jpeg",
+    "images": [
+      "data/Art19s1.jpeg",
+      "data/Art19s2.jpeg"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Midnight Forest",
+    "price": "899",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art20.jpeg",
+    "images": [
+      "data/Art20s1.jpeg",
+      "data/Art20s2.jpeg"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Desert Bloom",
+    "price": "749",
+    "category": "Nature",
+    "tag": "New",
+    "image": "data/Art21.jpeg",
+    "images": [
+      "data/Art21s1.jpeg",
+      "data/Art21s2.jpeg"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Ocean Calm",
+    "price": "849",
+    "category": "Minimal",
+    "tag": "",
+    "image": "data/Art22.jpeg",
+    "images": [
+      "data/Art22s1.jpeg",
+      "data/Art22s2.jpeg"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Urban Lines",
+    "price": "999",
+    "category": "Minimal",
+    "tag": "Trending",
+    "image": "data/Art23.jpeg",
+    "images": [
+      "data/Art23s1.jpeg",
+      "data/Art23s2.jpeg"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Soft Botanicals",
+    "price": "699",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art24.jpeg",
+    "images": [
+      "data/Art24s1.jpeg",
+      "data/Art24s2.jpeg"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Mountain Dawn",
+    "price": "849",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art25.jpeg",
+    "images": [
+      "data/Art25s1.jpeg",
+      "data/Art25s2.jpeg"
+     ]
+   }
 ]
