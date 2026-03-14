@@ -3,42 +3,216 @@
     "id": 1,
     "name": "Golden Horizon",
     "price": "799",
+    "category": "Abstract",
+    "tag": "Bestseller",
     "image": "data/Art1.jpeg",
-    "tag": "Bestseller"
+    "images": [
+      "data/Art1s1.jpeg",
+      "data/Art1s2.jpeg"
+    ]
   },
   {
     "id": 2,
     "name": "Midnight Forest",
     "price": "899",
+    "category": "Nature",
+    "tag": "",
     "image": "data/Art2.jpeg",
-    "tag": ""
+    "images": [
+      "data/Art2s1.jpeg",
+      "data/Art2s2.jpeg"
+    ]
   },
   {
     "id": 3,
     "name": "Desert Bloom",
     "price": "749",
+    "category": "Nature",
+    "tag": "New",
     "image": "data/Art3.jpeg",
-    "tag": "New"
+    "images": [
+      "data/Art3s1.jpeg",
+      "data/Art3s2.jpeg"
+    ]
   },
   {
     "id": 4,
     "name": "Ocean Calm",
     "price": "849",
+    "category": "Minimal",
+    "tag": "",
     "image": "data/Art4.jpeg",
-    "tag": ""
+    "images": [
+      "data/Art4s1.jpeg",
+      "data/Art4s2.jpeg"
+    ]
   },
   {
     "id": 5,
     "name": "Urban Lines",
     "price": "999",
+    "category": "Minimal",
+    "tag": "Trending",
     "image": "data/Art5.jpeg",
-    "tag": "Trending"
+    "images": [
+      "data/Art5s1.jpeg",
+      "data/Art5s2.jpeg"
+    ]
   },
   {
     "id": 6,
     "name": "Soft Botanicals",
     "price": "699",
+    "category": "Nature",
+    "tag": "",
     "image": "data/Art6.jpeg",
-    "tag": ""
+    "images": [
+      "data/Art6s1.jpeg",
+      "data/Art6s2.jpeg"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Mountain Dawn",
+    "price": "849",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art7.jpeg",
+    "images": [
+      "data/Art7s1.jpeg",
+      "data/Art7s2.jpeg"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Cosmic Dance",
+    "price": "899",
+    "category": "Abstract",
+    "tag": "",
+    "image": "data/Art8.jpeg",
+    "images": [
+      "data/Art8s1.jpeg",
+      "data/Art8s2.jpeg"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Cosmic Dance",
+    "price": "899",
+    "category": "Abstract",
+    "tag": "",
+    "image": "data/Art9.jpeg",
+    "images": [
+      "data/Art9s1.jpeg",
+      "data/Art9s2.jpeg"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Golden Horizon",
+    "price": "799",
+    "category": "Abstract",
+    "tag": "Bestseller",
+    "image": "data/Art10.jpeg",
+    "images": [
+      "data/Art10s1.jpeg",
+      "data/Art10s2.jpeg"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Midnight Forest",
+    "price": "899",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art11.jpeg",
+    "images": [
+      "data/Art11s1.jpeg",
+      "data/Art11s2.jpeg"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Desert Bloom",
+    "price": "749",
+    "category": "Nature",
+    "tag": "New",
+    "image": "data/Art12.jpeg",
+    "images": [
+      "data/Art12s1.jpeg",
+      "data/Art12s2.jpeg"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Ocean Calm",
+    "price": "849",
+    "category": "Minimal",
+    "tag": "",
+    "image": "data/Art13.jpeg",
+    "images": [
+      "data/Art13s1.jpeg",
+      "data/Art13s2.jpeg"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Urban Lines",
+    "price": "999",
+    "category": "Minimal",
+    "tag": "Trending",
+    "image": "data/Art14.jpeg",
+    "images": [
+      "data/Art14s1.jpeg",
+      "data/Art14s2.jpeg"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Soft Botanicals",
+    "price": "699",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art15.jpeg",
+    "images": [
+      "data/Art15s1.jpeg",
+      "data/Art15s2.jpeg"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Mountain Dawn",
+    "price": "849",
+    "category": "Nature",
+    "tag": "",
+    "image": "data/Art16.jpeg",
+    "images": [
+      "data/Art16s1.jpeg",
+      "data/Art16s2.jpeg"
+    ]
+  },
+ {
+    "id": 17,
+    "name": "Cosmic Dance",
+    "price": "899",
+    "category": "Abstract",
+    "tag": "",
+    "image": "data/Art17.jpeg",
+    "images": [
+      "data/Art17s1.jpeg",
+      "data/Art17s2.jpeg"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Cosmic Dance",
+    "price": "899",
+    "category": "Abstract",
+    "tag": "",
+    "image": "data/Art18.jpeg",
+    "images": [
+      "data/Art18s1.jpeg",
+      "data/Art18s2.jpeg"
+    ]
   }
 ]
