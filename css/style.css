@@ -296,9 +296,9 @@ body {
   background: var(--card);
   position: relative; cursor: pointer;
   /* Outer card border — warm gold tone at rest */
-  border: 1px solid rgba(200,168,75,0.22);
+  border: 3px solid rgba(200,168,75,0.22);
   /* Curved card corners — matches the frame inside */
-  border-radius: 10px;
+  border-radius: 32px;
   overflow: hidden;
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
 }
@@ -307,7 +307,7 @@ body {
 /* Selected state — highly visible */
 .card.sel {
   border-color: var(--gold);
-  box-shadow: 0 0 0 1px var(--gold), 0 0 20px var(--gold-glow);
+  box-shadow: 0 0 0 3px var(--gold), 0 0 20px var(--gold-glow);
 }
 .card.sel .cimg img {
   transform: scale(1.05);
@@ -369,11 +369,11 @@ body {
 /* Tighter info text for compact cards */
 .cinfo { padding: 0.35rem 0.5rem 0.45rem; transition: background 0.25s; }
 .cname {
-  font-size: 0.100rem; font-weight: 400; color: var(--ink);
+  font-size: 0.99rem; font-weight: 500; color: var(--ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .cprice {
-  font-size: 0.70rem; color: var(--gold);
+  font-size: 0.80rem; color: var(--gold);
   margin-top: 1px; font-weight: 300;
 }
 
