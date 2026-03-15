@@ -37,22 +37,24 @@ class ImageViewer {
     this._product   = product;
     this._idx       = 0;
 
-    // Use zoomImages directly — show overlay right away
-    // If an image fails to load the browser shows nothing for that slide
-    // which is better than making the user wait
     this._validImgs = (product.zoomImages || product.cardImages || [product.image])
       .filter(Boolean);
 
     if (!this._validImgs.length) return;
 
-    this._buildStrip();
-    this._buildDots();
-    this._nameEl.textContent = product.name;
-    this._syncAddBtn();
-
-    // Show overlay immediately — no async delay
+    // Show overlay FIRST so element has real dimensions
     this._overlay.classList.add("show");
     document.body.style.overflow = "hidden";
+
+    // Now measure width — overlay is visible so value is correct
+    // Store it once and never re-measure during swipe
+    requestAnimationFrame(() => {
+      this._slideW = this._imgWrap.offsetWidth;
+      this._buildStrip();
+      this._buildDots();
+      this._nameEl.textContent = product.name;
+      this._syncAddBtn();
+    });
   }
 
   close() {
@@ -114,22 +116,23 @@ class ImageViewer {
   // ── Private: navigation ───────────────────────────────────
 
   _goTo(i, animate = true) {
-    if (!this._strip) return;
+    if (!this._strip || !this._slideW) return;
     this._idx = Math.max(0, Math.min(i, this._validImgs.length - 1));
 
-    // Measure width fresh each time — overlay is visible so it is accurate
-    const w = this._imgWrap.getBoundingClientRect().width || 300;
+    // Use the locked width — measured once when overlay opened
+    const offset = this._idx * this._slideW;
 
     if (!animate) {
       this._strip.classList.add("dragging");
-      this._strip.style.transform = `translateX(-${this._idx * w}px)`;
-      this._strip.offsetHeight;
+      this._strip.style.transform = `translateX(-${offset}px)`;
+      this._strip.offsetHeight; // force reflow
       this._strip.classList.remove("dragging");
     } else {
       this._strip.classList.remove("dragging");
-      this._strip.style.transform = `translateX(-${this._idx * w}px)`;
+      this._strip.style.transform = `translateX(-${offset}px)`;
     }
 
+    // Sync dots
     this._dotsEl.querySelectorAll(".zv-dot").forEach((d, j) =>
       d.classList.toggle("on", j === this._idx)
     );
@@ -145,25 +148,30 @@ class ImageViewer {
     let curX       = 0;
     let isDragging = false;
     let isHoriz    = false;
-    let w          = 0;
 
     const snap = () => {
       this._strip.classList.remove("dragging");
       const dx    = curX - startX;
+      const w     = this._slideW; // locked width — never re-measure
       const total = this._validImgs.length;
-      if (Math.abs(dx) > w * 0.2) {
-        dx < 0
-          ? this._goTo(Math.min(this._idx + 1, total - 1))
-          : this._goTo(Math.max(this._idx - 1, 0));
+
+      // One swipe = one slide. Threshold: 15% of one slide width
+      if (Math.abs(dx) > w * 0.15) {
+        if (dx < 0) {
+          // Swiped left — go to NEXT slide only (+1, not jump to end)
+          this._goTo(Math.min(this._idx + 1, total - 1));
+        } else {
+          // Swiped right — go to PREVIOUS slide only (-1)
+          this._goTo(Math.max(this._idx - 1, 0));
+        }
       } else {
+        // Not far enough — snap back to current
         this._goTo(this._idx);
       }
     };
 
     this._imgWrap.addEventListener("touchstart", e => {
       if (e.touches.length !== 1) return;
-      // Measure width at start of each swipe — overlay is visible so accurate
-      w          = this._imgWrap.getBoundingClientRect().width || 300;
       startX     = e.touches[0].clientX;
       startY     = e.touches[0].clientY;
       curX       = startX;
@@ -173,23 +181,26 @@ class ImageViewer {
 
     this._imgWrap.addEventListener("touchmove", e => {
       if (!isDragging || e.touches.length !== 1) return;
-      curX = e.touches[0].clientX;
-      const dx = curX - startX;
-      const dy = e.touches[0].clientY - startY;
+      curX      = e.touches[0].clientX;
+      const dx  = curX - startX;
+      const dy  = e.touches[0].clientY - startY;
 
-      if (!isHoriz && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+      // Determine direction on first significant movement
+      if (!isHoriz && Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
       if (!isHoriz) {
         isHoriz = Math.abs(dx) > Math.abs(dy);
-        if (!isHoriz) { isDragging = false; return; }
+        if (!isHoriz) { isDragging = false; return; } // vertical — bail out
       }
 
       e.preventDefault();
-      const liveOffset = (this._idx * w) - dx;
+
+      // Strip follows finger — base is current slide position
+      const liveOffset = (this._idx * this._slideW) - dx;
       this._strip.classList.add("dragging");
       this._strip.style.transform = `translateX(-${liveOffset}px)`;
     }, { passive: false });
 
-    this._imgWrap.addEventListener("touchend", e => {
+    this._imgWrap.addEventListener("touchend", () => {
       if (!isDragging) return;
       isDragging = false;
       snap();
