@@ -10,15 +10,22 @@ class Product {
     this.id       = id;
     this.name     = name;
     this.price    = price;
-    this.image    = image;                          // primary thumbnail shown in grid
+    this.image    = image;        // primary thumbnail — always shown first
     this.tag      = tag;
-    this.category = category;                       // used by category filter bar
-    // extra zoom images — name your files Art2s1.jpg, Art2s2.jpg etc.
-    // falls back to just the main image if no extras given
-    this.images   = images.length ? images : [image];
+    this.category = category;
+
+    const allImgs = images.length ? images : [image];
+
+    // cardImages — used for auto-slide on the grid card
+    // Only first image + up to 2 extra (s1, s2) = max 3 total
+    // Keeps the card slide fast and not overwhelming
+    this.cardImages = allImgs.slice(0, 3);
+
+    // zoomImages — all images shown inside the zoom viewer popup
+    // Can be as many as you add (s1, s2, s3, s4 ...)
+    this.zoomImages = allImgs;
   }
 
-  // Price shown on website cards only — never in chat messages
   get displayPrice() { return `Rs. ${this.price}`; }
 }
 

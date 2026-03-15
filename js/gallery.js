@@ -29,9 +29,9 @@ class GalleryRenderer {
     this.el.innerHTML = products.map(p => this._cardHTML(p)).join("");
     this._bindEvents();
 
-    // Start image auto-slider for every card that has multiple images
+    // Start image auto-slider for every card that has multiple card images
     products.forEach(p => {
-      if (p.images && p.images.length > 1) {
+      if (p.cardImages && p.cardImages.length > 1) {
         this._startSlider(p);
       }
     });
@@ -55,20 +55,20 @@ class GalleryRenderer {
     const validImgs = [];
     let checked = 0;
 
-    product.images.forEach((src, i) => {
+    // Use cardImages — max 3 images for the card auto-slide
+    product.cardImages.forEach((src, i) => {
       const tester = new Image();
       tester.onload = () => {
-        validImgs[i] = src;   // keep order
+        validImgs[i] = src;
         checked++;
-        if (checked === product.images.length) {
-          // All checked — filter out nulls and start cycling
+        if (checked === product.cardImages.length) {
           const imgs = validImgs.filter(Boolean);
           if (imgs.length > 1) this._cycleCard(product.id, imgEl, imgs);
         }
       };
       tester.onerror = () => {
         checked++;
-        if (checked === product.images.length) {
+        if (checked === product.cardImages.length) {
           const imgs = validImgs.filter(Boolean);
           if (imgs.length > 1) this._cycleCard(product.id, imgEl, imgs);
         }
@@ -77,53 +77,54 @@ class GalleryRenderer {
     });
   }
 
- _cycleCard(productId, imgEl, imgs) {
-  let idx = 0;
-  const wrap = imgEl.parentElement;
+  _cycleCard(productId, imgEl, imgs) {
+    let idx  = 0;
+    // Keep a live reference — gets updated as new img elements are created
+    let curr = imgEl;
+    const wrap = curr.parentElement;
 
-  const timer = setInterval(() => {
-    idx = (idx + 1) % imgs.length;
+    const timer = setInterval(() => {
+      idx = (idx + 1) % imgs.length;
 
-    // Preload next image before animating
-    const preload = new Image();
-    preload.onload = () => {
+      // Preload next image before animating — prevents flash
+      const preload = new Image();
+      preload.onload = () => {
+        // Create the incoming image starting off-screen right
+        const next = document.createElement("img");
+        next.src = imgs[idx];
+        next.style.cssText = [
+          "position:absolute",
+          "top:0", "left:0",
+          "width:100%", "height:100%",
+          "object-fit:cover",
+          "border-radius:inherit",
+          "transform:translateX(100%)",
+          "transition:transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)"
+        ].join(";");
 
-      // Create incoming image element — starts positioned to the right
-      const next = document.createElement("img");
-      next.src = imgs[idx];
-      next.style.cssText = `
-        position:absolute; inset:0;
-        width:100%; height:100%;
-        object-fit:cover;
-        transform:translateX(100%);
-        transition:transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
-      `;
-      wrap.appendChild(next);
+        wrap.appendChild(next);
 
-      // Force reflow so transition fires
-      next.offsetHeight;
+        // Force reflow so transition fires
+        next.getBoundingClientRect();
 
-      // Slide both in sync — next slides in from right, current slides out to left
-      next.style.transform = "translateX(0)";
-      imgEl.style.cssText += "transition:transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateX(-100%);";
+        // Slide next in from right, current out to left simultaneously
+        next.style.transform = "translateX(0)";
+        curr.style.cssText  += ";transition:transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);transform:translateX(-100%)";
 
-      // After animation ends — remove old image, reset new one as the base
-      setTimeout(() => {
-        imgEl.remove();
-        next.style.transition = "";
-        next.style.transform  = "";
-        next.style.position   = "";
-        // next becomes the new imgEl reference for next cycle
-        imgEl = next;
-      }, 560);
+        setTimeout(() => {
+          curr.remove();
+          // Clean up inline styles from next so it behaves as a normal img
+          next.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit";
+          // Update live reference for next cycle
+          curr = next;
+        }, 580);
+      };
+      preload.src = imgs[idx];
 
-    };
-    preload.src = imgs[idx];
+    }, 2800); // 2.8s between slides — enough time to see each image clearly
 
-  }, 2500);
-
-  this._sliders.set(productId, timer);
-}
+    this._sliders.set(productId, timer);
+  }
 
   _stopAllSliders() {
     this._sliders.forEach(timer => clearInterval(timer));
@@ -136,14 +137,17 @@ class GalleryRenderer {
     this.el.querySelectorAll(".card").forEach(card => {
       const id = +card.dataset.id;
 
-      // Zoom icon — opens viewer, does NOT select
-      card.querySelector(".zoom-btn")?.addEventListener("click", e => {
-        e.stopPropagation();
-        this.onZoom(id);
-      });
-
-      // Card tap — selects/deselects
-      card.addEventListener("click", () => {
+      // Use event delegation on the card level — this survives
+      // the auto-slide which replaces img elements inside .cimg
+      card.addEventListener("click", e => {
+        // Check if the tap was on the zoom button or inside it
+        const zoomBtn = e.target.closest(".zoom-btn");
+        if (zoomBtn) {
+          e.stopPropagation();
+          this.onZoom(id);
+          return;
+        }
+        // Otherwise — select/deselect
         this.onToggle(id);
         card.classList.toggle("sel", this.cart.has(id));
       });

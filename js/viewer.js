@@ -32,16 +32,17 @@ class ImageViewer {
 
   // ── Public API ────────────────────────────────────────────
 
-  // Open viewer for a product — validates images first
-  async open(product) {
+  // Open viewer immediately — no waiting for image validation
+  open(product) {
     this._product   = product;
     this._idx       = 0;
-    this._validImgs = [];
 
-    // Validate each image URL — skip any that 404 or fail to load
-    this._validImgs = await this._validateImages(product.images);
+    // Use zoomImages directly — show overlay right away
+    // If an image fails to load the browser shows nothing for that slide
+    // which is better than making the user wait
+    this._validImgs = (product.zoomImages || product.cardImages || [product.image])
+      .filter(Boolean);
 
-    // If no valid images at all — do not open viewer
     if (!this._validImgs.length) return;
 
     this._buildStrip();
@@ -49,6 +50,7 @@ class ImageViewer {
     this._nameEl.textContent = product.name;
     this._syncAddBtn();
 
+    // Show overlay immediately — no async delay
     this._overlay.classList.add("show");
     document.body.style.overflow = "hidden";
   }
@@ -73,8 +75,6 @@ class ImageViewer {
   // ── Private: image building ───────────────────────────────
 
   _buildStrip() {
-    // Build a flex strip where all images sit side by side
-    // Sliding the strip left/right reveals each image
     this._imgWrap.innerHTML = `<div class="zv-strip" id="zv-strip">${
       this._validImgs.map((src, i) =>
         `<div class="zv-slide" data-i="${i}">
@@ -84,13 +84,13 @@ class ImageViewer {
     }</div>`;
 
     this._strip = document.getElementById("zv-strip");
-    // Small delay so popup animation completes and offsetWidth is accurate
-    setTimeout(() => this._goTo(0, false), 50);// snap to first slide without animation
 
-    // Bind swipe gesture on the strip
+    // Snap to first slide instantly with no animation
+    this._strip.style.transform = "translateX(0)";
+
+    // Bind swipe and pinch immediately — width measured on first touch
+    // so it is always accurate regardless of animation state
     this._bindSwipe();
-
-    // Bind pinch zoom on each image individually
     this._bindPinch();
   }
 
@@ -117,24 +117,22 @@ class ImageViewer {
     if (!this._strip) return;
     this._idx = Math.max(0, Math.min(i, this._validImgs.length - 1));
 
-    // Use pixel offset — consistent with the live drag system
-    const wrapWidth = this._imgWrap.getBoundingClientRect().width || this._imgWrap.offsetWidth || 300;
+    // Measure width fresh each time — overlay is visible so it is accurate
+    const w = this._imgWrap.getBoundingClientRect().width || 300;
+
     if (!animate) {
-      // Instant snap — no spring (used on open)
       this._strip.classList.add("dragging");
-      this._strip.style.transform = `translateX(-${this._idx * wrapWidth}px)`;
-      this._strip.offsetHeight;  // force reflow
+      this._strip.style.transform = `translateX(-${this._idx * w}px)`;
+      this._strip.offsetHeight;
       this._strip.classList.remove("dragging");
     } else {
-      // Spring snap back — dragging class already removed by snap()
-      this._strip.style.transform = `translateX(-${this._idx * wrapWidth}px)`;
+      this._strip.classList.remove("dragging");
+      this._strip.style.transform = `translateX(-${this._idx * w}px)`;
     }
 
-    // Sync dots
     this._dotsEl.querySelectorAll(".zv-dot").forEach((d, j) =>
       d.classList.toggle("on", j === this._idx)
     );
-
     this._resetZoom();
   }
 
@@ -142,39 +140,35 @@ class ImageViewer {
   // Strip follows the finger in real time — feels like a real photo gallery
 
   _bindSwipe() {
-    let startX    = 0;
-    let startY    = 0;
-    let curX      = 0;
+    let startX     = 0;
+    let startY     = 0;
+    let curX       = 0;
     let isDragging = false;
-    let isHoriz    = false;   // confirmed horizontal swipe
-    let wrapWidth  = 0;
+    let isHoriz    = false;
+    let w          = 0;
 
     const snap = () => {
-      // Remove dragging class — spring transition kicks back in
       this._strip.classList.remove("dragging");
-
-      const dx   = curX - startX;
+      const dx    = curX - startX;
       const total = this._validImgs.length;
-
-      // Swipe threshold: 20% of wrap width
-      if (Math.abs(dx) > wrapWidth * 0.2) {
+      if (Math.abs(dx) > w * 0.2) {
         dx < 0
           ? this._goTo(Math.min(this._idx + 1, total - 1))
           : this._goTo(Math.max(this._idx - 1, 0));
       } else {
-        // Snap back to current slide
         this._goTo(this._idx);
       }
     };
 
     this._imgWrap.addEventListener("touchstart", e => {
       if (e.touches.length !== 1) return;
+      // Measure width at start of each swipe — overlay is visible so accurate
+      w          = this._imgWrap.getBoundingClientRect().width || 300;
       startX     = e.touches[0].clientX;
       startY     = e.touches[0].clientY;
       curX       = startX;
       isDragging = true;
       isHoriz    = false;
-      wrapWidth  = this._imgWrap.offsetWidth;
     }, { passive: true });
 
     this._imgWrap.addEventListener("touchmove", e => {
@@ -183,20 +177,14 @@ class ImageViewer {
       const dx = curX - startX;
       const dy = e.touches[0].clientY - startY;
 
-      // On first significant move, decide if horizontal or vertical
       if (!isHoriz && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
       if (!isHoriz) {
         isHoriz = Math.abs(dx) > Math.abs(dy);
-        if (!isHoriz) { isDragging = false; return; } // vertical scroll — bail
+        if (!isHoriz) { isDragging = false; return; }
       }
 
-      e.preventDefault();   // prevent page scroll during horizontal drag
-
-      // Strip follows finger — add live offset on top of snapped position
-      const baseOffset = this._idx * wrapWidth;
-      const liveOffset = baseOffset - dx;
-
-      // Add dragging class to kill transition so strip follows finger exactly
+      e.preventDefault();
+      const liveOffset = (this._idx * w) - dx;
       this._strip.classList.add("dragging");
       this._strip.style.transform = `translateX(-${liveOffset}px)`;
     }, { passive: false });
@@ -207,7 +195,6 @@ class ImageViewer {
       snap();
     }, { passive: true });
 
-    // Cancel drag if touch is interrupted
     this._imgWrap.addEventListener("touchcancel", () => {
       isDragging = false;
       snap();

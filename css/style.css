@@ -341,7 +341,6 @@ body {
   border-radius: 8px;
 }
 
-
 .ctag {
   position: absolute; top: 5px; left: 5px;
   background: var(--gold); color: #0A0908;
@@ -370,11 +369,11 @@ body {
 /* Tighter info text for compact cards */
 .cinfo { padding: 0.35rem 0.5rem 0.45rem; transition: background 0.25s; }
 .cname {
-  font-size: 0.90rem; font-weight: 400; color: var(--ink);
+  font-size: 0.65rem; font-weight: 400; color: var(--ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .cprice {
-  font-size: 0.75rem; color: var(--gold);
+  font-size: 0.58rem; color: var(--gold);
   margin-top: 1px; font-weight: 300;
 }
 
@@ -620,23 +619,27 @@ body {
 /* ── 17. Zoom Icon on product card ───────────────────────── */
 .zoom-btn {
   position: absolute;
-  bottom: 5px; right: 5px;   /* compact position for smaller cards */
-  width: 22px; height: 22px; /* smaller button for 3-col grid */
-  background: rgba(10,9,8,0.65);
-  border: 1px solid rgba(200,168,75,0.35);
+  bottom: 6px; right: 6px;
+  width: 28px; height: 28px;
+  /* Solid gold background — very visible on any image */
+  background: var(--gold);
+  border: none;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-  z-index: 2;
+  z-index: 3;
+  /* Soft shadow so it lifts off the image */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  transition: transform 0.15s, filter 0.15s;
 }
 .zoom-btn svg {
-  width: 10px; height: 10px; /* smaller icon */
-  stroke: var(--gold); stroke-width: 2; fill: none;
+  width: 13px; height: 13px;
+  stroke: #0A0908;  /* dark icon on gold — high contrast */
+  stroke-width: 2.2; fill: none;
 }
-.zoom-btn:active { transform: scale(0.9); }
-/* Hide zoom when card is selected — tick takes priority visually */
-.card.sel .zoom-btn { opacity: 0.4; }
+.zoom-btn:active { transform: scale(0.88); filter: brightness(0.85); }
+/* Slightly dimmed when card is selected but still visible */
+.card.sel .zoom-btn { opacity: 0.7; }
 
 
 /* ── 18. Image Viewer Popup ──────────────────────────────── */
