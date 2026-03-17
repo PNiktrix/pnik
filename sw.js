@@ -1,23 +1,27 @@
-const CACHE_NAME = 'pniktrix-v1';
+const CACHE_NAME = 'pniktrix-v2';
+
+// Auto-detect base path (important for GitHub Pages subfolder)
+const BASE_PATH = self.location.pathname.replace('sw.js', '');
+
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/css/style.css',
-    '/js/config.js',
-    '/data/products.json'
+    BASE_PATH,
+    BASE_PATH + 'index.html',
+    BASE_PATH + 'css/style.css',
+    BASE_PATH + 'js/config.js',
+    BASE_PATH + 'data/products.json'
 ];
 
+// INSTALL
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            return cache.addAll(ASSETS_TO_CACHE).catch(err => {
-                console.log('Cache error:', err);
-            });
+            return cache.addAll(ASSETS_TO_CACHE);
         })
     );
     self.skipWaiting();
 });
 
+// ACTIVATE
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
@@ -33,52 +37,53 @@ self.addEventListener('activate', event => {
     self.clients.claim();
 });
 
+// FETCH
 self.addEventListener('fetch', event => {
     const { request } = event;
     const url = new URL(request.url);
 
-    if (url.hostname !== location.hostname) {
-        return;
-    }
+    // Ignore external requests
+    if (url.origin !== location.origin) return;
 
+    // IMAGE: Network-first (with cache fallback)
     if (request.destination === 'image') {
         event.respondWith(
             fetch(request)
                 .then(response => {
-                    const clonedResponse = response.clone();
+                    const clone = response.clone();
                     caches.open(CACHE_NAME).then(cache => {
-                        cache.put(request, clonedResponse);
+                        cache.put(request, clone);
                     });
                     return response;
                 })
-                .catch(() => {
-                    return caches.match(request);
-                })
+                .catch(() => caches.match(request))
         );
         return;
     }
 
+    // HTML & JS: Cache-first, fallback to network
     if (request.method === 'GET') {
         event.respondWith(
-            caches.match(request).then(cachedResponse => {
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
+            caches.match(request).then(cached => {
+                if (cached) return cached;
 
-                return fetch(request).then(response => {
-                    if (!response || response.status !== 200) {
+                return fetch(request)
+                    .then(response => {
+                        if (!response || response.status !== 200) {
+                            return response;
+                        }
+
+                        const clone = response.clone();
+                        caches.open(CACHE_NAME).then(cache => {
+                            cache.put(request, clone);
+                        });
+
                         return response;
-                    }
-
-                    const clonedResponse = response.clone();
-                    caches.open(CACHE_NAME).then(cache => {
-                        cache.put(request, clonedResponse);
+                    })
+                    .catch(() => {
+                        // fallback to correct index.html
+                        return caches.match(BASE_PATH + 'index.html');
                     });
-
-                    return response;
-                }).catch(() => {
-                    return caches.match('/index.html');
-                });
             })
         );
     }
