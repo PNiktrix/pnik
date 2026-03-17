@@ -1,64 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pniktrix — Premium Wall Art Prints. Luxury curated collection." />
-  <meta name="theme-color" content="#1a1a1a" />
-  <title>Pniktrix — Premium Wall Art | Luxury Print Collection</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Pniktrix — Premium 3D Wall Art Prints. 100% Biodegradable. Luxury curated collection."/>
+  <meta name="theme-color" content="#1a1a1a"/>
+  <title>Pniktrix — Premium Wall Art</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
   <!-- Three.js for 3D viewer -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
-  <!-- SPLASH SCREEN -->
-  <div id="splashScreen" class="splash-screen">
+  <!-- ═══════════════════════════════════════════ SPLASH -->
+  <div id="splashScreen" class="splash">
+    <canvas id="splashCanvas" class="splash-canvas"></canvas>
     <div class="splash-content">
-      <h1>PNIKTRIX</h1>
-      <p>Premium Wall Art</p>
-      <div class="splash-loader"></div>
+      <div class="splash-logo">
+        <span class="splash-p">P</span><span class="splash-rest">NIKTRIX</span>
+      </div>
+      <div class="splash-pills">
+        <span class="pill" style="animation-delay:.4s">✦ Premium 3D Art</span>
+        <span class="pill" style="animation-delay:.7s">♻ 100% Biodegradable</span>
+        <span class="pill" style="animation-delay:1s">🖼 Archival Inks</span>
+      </div>
+      <div class="splash-line"></div>
     </div>
   </div>
 
-  <!-- SLIDING BANNER -->
-  <div class="banner-slider">
-    <div class="banner-track">
-      <span>🎨 Free Delivery on Orders Above ₹1,499</span>
-      <span>✦</span>
-      <span>Premium Archival Inks</span>
-      <span>✦</span>
-      <span>Ships in 3–4 Days</span>
-      <span>✦</span>
-      <span>🎨 Free Delivery on Orders Above ₹1,499</span>
-      <span>✦</span>
-      <span>Premium Archival Inks</span>
-      <span>✦</span>
-      <span>Ships in 3–4 Days</span>
-    </div>
+  <!-- ═══════════════════════════════════════════ BANNER -->
+  <div class="banner" id="siteBanner">
+    <div class="banner-track" id="bannerTrack"><!-- injected by banner.js --></div>
   </div>
 
-  <!-- HEADER -->
+  <!-- ═══════════════════════════════════════════ HEADER -->
   <header class="header" id="siteHeader">
-    <div class="header-container">
-      <div class="logo">
+    <div class="header-inner">
+      <a href="#" class="logo" id="logoLink">
         <span class="logo-name">PNIKTRIX</span>
         <span class="logo-sub">Curated Wall Art</span>
-      </div>
+      </a>
 
       <div class="header-search">
-        <input type="text" id="searchInput" placeholder="Search prints…" autocomplete="off" />
+        <input type="text" id="searchInput" placeholder="Search prints…" autocomplete="off"/>
         <button class="search-btn" aria-label="Search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
       </div>
 
       <div class="header-actions">
-        <button id="cartToggle" class="header-btn" aria-label="Cart">
+        <button class="header-btn" id="cartToggle" aria-label="Cart">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           <span class="badge" id="cartCount">0</span>
         </button>
-        <button id="wishlistToggle" class="header-btn" aria-label="Wishlist">
+        <button class="header-btn" id="wishlistToggle" aria-label="Wishlist">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           <span class="badge" id="wishlistCount">0</span>
         </button>
@@ -66,222 +68,278 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">New Collection 2025</p>
-      <h2 class="hero-title">Elevate<br /><em>Your Space</em></h2>
-      <p class="hero-sub">Curated art for the discerning interior</p>
-      <button class="hero-cta" id="heroCta">Explore Collection</button>
-    </div>
-    <div class="hero-image">
-      <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=700&h=500&fit=crop" alt="Featured Wall Art" />
-    </div>
-  </section>
+  <!-- ═══════════════════════════════════════════ PAGES WRAPPER -->
+  <div id="pagesWrapper">
 
-  <!-- FILTERS -->
-  <section class="filters-section">
-    <div class="filters-container">
-      <div class="filter-group">
-        <label for="sizeFilter">Size</label>
-        <select id="sizeFilter"><option value="">All Sizes</option></select>
-      </div>
-      <div class="filter-group">
-        <label for="finishFilter">Finish</label>
-        <select id="finishFilter"><option value="">All Finishes</option></select>
-      </div>
-      <div class="filter-group">
-        <label for="colorFilter">Color</label>
-        <select id="colorFilter"><option value="">All Colors</option></select>
-      </div>
-      <button id="clearFilters" class="btn-secondary">Clear Filters</button>
-    </div>
-  </section>
+    <!-- ── PAGE: Home ── -->
+    <div id="pageHome" class="page active">
 
-  <!-- PRODUCTS -->
-  <section id="products" class="products-section">
-    <h2>Our Collection</h2>
-    <div id="productsGrid" class="products-grid">
-      <!-- Injected by app.js -->
-    </div>
-    <p id="noResults" class="no-results hidden">No prints match your search.</p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact-section">
-    <div class="contact-container">
-      <h2>Get in Touch</h2>
-      <p>Questions about our prints? We're here to help.</p>
-      <div class="contact-methods">
-        <div class="contact-method">
-          <h4>📱 WhatsApp</h4>
-          <a href="https://wa.me/918433595240" class="contact-btn" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-content">
+          <p class="hero-eyebrow">New Collection 2025</p>
+          <h1 class="hero-title">Elevate<br/><em>Your Space</em></h1>
+          <p class="hero-sub">Premium 3D wall art for the discerning interior</p>
+          <button class="btn-gold hero-cta" id="heroCta">Explore Collection</button>
         </div>
-        <div class="contact-method">
-          <h4>📷 Instagram</h4>
-          <a href="https://instagram.com/p.nik11" class="contact-btn" target="_blank" rel="noopener">Follow @p.nik11</a>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=700&h=550&fit=crop" alt="Featured Wall Art"/>
         </div>
-        <div class="contact-method">
-          <h4>📧 Email</h4>
-          <a href="mailto:hello@pniktrix.com" class="contact-btn">Send Email</a>
+      </section>
+
+      <!-- Filters -->
+      <section class="filters-bar">
+        <div class="filters-inner">
+          <div class="filter-group">
+            <label>Category</label>
+            <select id="catFilter"><option value="">All</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Size</label>
+            <select id="sizeFilter"><option value="">All Sizes</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Finish</label>
+            <select id="finishFilter"><option value="">All Finishes</option></select>
+          </div>
+          <div class="filter-group">
+            <label>Color</label>
+            <select id="colorFilter"><option value="">All Colors</option></select>
+          </div>
+          <div class="filter-group filter-price">
+            <label>Max Price: <span id="priceLabel">₹2,500</span></label>
+            <input type="range" id="priceFilter" min="500" max="2500" value="2500" step="100"/>
+          </div>
+          <button class="btn-ghost" id="clearFilters">Clear</button>
         </div>
-      </div>
-      <form class="contact-form" id="contactForm" novalidate>
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit" class="btn-primary">Send Message</button>
-      </form>
-    </div>
-  </section>
+      </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>About</h4>
-        <ul>
-          <li><a href="#contact">About Us</a></li>
-          <li><a href="#contact">Our Story</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#contact">Shipping Info</a></li>
-          <li><a href="#contact">Returns</a></li>
-          <li><a href="#contact">FAQ</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Follow Us</h4>
-        <ul>
-          <li><a href="https://instagram.com/p.nik11" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="https://wa.me/918433595240" target="_blank" rel="noopener">WhatsApp</a></li>
-        </ul>
-      </div>
-    </div>
-    <p class="footer-bottom">© <span id="footerYear"></span> Pniktrix. All rights reserved.</p>
-  </footer>
-
-  <!-- PRODUCT DETAIL MODAL -->
-  <div id="productModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalProductName">
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="modal-content">
-      <button class="modal-close" id="closeModal" aria-label="Close">&times;</button>
-      <div class="product-detail">
-
-        <!-- Left: Images & 3D -->
-        <div class="product-images">
-          <div id="imageContainer" class="main-image">
-            <img id="mainImage" src="" alt="Product" />
-          </div>
-          <div class="image-gallery">
-            <button class="gallery-btn active" id="btnViewPhoto" data-view="image">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              Photos
-            </button>
-            <button class="gallery-btn" id="btnView3d" data-view="3d">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              3D View
-            </button>
-          </div>
-          <div id="viewer3d" class="viewer-3d hidden"></div>
+      <!-- Products -->
+      <section id="products" class="products-section">
+        <div class="products-header">
+          <h2>Our Collection</h2>
+          <span id="productCount" class="product-count"></span>
         </div>
+        <div id="productsGrid" class="products-grid"></div>
+        <p id="noResults" class="no-results hidden">No prints match your filters.</p>
+      </section>
 
-        <!-- Right: Info -->
-        <div class="product-info">
-          <h2 id="modalProductName"></h2>
-          <p id="modalProductDescription"></p>
-
-          <div class="product-specs">
-            <div class="spec"><label>Size</label><p id="modalSize"></p></div>
-            <div class="spec"><label>Material</label><p id="modalMaterial"></p></div>
-            <div class="spec"><label>Finish</label><p id="modalFinish"></p></div>
+      <!-- Contact -->
+      <section id="contact" class="contact-section">
+        <div class="contact-inner">
+          <h2>Get in Touch</h2>
+          <p>Questions about our prints? We're here to help.</p>
+          <div class="contact-methods">
+            <div class="contact-card">
+              <span class="contact-icon">📱</span>
+              <h4>WhatsApp</h4>
+              <a href="https://wa.me/918433595240" class="btn-gold-outline" target="_blank" rel="noopener">Chat Now</a>
+            </div>
+            <div class="contact-card">
+              <span class="contact-icon">📷</span>
+              <h4>Instagram</h4>
+              <a href="https://instagram.com/p.nik11" class="btn-gold-outline" target="_blank" rel="noopener">@p.nik11</a>
+            </div>
+            <div class="contact-card">
+              <span class="contact-icon">📧</span>
+              <h4>Email</h4>
+              <a href="mailto:hello@pniktrix.com" class="btn-gold-outline">Write to us</a>
+            </div>
           </div>
+          <form id="contactForm" class="contact-form" novalidate>
+            <input type="text" name="name" placeholder="Your Name" required/>
+            <input type="email" name="email" placeholder="Your Email" required/>
+            <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+            <button type="submit" class="btn-gold">Send via WhatsApp</button>
+          </form>
+        </div>
+      </section>
 
-          <div class="color-selector">
-            <label>Choose Colour:</label>
-            <div class="color-options" id="colorOptions"></div>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <span class="logo-name">PNIKTRIX</span>
+            <p>Premium wall art. Sustainably crafted.<br/>Ships across India.</p>
           </div>
+          <div>
+            <h5>Shop</h5>
+            <ul><li><a href="#products">All Prints</a></li><li><a href="#products">Abstract</a></li><li><a href="#products">Botanical</a></li></ul>
+          </div>
+          <div>
+            <h5>Support</h5>
+            <ul><li><a href="#contact">Shipping Info</a></li><li><a href="#contact">Returns</a></li><li><a href="#contact">FAQ</a></li></ul>
+          </div>
+          <div>
+            <h5>Follow</h5>
+            <ul><li><a href="https://instagram.com/p.nik11" target="_blank">Instagram</a></li><li><a href="https://wa.me/918433595240" target="_blank">WhatsApp</a></li></ul>
+          </div>
+        </div>
+        <p class="footer-bottom">© <span id="footerYear"></span> Pniktrix. All rights reserved. | 100% Biodegradable Packaging.</p>
+      </footer>
+    </div><!-- /pageHome -->
 
-          <div class="quantity-selector">
-            <label>Quantity:</label>
-            <div class="quantity-controls">
-              <button id="qtyDec" aria-label="Decrease">−</button>
-              <input type="number" id="qtyInput" value="1" min="1" max="99" readonly />
-              <button id="qtyInc" aria-label="Increase">+</button>
+    <!-- ── PAGE: Product Detail ── -->
+    <div id="pageDetail" class="page">
+      <div class="detail-wrap">
+
+        <!-- Back -->
+        <button class="back-btn" id="backBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Collection
+        </button>
+
+        <div class="detail-grid">
+
+          <!-- Left: Images + 3D -->
+          <div class="detail-left">
+            <!-- Main display -->
+            <div class="detail-main-img" id="detailMainImg">
+              <img id="detailBigImg" src="" alt=""/>
+            </div>
+
+            <!-- Thumbnails -->
+            <div class="detail-thumbs" id="detailThumbs"></div>
+
+            <!-- View toggle -->
+            <div class="detail-view-toggle">
+              <button class="view-tab active" id="tabPhoto" data-tab="photo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Photos
+              </button>
+              <button class="view-tab" id="tab3d" data-tab="3d">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                3D View
+              </button>
+            </div>
+
+            <!-- 3D Canvas -->
+            <div id="viewer3dWrap" class="viewer-3d-wrap hidden">
+              <canvas id="viewer3dCanvas" class="viewer-3d-canvas"></canvas>
+              <p class="viewer-3d-hint">Drag to rotate · Scroll to zoom</p>
+              <!-- Color overlay for 3D -->
+              <div class="viewer-color-bar" id="viewerColorBar"></div>
             </div>
           </div>
 
-          <div class="price-section">
-            <p class="price" id="modalPrice">₹0</p>
-            <p class="shipping-note">Free shipping above ₹1,499</p>
-          </div>
+          <!-- Right: Info -->
+          <div class="detail-right">
+            <p class="detail-category" id="detailCategory"></p>
+            <h1 class="detail-name" id="detailName"></h1>
+            <p class="detail-desc" id="detailDesc"></p>
 
-          <div class="modal-actions">
-            <button class="btn-primary" id="addToCartBtn">Add to Cart</button>
-            <button class="btn-secondary" id="addToWishlistBtn">♡ Wishlist</button>
-          </div>
+            <div class="detail-specs">
+              <div class="spec-item"><label>Size</label><p id="detailSize"></p></div>
+              <div class="spec-item"><label>Material</label><p id="detailMaterial"></p></div>
+              <div class="spec-item"><label>Finish</label><p id="detailFinish"></p></div>
+              <div class="spec-item"><label>Stock</label><p id="detailStock"></p></div>
+            </div>
 
-          <div class="modal-contact">
-            <p>Questions? <a href="https://wa.me/918433595240" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
+            <div class="detail-color-select">
+              <label>Colour: <strong id="selectedColorLabel">—</strong></label>
+              <div class="color-dots" id="colorDots"></div>
+            </div>
+
+            <div class="detail-qty">
+              <label>Quantity</label>
+              <div class="qty-row">
+                <button class="qty-btn" id="qtyDec">−</button>
+                <span class="qty-val" id="qtyVal">1</span>
+                <button class="qty-btn" id="qtyInc">+</button>
+              </div>
+            </div>
+
+            <div class="detail-price">
+              <span class="price-main" id="detailPrice">₹0</span>
+              <span class="price-note">Free shipping above ₹1,499</span>
+            </div>
+
+            <div class="detail-actions">
+              <button class="btn-gold full" id="detailAddCart">Add to Cart</button>
+              <button class="btn-ghost-gold" id="detailWishlist">♡ Wishlist</button>
+            </div>
+
+            <div class="detail-whatsapp">
+              <a id="detailWhatsApp" href="#" target="_blank" rel="noopener" class="wa-link">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Order via WhatsApp
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- CART DRAWER -->
-  <div id="cartDrawer" class="drawer" role="dialog" aria-modal="true" aria-label="Shopping Cart">
+        <!-- Reviews placeholder -->
+        <div class="reviews-section">
+          <h3>Customer Reviews</h3>
+          <div id="reviewsList" class="reviews-list"></div>
+        </div>
+
+      </div>
+    </div><!-- /pageDetail -->
+
+  </div><!-- /pagesWrapper -->
+
+  <!-- ═══════════════════════════════════════════ CART DRAWER -->
+  <div id="cartDrawer" class="drawer">
     <div class="drawer-overlay" id="cartOverlay"></div>
-    <div class="drawer-content">
-      <div class="drawer-header">
+    <div class="drawer-panel">
+      <div class="drawer-head">
         <h3>Your Cart</h3>
-        <button class="close-btn" id="closeCartBtn" aria-label="Close Cart">&times;</button>
+        <button class="close-x" id="closeCart">&times;</button>
       </div>
-      <div id="cartItems" class="drawer-items"></div>
-      <div class="cart-summary">
-        <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
-        <div class="summary-row"><span>Shipping</span><span id="cartShipping">Free</span></div>
-        <div class="summary-row total"><span>Total</span><span id="cartTotal">₹0</span></div>
+      <div id="cartItems" class="drawer-body"></div>
+      <div class="cart-footer">
+        <div class="cart-totals">
+          <div class="tot-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+          <div class="tot-row"><span>Shipping</span><span id="cartShipping">Free</span></div>
+          <div class="tot-row tot-total"><span>Total</span><span id="cartTotal">₹0</span></div>
+        </div>
+        <button class="btn-gold full" id="checkoutBtn">Checkout via WhatsApp</button>
       </div>
-      <button class="btn-primary full-width" id="checkoutBtn">Proceed to Checkout</button>
     </div>
   </div>
 
-  <!-- WISHLIST DRAWER -->
-  <div id="wishlistDrawer" class="drawer" role="dialog" aria-modal="true" aria-label="Wishlist">
+  <!-- ═══════════════════════════════════════════ WISHLIST DRAWER -->
+  <div id="wishlistDrawer" class="drawer">
     <div class="drawer-overlay" id="wishlistOverlay"></div>
-    <div class="drawer-content">
-      <div class="drawer-header">
+    <div class="drawer-panel">
+      <div class="drawer-head">
         <h3>Wishlist</h3>
-        <button class="close-btn" id="closeWishlistBtn" aria-label="Close Wishlist">&times;</button>
+        <button class="close-x" id="closeWishlist">&times;</button>
       </div>
-      <div id="wishlistItems" class="drawer-items"></div>
+      <div id="wishlistItems" class="drawer-body"></div>
     </div>
   </div>
 
-  <!-- Toast notification -->
+  <!-- ═══════════════════════════════════════════ TOAST -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <!-- JS Modules (load order matters) -->
+  <!-- ═══════════════════════════════════════════ JS — load order matters -->
   <script src="js/config.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/analytics.js"></script>
+  <script src="js/pixel.js"></script>
+  <script src="js/seo.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/wishlist.js"></script>
   <script src="js/product.js"></script>
   <script src="js/filters.js"></script>
+  <script src="js/banner.js"></script>
+  <script src="js/splash.js"></script>
   <script src="js/viewer3d.js"></script>
-  <script src="js/modal.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/recommendations.js"></script>
+  <script src="js/inventory.js"></script>
+  <script src="js/shiprocket.js"></script>
+  <script src="js/metrics.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/email.js"></script>
+  <script src="js/image-optimizer.js"></script>
+  <script src="js/ab-testing.js"></script>
+  <script src="js/monetization.js"></script>
+  <script src="js/api-integration.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/debug.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

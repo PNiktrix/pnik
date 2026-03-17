@@ -1,96 +1,82 @@
 /**
  * filters.js
- * Manages product filter dropdowns (size, finish, color) and search.
+ * Manages category, size, finish, color, and PRICE range filters + search.
  */
-
-// eslint-disable-next-line no-unused-vars
 const Filters = (() => {
-  let _active = { size: '', finish: '', color: '', search: '' };
-  let _onChangeCallback = null;
+  let _state    = { cat: '', size: '', finish: '', color: '', price: 2500, search: '' };
+  let _onChange = null;
+  let _all      = [];
 
-  /* ── Setup ─────────────────────────────────────── */
-
-  /**
-   * Populate filter selects from the product list and bind change events.
-   * @param {Object[]} products
-   * @param {Function} onChange - called with filtered products on any change
-   */
   function init(products, onChange) {
-    _onChangeCallback = onChange;
+    _all      = products;
+    _onChange = onChange;
+    _populate('catFilter',    products, 'category');
     _populate('sizeFilter',   products, 'size');
     _populate('finishFilter', products, 'finish');
     _populate('colorFilter',  products, 'color');
-    _bindEvents(products);
+    _bindEvents();
   }
 
-  function _populate(selectId, products, key) {
-    const select = document.getElementById(selectId);
-    if (!select) return;
-    const values = [...new Set(products.map(p => p[key]).filter(Boolean))].sort();
-    values.forEach(v => {
-      const opt = document.createElement('option');
-      opt.value       = v;
-      opt.textContent = v;
-      select.appendChild(opt);
+  function _populate(id, products, key) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    [...new Set(products.map(p => p[key]).filter(Boolean))].sort().forEach(v => {
+      const o = document.createElement('option'); o.value = o.textContent = v; el.appendChild(o);
     });
   }
 
-  function _bindEvents(products) {
-    const run = () => _onChangeCallback && _onChangeCallback(apply(products));
+  function _bindEvents() {
+    const run = () => _onChange && _onChange(apply(_all));
 
-    ['sizeFilter', 'finishFilter', 'colorFilter'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('change', e => {
-        _active[id.replace('Filter', '').toLowerCase()] = e.target.value;
-        run();
-      });
+    [['catFilter','cat'],['sizeFilter','size'],['finishFilter','finish'],['colorFilter','color']].forEach(([id, key]) => {
+      document.getElementById(id)?.addEventListener('change', e => { _state[key] = e.target.value; run(); });
+    });
+
+    const price = document.getElementById('priceFilter');
+    const label = document.getElementById('priceLabel');
+    price?.addEventListener('input', e => {
+      _state.price = Number(e.target.value);
+      if (label) label.textContent = Utils.formatPrice(_state.price);
+      run();
     });
 
     const search = document.getElementById('searchInput');
-    if (search) {
-      search.addEventListener('input', Utils.debounce(e => {
-        _active.search = e.target.value.trim().toLowerCase();
-        run();
-      }, 250));
-    }
+    search?.addEventListener('input', Utils.debounce(e => {
+      _state.search = e.target.value.trim().toLowerCase();
+      Analytics.search(_state.search);
+      run();
+    }, 250));
 
-    const clear = document.getElementById('clearFilters');
-    if (clear) clear.addEventListener('click', () => reset(products));
+    document.getElementById('clearFilters')?.addEventListener('click', () => reset());
   }
 
-  /* ── Filtering ──────────────────────────────────── */
-
-  /**
-   * Apply current active filters to a product list.
-   * @param {Object[]} products
-   * @returns {Object[]}
-   */
   function apply(products) {
     return products.filter(p => {
-      if (_active.size   && p.size   !== _active.size)   return false;
-      if (_active.finish && p.finish !== _active.finish) return false;
-      if (_active.color  && p.color  !== _active.color)  return false;
-      if (_active.search) {
-        const hay = `${p.name} ${p.description || ''}`.toLowerCase();
-        if (!hay.includes(_active.search)) return false;
+      if (_state.cat    && p.category !== _state.cat)    return false;
+      if (_state.size   && p.size     !== _state.size)   return false;
+      if (_state.finish && p.finish   !== _state.finish) return false;
+      if (_state.color  && p.color    !== _state.color)  return false;
+      if (p.price > _state.price)                        return false;
+      if (_state.search) {
+        const hay = `${p.name} ${p.description} ${p.tags?.join(' ')||''}`.toLowerCase();
+        if (!hay.includes(_state.search)) return false;
       }
       return true;
     });
   }
 
-  /**
-   * Reset all filters and re-render.
-   * @param {Object[]} products
-   */
-  function reset(products) {
-    _active = { size: '', finish: '', color: '', search: '' };
-    ['sizeFilter', 'finishFilter', 'colorFilter'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
+  function reset() {
+    _state = { cat: '', size: '', finish: '', color: '', price: 2500, search: '' };
+    ['catFilter','sizeFilter','finishFilter','colorFilter'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
     });
+    const price = document.getElementById('priceFilter');
+    if (price) price.value = 2500;
+    const label = document.getElementById('priceLabel');
+    if (label) label.textContent = Utils.formatPrice(2500);
     const search = document.getElementById('searchInput');
     if (search) search.value = '';
-    _onChangeCallback && _onChangeCallback(products);
+    _onChange && _onChange(_all);
   }
 
   return { init, apply, reset };

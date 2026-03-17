@@ -1,66 +1,37 @@
 /**
  * wishlist.js
- * Wishlist — persisted in localStorage.
+ * Wishlist with localStorage persistence.
  */
-
-// eslint-disable-next-line no-unused-vars
 const Wishlist = (() => {
-  const STORAGE_KEY = 'pniktrix_wishlist';
+  const KEY = 'pniktrix_wishlist';
+  let _items = Utils.storageGet(KEY, []);
 
-  /** @type {{ id: number, name: string, price: number, image: string }[]} */
-  let _items = Utils.storageGet(STORAGE_KEY, []);
+  function _save() { Utils.storageSet(KEY, _items); _badge(); }
 
-  /* ── Private helpers ───────────────────────────── */
-  function _save() {
-    Utils.storageSet(STORAGE_KEY, _items);
-    _updateBadge();
-  }
-
-  function _updateBadge() {
+  function _badge() {
     const el = document.getElementById('wishlistCount');
     if (el) el.textContent = _items.length;
   }
 
-  /* ── Public API ────────────────────────────────── */
   function toggle(product) {
     if (has(product.id)) {
-      remove(product.id);
+      _items = _items.filter(i => i.id !== product.id);
+      _save();
       Utils.toast(`"${product.name}" removed from wishlist`);
       return false;
     }
-    _items.push({
-      id:    product.id,
-      name:  product.name,
-      price: product.price,
-      image: product.image,
-    });
+    _items.push({ id: product.id, name: product.name, price: product.price, image: product.image });
     _save();
-    Analytics.trackAddToWishlist(product);
-    Utils.toast(`"${product.name}" added to wishlist`);
+    Analytics.addToWishlist(product);
+    Utils.toast(`"${product.name}" added to wishlist ♡`);
     return true;
   }
 
-  function add(product) {
-    if (!has(product.id)) {
-      _items.push({ id: product.id, name: product.name, price: product.price, image: product.image });
-      _save();
-      Analytics.trackAddToWishlist(product);
-      Utils.toast(`"${product.name}" added to wishlist`);
-      return true;
-    }
-    return false;
-  }
+  function remove(id)    { _items = _items.filter(i => i.id !== id); _save(); }
+  function has(id)       { return _items.some(i => i.id === id); }
+  function getItems()    { return [..._items]; }
+  function getCount()    { return _items.length; }
 
-  function remove(productId) {
-    _items = _items.filter(i => i.id !== productId);
-    _save();
-  }
-
-  function has(productId)  { return _items.some(i => i.id === productId); }
-  function getItems()      { return [..._items]; }
-  function getCount()      { return _items.length; }
-
-  document.addEventListener('DOMContentLoaded', _updateBadge);
-
-  return { toggle, add, remove, has, getItems, getCount };
+  document.addEventListener('DOMContentLoaded', _badge);
+  return { toggle, remove, has, getItems, getCount };
 })();

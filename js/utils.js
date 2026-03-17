@@ -1,80 +1,37 @@
 /**
- * utils.js
- * Shared utility helpers used across all modules.
+ * utils.js — shared helpers used by all other modules.
  */
-
-// eslint-disable-next-line no-unused-vars
 const Utils = {
-  /**
-   * Debounce a function.
-   * @param {Function} fn
-   * @param {number} delay
-   * @returns {Function}
-   */
-  debounce(fn, delay = 300) {
-    let timer;
-    return function (...args) {
-      clearTimeout(timer);
-      timer = setTimeout(() => fn.apply(this, args), delay);
-    };
+  formatPrice(n) { return '₹' + Number(n).toLocaleString('en-IN'); },
+
+  uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); },
+
+  debounce(fn, ms = 300) {
+    let t;
+    return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
   },
 
-  /**
-   * Format a number as Indian rupee string.
-   * @param {number} amount
-   * @returns {string}
-   */
-  formatPrice(amount) {
-    return '₹' + Number(amount).toLocaleString('en-IN');
-  },
-
-  /**
-   * Generate a short unique ID.
-   * @returns {string}
-   */
-  uid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  },
-
-  /**
-   * Show the global toast notification.
-   * @param {string} message
-   * @param {number} [duration=2500]
-   */
-  toast(message, duration = 2500) {
+  toast(msg, dur = 2600) {
     const el = document.getElementById('toast');
     if (!el) return;
-    el.textContent = message;
+    el.textContent = msg;
     el.classList.add('show');
-    clearTimeout(el._timer);
-    el._timer = setTimeout(() => el.classList.remove('show'), duration);
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), dur);
   },
 
-  /**
-   * Safely parse JSON from localStorage.
-   * @param {string} key
-   * @param {*} fallback
-   * @returns {*}
-   */
-  storageGet(key, fallback = null) {
-    try {
-      const raw = localStorage.getItem(key);
-      return raw !== null ? JSON.parse(raw) : fallback;
-    } catch {
-      return fallback;
-    }
+  storageGet(k, fb = null) {
+    try { const v = localStorage.getItem(k); return v !== null ? JSON.parse(v) : fb; }
+    catch { return fb; }
   },
 
-  /**
-   * Safely save JSON to localStorage.
-   * @param {string} key
-   * @param {*} value
-   */
-  storageSet(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch {
-      // Storage full or unavailable — fail silently
-    }
+  storageSet(k, v) {
+    try { localStorage.setItem(k, JSON.stringify(v)); } catch {}
+  },
+
+  /** Navigate to the detail page for a given product id. */
+  goToDetail(productId) {
+    const p = ProductManager.getById(productId);
+    if (p) DetailPage.show(p);
   },
 };

@@ -1,18 +1,27 @@
 /**
  * config.js
- * Central brand configuration for Pniktrix.
- * Edit WHATSAPP, INSTAGRAM, and SHIPROCKET_TOKEN here.
+ * Central brand config — edit this file to update business details.
  */
-
-// eslint-disable-next-line no-unused-vars
 const Config = Object.freeze({
-  BRAND_NAME:       'Pniktrix',
-  WHATSAPP:         '918433595240',
-  INSTAGRAM:        'p.nik11',
-  EMAIL:            'hello@pniktrix.com',
-  PRODUCTS_URL:     'data/products.json',
-  FREE_SHIPPING_MIN: 1499,
+  BRAND:              'Pniktrix',
+  WHATSAPP:           '918433595240',
+  INSTAGRAM:          'p.nik11',
+  EMAIL:              'hello@pniktrix.com',
+  PRODUCTS_URL:       'data/products.json',
+  FREE_SHIPPING_MIN:  1499,
+  SHIPPING_CHARGE:    99,
 
-  // Replace with real Shiprocket Bearer token after login
-  SHIPROCKET_TOKEN: 'YOUR_SHIPROCKET_TOKEN',
+  // Facebook Pixel
+  PIXEL_ID:           'YOUR_PIXEL_ID',
+
+  // Shiprocket — get token from https://app.shiprocket.in/api/user/login
+  SHIPROCKET_EMAIL:   'your@email.com',
+  SHIPROCKET_PASS:    'yourpassword',
+  SHIPROCKET_BASE:    'https://apiv2.shiprocket.in/v1/external',
+
+  // Splash duration ms
+  SPLASH_DURATION:    2800,
+
+  // Google Analytics
+  GA_ID:              'G-XXXXXXXXXX',
 });

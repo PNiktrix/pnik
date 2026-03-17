@@ -1,66 +1,36 @@
 /**
  * analytics.js
- * Lightweight analytics layer.
- * Fires console events in development; hook into Facebook Pixel or GA4 here.
+ * Fires events to Facebook Pixel and Google Analytics 4.
+ * Extend here for any other analytics provider.
  */
-
-// eslint-disable-next-line no-unused-vars
 const Analytics = {
-  /**
-   * Fire a named event with optional payload.
-   * @param {string} name
-   * @param {Object} [data]
-   */
-  track(name, data = {}) {
-    const payload = { event: name, ts: new Date().toISOString(), ...data };
-    console.log('[Analytics]', payload);
-
-    // Facebook Pixel
-    if (typeof fbq === 'function') {
-      fbq('trackCustom', name, data);
-    }
-
-    // Google Analytics 4
-    if (typeof gtag === 'function') {
-      gtag('event', name, data);
-    }
+  _send(name, data = {}) {
+    console.log('[Analytics]', name, data);
+    if (typeof fbq === 'function') fbq('track', name, data);
+    if (typeof gtag === 'function') gtag('event', name, data);
   },
 
-  trackPageView() {
-    this.track('PageView', { path: window.location.pathname });
+  pageView(path = window.location.pathname) {
+    this._send('PageView', { path });
   },
 
-  trackProductView(product) {
-    this.track('ViewContent', {
-      content_ids:  [String(product.id)],
-      content_name: product.name,
-      content_type: 'product',
-      value:        product.price,
-      currency:     'INR',
-    });
+  productView(p) {
+    this._send('ViewContent', { content_ids: [String(p.id)], content_name: p.name, value: p.price, currency: 'INR' });
   },
 
-  trackAddToCart(product, qty = 1) {
-    this.track('AddToCart', {
-      content_ids:  [String(product.id)],
-      content_name: product.name,
-      value:        product.price * qty,
-      currency:     'INR',
-    });
+  addToCart(p, qty) {
+    this._send('AddToCart', { content_ids: [String(p.id)], content_name: p.name, value: p.price * qty, currency: 'INR' });
   },
 
-  trackAddToWishlist(product) {
-    this.track('AddToWishlist', {
-      content_ids:  [String(product.id)],
-      content_name: product.name,
-    });
+  addToWishlist(p) {
+    this._send('AddToWishlist', { content_ids: [String(p.id)], content_name: p.name });
   },
 
-  trackInitiateCheckout(total, itemCount) {
-    this.track('InitiateCheckout', {
-      value:        total,
-      currency:     'INR',
-      num_items:    itemCount,
-    });
+  initiateCheckout(total, count) {
+    this._send('InitiateCheckout', { value: total, currency: 'INR', num_items: count });
+  },
+
+  search(term) {
+    this._send('Search', { search_string: term });
   },
 };
