@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Eternal Elegance",
+      "description": "A timeless piece featuring abstract geometric patterns in gold and charcoal, perfect for contemporary spaces seeking understated luxury.",
+      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
+      "size": "24x36 inches",
+      "material": "Premium Matt Paper",
+      "finish": "Matte & Gold Accents"
+    },
+    {
+      "id": 2,
+      "name": "Minimalist Dreams",
+      "description": "Clean lines meet sophisticated simplicity. A subtle composition that speaks volumes through restraint and refined aesthetic.",
+      "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop",
+      "size": "20x30 inches",
+      "material": "Fine Art Paper",
+      "finish": "Glossy with UV Protection"
+    },
+    {
+      "id": 3,
+      "name": "Midnight Reverie",
+      "description": "Deep indigo tones blend with soft metallic accents, creating a piece that evokes calm sophistication and nocturnal beauty.",
+      "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop",
+      "size": "18x24 inches",
+      "material": "Premium Matt Paper",
+      "finish": "Matte"
+    },
+    {
+      "id": 4,
+      "name": "Golden Horizon",
+      "description": "Warm amber gradients create an inviting focal point. A piece that brings warmth and prestige to any discerning interior.",
+      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
+      "size": "24x36 inches",
+      "material": "Premium Matt Paper",
+      "finish": "Matte with Gold Foil"
+    },
+    {
+      "id": 5,
+      "name": "Celestial Harmony",
+      "description": "Ethereal blues and silvers converge to create a sense of cosmic tranquility. Ideal for spaces that demand understated grandeur.",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+      "size": "20x30 inches",
+      "material": "Fine Art Paper",
+      "finish": "Matte"
+    },
+    {
+      "id": 6,
+      "name": "Urban Pulse",
+      "description": "A modern composition celebrating architectural elegance. Sharp contrasts and balanced geometry for the contemporary collector.",
+      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
+      "size": "16x20 inches",
+      "material": "Premium Matt Paper",
+      "finish": "Matte"
+    },
+    {
+      "id": 7,
+      "name": "Serene Moments",
+      "description": "Soft pastels and gentle curves create a contemplative piece. Perfect for spaces seeking tranquility without compromising on style.",
+      "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop",
+      "size": "22x28 inches",
+      "material": "Fine Art Paper",
+      "finish": "Glossy"
+    },
+    {
+      "id": 8,
+      "name": "Luxe Abstraction",
+      "description": "Bold strokes meet refined execution. A statement piece for those who appreciate art that challenges and captivates.",
+      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
+      "size": "24x36 inches",
+      "material": "Premium Matt Paper",
+      "finish": "Matte with Gold Accents"
+    }
+  ]
+}
