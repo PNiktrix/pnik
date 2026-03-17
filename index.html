@@ -1,113 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pniktrix - Premium Wall Art Prints">
-    <meta name="theme-color" content="#d4af37">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23d4af37' width='100' height='100'/><text x='50' y='60' font-size='60' font-weight='bold' fill='%231a1a1a' text-anchor='middle'>P</text></svg>">
-    <title>Pniktrix - Premium Wall Art</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pniktrix — Premium Wall Art Prints. Luxury curated collection." />
+  <meta name="theme-color" content="#1a1a1a" />
+  <title>Pniktrix — Premium Wall Art | Luxury Print Collection</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Three.js for 3D viewer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- Home Page -->
-    <div id="homePage" class="page active">
-        <div class="hero">
-            <h1 class="brand-title">Pniktrix</h1>
-            <p class="hero-subtitle">Curated Wall Art for Discerning Spaces</p>
-        </div>
 
-        <div class="search-bar">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search prints...">
-            <button id="filterToggle" class="filter-toggle" title="Filters">⚙️</button>
-            <button id="favoritesToggle" class="favorites-toggle" title="Favorites">❤️<span id="favoriteCount" class="favorite-count"></span></button>
-        </div>
-
-        <div id="filterPanel" class="filter-panel hidden">
-            <div class="filter-header">
-                <h3>Filters</h3>
-                <button id="clearFilters" class="clear-btn">Clear All</button>
-            </div>
-            <div class="filter-group">
-                <label>Size</label>
-                <div id="sizeFilters" class="filter-options"></div>
-            </div>
-            <div class="filter-group">
-                <label>Material</label>
-                <div id="materialFilters" class="filter-options"></div>
-            </div>
-            <div class="filter-group">
-                <label>Finish</label>
-                <div id="finishFilters" class="filter-options"></div>
-            </div>
-        </div>
-
-        <div class="gallery-container">
-            <div id="galleryGrid" class="gallery-grid"></div>
-            <div id="emptyState" class="empty-state hidden">
-                <p>No prints found. Try adjusting your filters.</p>
-            </div>
-        </div>
+  <!-- SPLASH SCREEN -->
+  <div id="splashScreen" class="splash-screen">
+    <div class="splash-content">
+      <h1>PNIKTRIX</h1>
+      <p>Premium Wall Art</p>
+      <div class="splash-loader"></div>
     </div>
+  </div>
 
-    <!-- Product Detail Modal -->
-    <div id="productModal" class="product-modal">
-        <div class="modal-handle"></div>
-        <div class="modal-content">
-            <div class="product-detail"></div>
-        </div>
+  <!-- SLIDING BANNER -->
+  <div class="banner-slider">
+    <div class="banner-track">
+      <span>🎨 Free Delivery on Orders Above ₹1,499</span>
+      <span>✦</span>
+      <span>Premium Archival Inks</span>
+      <span>✦</span>
+      <span>Ships in 3–4 Days</span>
+      <span>✦</span>
+      <span>🎨 Free Delivery on Orders Above ₹1,499</span>
+      <span>✦</span>
+      <span>Premium Archival Inks</span>
+      <span>✦</span>
+      <span>Ships in 3–4 Days</span>
     </div>
+  </div>
 
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal">
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-box">
-            <button class="modal-close" id="closeModal">&times;</button>
-            <h2>Get in Touch</h2>
-            <iframe data-tally-src="https://tally.so/embed/w4d6d9" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0" style="margin: 0; border-radius: 12px;"></iframe>
-        </div>
+  <!-- HEADER -->
+  <header class="header" id="siteHeader">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-name">PNIKTRIX</span>
+        <span class="logo-sub">Curated Wall Art</span>
+      </div>
+
+      <div class="header-search">
+        <input type="text" id="searchInput" placeholder="Search prints…" autocomplete="off" />
+        <button class="search-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+
+      <div class="header-actions">
+        <button id="cartToggle" class="header-btn" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+        <button id="wishlistToggle" class="header-btn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/gesture-detector.js"></script>
-    <script src="js/analytics.js"></script>
-    <script src="js/product.js"></script>
-    <script src="js/product-detail.js"></script>
-    <script src="js/search-filter.js"></script>
-    <script src="js/recommendations.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/message.js"></script>
-    <script src="js/validator.js"></script>
-    <script src="js/whatsapp.js"></script>
-    <script src="js/instagram.js"></script>
-    <script src="js/tally.js"></script>
-    <script src="js/slider.js"></script>
-    <script src="js/gallery.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/pixel.js"></script>
-    <script src="js/metrics.js"></script>
-    <script src="js/image-optimizer.js"></script>
-    <script src="js/ab-testing.js"></script>
-    <script src="js/seo.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/email.js"></script>
-    <script src="js/inventory.js"></script>
-    <script src="js/monetization.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/api-integration.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/debug.js"></script>
-    <script src="js/app.js"></script>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">New Collection 2025</p>
+      <h2 class="hero-title">Elevate<br /><em>Your Space</em></h2>
+      <p class="hero-sub">Curated art for the discerning interior</p>
+      <button class="hero-cta" id="heroCta">Explore Collection</button>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=700&h=500&fit=crop" alt="Featured Wall Art" />
+    </div>
+  </section>
 
-    <!-- Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
-        }
-    </script>
+  <!-- FILTERS -->
+  <section class="filters-section">
+    <div class="filters-container">
+      <div class="filter-group">
+        <label for="sizeFilter">Size</label>
+        <select id="sizeFilter"><option value="">All Sizes</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="finishFilter">Finish</label>
+        <select id="finishFilter"><option value="">All Finishes</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="colorFilter">Color</label>
+        <select id="colorFilter"><option value="">All Colors</option></select>
+      </div>
+      <button id="clearFilters" class="btn-secondary">Clear Filters</button>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="products-section">
+    <h2>Our Collection</h2>
+    <div id="productsGrid" class="products-grid">
+      <!-- Injected by app.js -->
+    </div>
+    <p id="noResults" class="no-results hidden">No prints match your search.</p>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="contact-container">
+      <h2>Get in Touch</h2>
+      <p>Questions about our prints? We're here to help.</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <h4>📱 WhatsApp</h4>
+          <a href="https://wa.me/918433595240" class="contact-btn" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+        <div class="contact-method">
+          <h4>📷 Instagram</h4>
+          <a href="https://instagram.com/p.nik11" class="contact-btn" target="_blank" rel="noopener">Follow @p.nik11</a>
+        </div>
+        <div class="contact-method">
+          <h4>📧 Email</h4>
+          <a href="mailto:hello@pniktrix.com" class="contact-btn">Send Email</a>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm" novalidate>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#contact">About Us</a></li>
+          <li><a href="#contact">Our Story</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#contact">Shipping Info</a></li>
+          <li><a href="#contact">Returns</a></li>
+          <li><a href="#contact">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <ul>
+          <li><a href="https://instagram.com/p.nik11" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/918433595240" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© <span id="footerYear"></span> Pniktrix. All rights reserved.</p>
+  </footer>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div id="productModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalProductName">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal" aria-label="Close">&times;</button>
+      <div class="product-detail">
+
+        <!-- Left: Images & 3D -->
+        <div class="product-images">
+          <div id="imageContainer" class="main-image">
+            <img id="mainImage" src="" alt="Product" />
+          </div>
+          <div class="image-gallery">
+            <button class="gallery-btn active" id="btnViewPhoto" data-view="image">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Photos
+            </button>
+            <button class="gallery-btn" id="btnView3d" data-view="3d">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              3D View
+            </button>
+          </div>
+          <div id="viewer3d" class="viewer-3d hidden"></div>
+        </div>
+
+        <!-- Right: Info -->
+        <div class="product-info">
+          <h2 id="modalProductName"></h2>
+          <p id="modalProductDescription"></p>
+
+          <div class="product-specs">
+            <div class="spec"><label>Size</label><p id="modalSize"></p></div>
+            <div class="spec"><label>Material</label><p id="modalMaterial"></p></div>
+            <div class="spec"><label>Finish</label><p id="modalFinish"></p></div>
+          </div>
+
+          <div class="color-selector">
+            <label>Choose Colour:</label>
+            <div class="color-options" id="colorOptions"></div>
+          </div>
+
+          <div class="quantity-selector">
+            <label>Quantity:</label>
+            <div class="quantity-controls">
+              <button id="qtyDec" aria-label="Decrease">−</button>
+              <input type="number" id="qtyInput" value="1" min="1" max="99" readonly />
+              <button id="qtyInc" aria-label="Increase">+</button>
+            </div>
+          </div>
+
+          <div class="price-section">
+            <p class="price" id="modalPrice">₹0</p>
+            <p class="shipping-note">Free shipping above ₹1,499</p>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-primary" id="addToCartBtn">Add to Cart</button>
+            <button class="btn-secondary" id="addToWishlistBtn">♡ Wishlist</button>
+          </div>
+
+          <div class="modal-contact">
+            <p>Questions? <a href="https://wa.me/918433595240" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART DRAWER -->
+  <div id="cartDrawer" class="drawer" role="dialog" aria-modal="true" aria-label="Shopping Cart">
+    <div class="drawer-overlay" id="cartOverlay"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h3>Your Cart</h3>
+        <button class="close-btn" id="closeCartBtn" aria-label="Close Cart">&times;</button>
+      </div>
+      <div id="cartItems" class="drawer-items"></div>
+      <div class="cart-summary">
+        <div class="summary-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+        <div class="summary-row"><span>Shipping</span><span id="cartShipping">Free</span></div>
+        <div class="summary-row total"><span>Total</span><span id="cartTotal">₹0</span></div>
+      </div>
+      <button class="btn-primary full-width" id="checkoutBtn">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- WISHLIST DRAWER -->
+  <div id="wishlistDrawer" class="drawer" role="dialog" aria-modal="true" aria-label="Wishlist">
+    <div class="drawer-overlay" id="wishlistOverlay"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h3>Wishlist</h3>
+        <button class="close-btn" id="closeWishlistBtn" aria-label="Close Wishlist">&times;</button>
+      </div>
+      <div id="wishlistItems" class="drawer-items"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- JS Modules (load order matters) -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/viewer3d.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

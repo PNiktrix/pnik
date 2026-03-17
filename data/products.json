@@ -2,75 +2,99 @@
   "products": [
     {
       "id": 1,
-      "name": "Eternal Elegance",
-      "description": "A timeless piece featuring abstract geometric patterns in gold and charcoal, perfect for contemporary spaces seeking understated luxury.",
-      "image": "data/Art1.jpeg",
-      "size": "24x36 inches",
-      "material": "Premium Matt Paper",
-      "finish": "Matte & Gold Accents"
+      "name": "Golden Reverie",
+      "description": "A luminous abstract composition in warm gold and amber tones. Printed on premium matte paper with archival inks that resist fading for decades.",
+      "size": "18×24 inch",
+      "material": "300gsm Matte Paper",
+      "finish": "Matte",
+      "color": "Gold",
+      "price": 1299,
+      "image": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&q=80",
+      "colors": ["Gold", "White", "Black"]
     },
     {
       "id": 2,
-      "name": "Minimalist Dreams",
-      "description": "Clean lines meet sophisticated simplicity. A subtle composition that speaks volumes through restraint and refined aesthetic.",
-      "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop",
-      "size": "20x30 inches",
-      "material": "Fine Art Paper",
-      "finish": "Glossy with UV Protection"
+      "name": "Obsidian Bloom",
+      "description": "Dark botanical forms emerge from a rich obsidian background. A statement piece for those who appreciate dramatic contrast.",
+      "size": "12×16 inch",
+      "material": "300gsm Matte Paper",
+      "finish": "Matte",
+      "color": "Black",
+      "price": 999,
+      "image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=600&q=80",
+      "colors": ["Black", "Gray"]
     },
     {
       "id": 3,
-      "name": "Midnight Reverie",
-      "description": "Deep indigo tones blend with soft metallic accents, creating a piece that evokes calm sophistication and nocturnal beauty.",
-      "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop",
-      "size": "18x24 inches",
-      "material": "Premium Matt Paper",
-      "finish": "Matte"
+      "name": "Marble Hour",
+      "description": "Fluid marble veining rendered in ice-white and pale grey. Minimal, timeless, architectural.",
+      "size": "24×36 inch",
+      "material": "Canvas",
+      "finish": "Gloss",
+      "color": "White",
+      "price": 1799,
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      "colors": ["White", "Gray"]
     },
     {
       "id": 4,
-      "name": "Golden Horizon",
-      "description": "Warm amber gradients create an inviting focal point. A piece that brings warmth and prestige to any discerning interior.",
-      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
-      "size": "24x36 inches",
-      "material": "Premium Matt Paper",
-      "finish": "Matte with Gold Foil"
+      "name": "Dusk Architecture",
+      "description": "Geometric lines dissolve into twilight gradients. A study in structured beauty at the edge of night.",
+      "size": "18×24 inch",
+      "material": "300gsm Matte Paper",
+      "finish": "Matte",
+      "color": "Navy",
+      "price": 1299,
+      "image": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=600&q=80",
+      "colors": ["Navy", "Black"]
     },
     {
       "id": 5,
-      "name": "Celestial Harmony",
-      "description": "Ethereal blues and silvers converge to create a sense of cosmic tranquility. Ideal for spaces that demand understated grandeur.",
-      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
-      "size": "20x30 inches",
-      "material": "Fine Art Paper",
-      "finish": "Matte"
+      "name": "Sable Gardens",
+      "description": "Moody floral forms in deep earth tones. Rich, sensuous, and deeply atmospheric.",
+      "size": "12×16 inch",
+      "material": "300gsm Matte Paper",
+      "finish": "Matte",
+      "color": "Black",
+      "price": 899,
+      "image": "https://images.unsplash.com/photo-1490750967868-88df5691cc8f?w=600&q=80",
+      "colors": ["Black", "Gold"]
     },
     {
       "id": 6,
-      "name": "Urban Pulse",
-      "description": "A modern composition celebrating architectural elegance. Sharp contrasts and balanced geometry for the contemporary collector.",
-      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
-      "size": "16x20 inches",
-      "material": "Premium Matt Paper",
-      "finish": "Matte"
+      "name": "Azure Silence",
+      "description": "A vast, serene landscape of blue and sky. For rooms that deserve a breath of calm.",
+      "size": "24×36 inch",
+      "material": "Canvas",
+      "finish": "Gloss",
+      "color": "Navy",
+      "price": 1999,
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+      "colors": ["Navy", "White"]
     },
     {
       "id": 7,
-      "name": "Serene Moments",
-      "description": "Soft pastels and gentle curves create a contemplative piece. Perfect for spaces seeking tranquility without compromising on style.",
-      "image": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=400&fit=crop",
-      "size": "22x28 inches",
-      "material": "Fine Art Paper",
-      "finish": "Glossy"
+      "name": "Ember Study",
+      "description": "Abstract flames and heat captured in deep sienna and charcoal. Raw energy, refined.",
+      "size": "18×24 inch",
+      "material": "300gsm Matte Paper",
+      "finish": "Matte",
+      "color": "Gold",
+      "price": 1299,
+      "image": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=80",
+      "colors": ["Gold", "Black"]
     },
     {
       "id": 8,
-      "name": "Luxe Abstraction",
-      "description": "Bold strokes meet refined execution. A statement piece for those who appreciate art that challenges and captivates.",
-      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=400&h=400&fit=crop",
-      "size": "24x36 inches",
-      "material": "Premium Matt Paper",
-      "finish": "Matte with Gold Accents"
+      "name": "Ivory Drift",
+      "description": "Soft, luminous whites and creams in an ethereal composition. The definition of quiet luxury.",
+      "size": "12×16 inch",
+      "material": "300gsm Matte Paper",
+      "finish": "Matte",
+      "color": "White",
+      "price": 899,
+      "image": "https://images.unsplash.com/photo-1501472312651-726afe119ff1?w=600&q=80",
+      "colors": ["White", "Gray"]
     }
   ]
 }

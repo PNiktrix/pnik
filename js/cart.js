@@ -1,48 +1,76 @@
-// ============================================================
-// cart.js — CartManager
-// ============================================================
-// Tracks which products the user has selected.
-// Persists selection in localStorage so cart survives
-// page refresh or returning visitors.
-// Pure logic — no DOM access here.
-// ============================================================
+/**
+ * cart.js
+ * Shopping cart — persisted in localStorage.
+ * No payment processing on-site; checkout redirects to WhatsApp.
+ */
 
-class CartManager {
-  constructor() {
-    // Load saved cart from localStorage on init
-    this._set = new Set(CartManager._load());
+// eslint-disable-next-line no-unused-vars
+const Cart = (() => {
+  const STORAGE_KEY = 'pniktrix_cart';
+
+  /** @type {{ id: number, name: string, price: number, image: string, qty: number, color: string|null }[]} */
+  let _items = Utils.storageGet(STORAGE_KEY, []);
+
+  /* ── Private helpers ───────────────────────────── */
+  function _save() {
+    Utils.storageSet(STORAGE_KEY, _items);
+    _updateBadge();
   }
 
-  toggle(id)   { this._set.has(id) ? this._set.delete(id) : this._set.add(id); this._save(); }
-  add(id)      { this._set.add(id);    this._save(); }
-  remove(id)   { this._set.delete(id); this._save(); }
-  has(id)      { return this._set.has(id); }
-  ids()        { return [...this._set]; }
-  count()      { return this._set.size; }
-  isEmpty()    { return this._set.size === 0; }
-
-  clear() {
-    this._set.clear();
-    // Clear localStorage too when cart is explicitly cleared
-    try { localStorage.removeItem("pniktrix_cart"); } catch(e) {}
+  function _updateBadge() {
+    const el = document.getElementById('cartCount');
+    if (el) el.textContent = getCount();
   }
 
-  // ── Private: save ids array to localStorage ──────────────
-  _save() {
-    try {
-      localStorage.setItem("pniktrix_cart", JSON.stringify([...this._set]));
-    } catch(e) {
-      // localStorage blocked (private mode) — fail silently
+  function _find(productId, color) {
+    return _items.find(i => i.id === productId && i.color === (color || null));
+  }
+
+  /* ── Public API ────────────────────────────────── */
+  function addItem(product, qty = 1, color = null) {
+    const existing = _find(product.id, color);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      _items.push({
+        id:    product.id,
+        name:  product.name,
+        price: product.price,
+        image: product.image,
+        qty,
+        color: color || null,
+      });
     }
+    _save();
+    Analytics.trackAddToCart(product, qty);
+    Utils.toast(`"${product.name}" added to cart`);
   }
 
-  // ── Private: load saved ids from localStorage ─────────────
-  static _load() {
-    try {
-      const saved = localStorage.getItem("pniktrix_cart");
-      return saved ? JSON.parse(saved) : [];
-    } catch(e) {
-      return [];
-    }
+  function removeItem(productId, color = null) {
+    _items = _items.filter(i => !(i.id === productId && i.color === (color || null)));
+    _save();
   }
-}
+
+  function updateQty(productId, color, newQty) {
+    const item = _find(productId, color);
+    if (!item) return;
+    if (newQty < 1) { removeItem(productId, color); return; }
+    item.qty = newQty;
+    _save();
+  }
+
+  function getItems()  { return [..._items]; }
+  function getCount()  { return _items.reduce((s, i) => s + i.qty, 0); }
+  function getTotal()  { return _items.reduce((s, i) => s + i.price * i.qty, 0); }
+  function isEmpty()   { return _items.length === 0; }
+
+  function clear() {
+    _items = [];
+    _save();
+  }
+
+  // Update badge on load
+  document.addEventListener('DOMContentLoaded', _updateBadge);
+
+  return { addItem, removeItem, updateQty, getItems, getCount, getTotal, isEmpty, clear };
+})();

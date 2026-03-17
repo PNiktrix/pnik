@@ -1,57 +1,80 @@
-// ============================================================================
-// 2. UTILS.JS - Utility Functions
-// ============================================================================
-class Utils {
-    static debounce(func, delay = 300) {
-        let timeoutId;
-        return function (...args) {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
+/**
+ * utils.js
+ * Shared utility helpers used across all modules.
+ */
 
-    static throttle(func, limit = 300) {
-        let inThrottle;
-        return function (...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
+// eslint-disable-next-line no-unused-vars
+const Utils = {
+  /**
+   * Debounce a function.
+   * @param {Function} fn
+   * @param {number} delay
+   * @returns {Function}
+   */
+  debounce(fn, delay = 300) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  },
 
-    static isMobile() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
-    }
+  /**
+   * Format a number as Indian rupee string.
+   * @param {number} amount
+   * @returns {string}
+   */
+  formatPrice(amount) {
+    return '₹' + Number(amount).toLocaleString('en-IN');
+  },
 
-    static isTouchDevice() {
-        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
-    }
+  /**
+   * Generate a short unique ID.
+   * @returns {string}
+   */
+  uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  },
 
-    static generateId() {
-        return Date.now().toString(36) + Math.random().toString(36).substr(2);
-    }
+  /**
+   * Show the global toast notification.
+   * @param {string} message
+   * @param {number} [duration=2500]
+   */
+  toast(message, duration = 2500) {
+    const el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(el._timer);
+    el._timer = setTimeout(() => el.classList.remove('show'), duration);
+  },
 
-    static copyToClipboard(text) {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(text);
-        }
+  /**
+   * Safely parse JSON from localStorage.
+   * @param {string} key
+   * @param {*} fallback
+   * @returns {*}
+   */
+  storageGet(key, fallback = null) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw !== null ? JSON.parse(raw) : fallback;
+    } catch {
+      return fallback;
     }
+  },
 
-    static getQueryParams() {
-        const params = new URLSearchParams(window.location.search);
-        const result = {};
-        for (let [key, value] of params) {
-            result[key] = value;
-        }
-        return result;
+  /**
+   * Safely save JSON to localStorage.
+   * @param {string} key
+   * @param {*} value
+   */
+  storageSet(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // Storage full or unavailable — fail silently
     }
-
-    static formatCurrency(amount, currency = 'INR') {
-        return new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: currency
-        }).format(amount);
-    }
-}
+  },
+};
