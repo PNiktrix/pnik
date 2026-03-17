@@ -93,7 +93,7 @@ class ProductManager {
 
     async loadProducts() {
         try {
-            const response = await fetch('data/products.json');
+            const response = await fetch('./data/products.json');
             const data = await response.json();
             this.products = data.products;
             return this.products;
