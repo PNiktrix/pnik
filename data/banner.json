@@ -1,0 +1,45 @@
+{
+  "slides": [
+    {
+      "id": 1,
+      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=1280&h=720&fit=crop&q=90",
+      "alt": "Premium Wall Art Collection",
+      "link": null
+    },
+    {
+      "id": 2,
+      "image": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1280&h=720&fit=crop&q=90",
+      "alt": "Golden Reverie — Abstract Art",
+      "link": null
+    },
+    {
+      "id": 3,
+      "image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1280&h=720&fit=crop&q=90",
+      "alt": "Obsidian Bloom — Botanical Art",
+      "link": null
+    },
+    {
+      "id": 4,
+      "image": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=1280&h=720&fit=crop&q=90",
+      "alt": "Dusk Architecture — Geometric Art",
+      "link": null
+    },
+    {
+      "id": 5,
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&q=90",
+      "alt": "Azure Silence — Landscape Art",
+      "link": null
+    }
+  ],
+  "autoplay": true,
+  "interval": 4000,
+  "marquee": [
+    "🌿 100% Biodegradable Packaging",
+    "🎨 Premium 3D Wall Art",
+    "✦ Free Delivery Above ₹1,499",
+    "🖼 used in big mnc",
+    "📦 Ships in 3–4 Days",
+    "♻️ Eco-Friendly Materials",
+    "✦ Handchecked Before Dispatch"
+  ]
+}

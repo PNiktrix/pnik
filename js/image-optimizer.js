@@ -1,41 +1,24 @@
 /**
  * image-optimizer.js
- * Lazy-loads images using IntersectionObserver and adds WebP hints.
- * Also sets up low-quality placeholder swap (LQIP pattern).
+ * Uses the browser's native loading="lazy" attribute only.
+ * The previous IntersectionObserver implementation was removed because
+ * it intercepted pointer/click events on img elements before they could
+ * bubble up to the parent .product-card, breaking card navigation.
  */
 const ImageOptimizer = {
-  _observer: null,
-
-  init() {
-    if (!('IntersectionObserver' in window)) return; // fallback: images load normally
-    this._observer = new IntersectionObserver(this._onIntersect.bind(this), {
-      rootMargin: '200px',
-      threshold:  0,
-    });
-    this.observe();
-  },
-
-  observe() {
-    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-      this._observer?.observe(img);
-    });
-  },
-
-  _onIntersect(entries) {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const img = entry.target;
-      if (img.dataset.src) {
-        img.src = img.dataset.src;
-        img.removeAttribute('data-src');
-      }
-      img.classList.add('img-loaded');
-      this._observer.unobserve(img);
-    });
-  },
+  /**
+   * No-op — native lazy loading is set directly on img[loading="lazy"] in HTML.
+   * Kept as a hook for future CDN image transformation logic.
+   */
+  init() {},
 
   /**
-   * Append width/quality params to Unsplash URLs for responsive sizing.
+   * Kept for calling from renderGrid — just a no-op now that observer is removed.
+   */
+  observe() {},
+
+  /**
+   * Append width/quality params to Unsplash URLs.
    * @param {string} url
    * @param {number} width
    * @returns {string}
@@ -43,11 +26,8 @@ const ImageOptimizer = {
   optimizeUrl(url, width = 600) {
     if (!url) return '';
     if (url.includes('unsplash.com')) {
-      const base = url.split('?')[0];
-      return `${base}?w=${width}&q=80&auto=format`;
+      return url.split('?')[0] + `?w=${width}&q=80&auto=format`;
     }
     return url;
   },
 };
-
-document.addEventListener('DOMContentLoaded', () => ImageOptimizer.init());

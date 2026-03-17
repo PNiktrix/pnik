@@ -12,8 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
-  <!-- Three.js for 3D viewer -->
+  <!-- Three.js for 3D frame fallback -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- model-viewer for GLB / GLTF 3D models -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
   <link rel="stylesheet" href="css/style.css"/>
 </head>
@@ -35,9 +37,9 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════ BANNER -->
-  <div class="banner" id="siteBanner">
-    <div class="banner-track" id="bannerTrack"><!-- injected by banner.js --></div>
+  <!-- ═══════════════════════════════════════════ MARQUEE STRIP -->
+  <div class="marquee-strip" id="marqueeStrip">
+    <div class="marquee-track" id="marqueeTrack"><!-- injected by banner.js --></div>
   </div>
 
   <!-- ═══════════════════════════════════════════ HEADER -->
@@ -47,6 +49,16 @@
         <span class="logo-name">PNIKTRIX</span>
         <span class="logo-sub">Curated Wall Art</span>
       </a>
+
+      <!-- Filter icon sits right next to brand name -->
+      <button class="header-btn filter-icon-btn" id="filterToggle" aria-label="Filters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <line x1="4" y1="6"  x2="20" y2="6"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+          <line x1="11" y1="18" x2="13" y2="18"/>
+        </svg>
+        <span class="filter-badge hidden" id="filterBadge">•</span>
+      </button>
 
       <div class="header-search">
         <input type="text" id="searchInput" placeholder="Search prints…" autocomplete="off"/>
@@ -68,56 +80,63 @@
     </div>
   </header>
 
+  <!-- ═══════════════════════════════════════════ FILTER DRAWER -->
+  <div id="filterDrawer" class="drawer filter-drawer">
+    <div class="drawer-overlay" id="filterOverlay"></div>
+    <div class="drawer-panel filter-panel">
+      <div class="drawer-head">
+        <h3>Filter Prints</h3>
+        <button class="close-x" id="closeFilter">&times;</button>
+      </div>
+      <div class="filter-drawer-body">
+        <div class="fd-group">
+          <label>Category</label>
+          <select id="catFilter"><option value="">All</option></select>
+        </div>
+        <div class="fd-group">
+          <label>Size</label>
+          <select id="sizeFilter"><option value="">All Sizes</option></select>
+        </div>
+        <div class="fd-group">
+          <label>Finish</label>
+          <select id="finishFilter"><option value="">All Finishes</option></select>
+        </div>
+        <div class="fd-group">
+          <label>Colour</label>
+          <select id="colorFilter"><option value="">All Colours</option></select>
+        </div>
+        <div class="fd-group">
+          <label>Max Price: <strong id="priceLabel">₹2,500</strong></label>
+          <input type="range" id="priceFilter" min="500" max="2500" value="2500" step="100"/>
+        </div>
+        <button class="btn-ghost full" id="clearFilters" style="margin-top:8px">Clear All Filters</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════════════ PAGES WRAPPER -->
   <div id="pagesWrapper">
 
     <!-- ── PAGE: Home ── -->
     <div id="pageHome" class="page active">
 
-      <!-- Hero -->
-      <section class="hero">
-        <div class="hero-content">
-          <p class="hero-eyebrow">New Collection 2025</p>
-          <h1 class="hero-title">Elevate<br/><em>Your Space</em></h1>
-          <p class="hero-sub">Premium 3D wall art for the discerning interior</p>
-          <button class="btn-gold hero-cta" id="heroCta">Explore Collection</button>
-        </div>
-        <div class="hero-visual">
-          <img src="https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=700&h=550&fit=crop" alt="Featured Wall Art"/>
-        </div>
-      </section>
-
-      <!-- Filters -->
-      <section class="filters-bar">
-        <div class="filters-inner">
-          <div class="filter-group">
-            <label>Category</label>
-            <select id="catFilter"><option value="">All</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Size</label>
-            <select id="sizeFilter"><option value="">All Sizes</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Finish</label>
-            <select id="finishFilter"><option value="">All Finishes</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Color</label>
-            <select id="colorFilter"><option value="">All Colors</option></select>
-          </div>
-          <div class="filter-group filter-price">
-            <label>Max Price: <span id="priceLabel">₹2,500</span></label>
-            <input type="range" id="priceFilter" min="500" max="2500" value="2500" step="100"/>
-          </div>
-          <button class="btn-ghost" id="clearFilters">Clear</button>
+      <!-- Hero Slider — YouTube banner ratio (16:9), images only -->
+      <section class="hero-slider-section">
+        <div class="hero-slider-wrap">
+          <div id="heroSlider" class="hero-slider"></div>
+          <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="slider-arrow slider-next" id="sliderNext" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div id="sliderDots" class="slider-dots"></div>
         </div>
       </section>
 
-      <!-- Products -->
+      <!-- Products grid — no heading -->
       <section id="products" class="products-section">
-        <div class="products-header">
-          <h2>Our Collection</h2>
+        <div class="products-count-bar">
           <span id="productCount" class="product-count"></span>
         </div>
         <div id="productsGrid" class="products-grid"></div>
@@ -179,102 +198,147 @@
       </footer>
     </div><!-- /pageHome -->
 
-    <!-- ── PAGE: Product Detail ── -->
+    <!-- ══════════════════════════════ PAGE: Product Detail ══ -->
     <div id="pageDetail" class="page">
       <div class="detail-wrap">
 
-        <!-- Back -->
+        <!-- Breadcrumb / back -->
         <button class="back-btn" id="backBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
           Back to Collection
         </button>
 
+        <!-- ── Main two-column grid ── -->
         <div class="detail-grid">
 
-          <!-- Left: Images + 3D -->
+          <!-- ════════ LEFT: visual panel ════════ -->
           <div class="detail-left">
-            <!-- Main display -->
-            <div class="detail-main-img" id="detailMainImg">
-              <img id="detailBigImg" src="" alt=""/>
-            </div>
 
-            <!-- Thumbnails -->
-            <div class="detail-thumbs" id="detailThumbs"></div>
-
-            <!-- View toggle -->
-            <div class="detail-view-toggle">
-              <button class="view-tab active" id="tabPhoto" data-tab="photo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <!-- View toggle tabs -->
+            <div class="dp-view-tabs">
+              <button class="dp-tab active" id="tabPhoto">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                 Photos
               </button>
-              <button class="view-tab" id="tab3d" data-tab="3d">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <button class="dp-tab" id="tab3d">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                 3D View
               </button>
             </div>
 
-            <!-- 3D Canvas -->
-            <div id="viewer3dWrap" class="viewer-3d-wrap hidden">
-              <canvas id="viewer3dCanvas" class="viewer-3d-canvas"></canvas>
-              <p class="viewer-3d-hint">Drag to rotate · Scroll to zoom</p>
-              <!-- Color overlay for 3D -->
-              <div class="viewer-color-bar" id="viewerColorBar"></div>
-            </div>
-          </div>
-
-          <!-- Right: Info -->
-          <div class="detail-right">
-            <p class="detail-category" id="detailCategory"></p>
-            <h1 class="detail-name" id="detailName"></h1>
-            <p class="detail-desc" id="detailDesc"></p>
-
-            <div class="detail-specs">
-              <div class="spec-item"><label>Size</label><p id="detailSize"></p></div>
-              <div class="spec-item"><label>Material</label><p id="detailMaterial"></p></div>
-              <div class="spec-item"><label>Finish</label><p id="detailFinish"></p></div>
-              <div class="spec-item"><label>Stock</label><p id="detailStock"></p></div>
+            <!-- ── PHOTO panel ── -->
+            <div id="dpPhotoPanel" class="dp-panel">
+              <div class="dp-main-img" id="detailMainImg">
+                <img id="detailBigImg" src="" alt="" loading="eager"/>
+              </div>
+              <div class="dp-thumbs" id="detailThumbs"></div>
             </div>
 
-            <div class="detail-color-select">
-              <label>Colour: <strong id="selectedColorLabel">—</strong></label>
-              <div class="color-dots" id="colorDots"></div>
-            </div>
+            <!-- ── 3D VIEWER panel ── -->
+            <div id="dp3dPanel" class="dp-panel hidden">
 
-            <div class="detail-qty">
-              <label>Quantity</label>
-              <div class="qty-row">
-                <button class="qty-btn" id="qtyDec">−</button>
-                <span class="qty-val" id="qtyVal">1</span>
-                <button class="qty-btn" id="qtyInc">+</button>
+              <!-- Wall colour picker -->
+              <div class="dp-3d-controls">
+                <span class="dp-ctrl-label">Wall</span>
+                <div class="dp-wall-swatches" id="dpWallSwatches">
+                  <button class="dp-wall-btn active" data-wall="#F5F0E8" style="background:#F5F0E8" title="Cream"></button>
+                  <button class="dp-wall-btn"        data-wall="#2C2C2C" style="background:#2C2C2C" title="Charcoal"></button>
+                  <button class="dp-wall-btn"        data-wall="#E8E4DC" style="background:#E8E4DC" title="Linen"></button>
+                  <button class="dp-wall-btn"        data-wall="#1A1A2E" style="background:#1A1A2E" title="Midnight"></button>
+                </div>
+
+                <span class="dp-ctrl-label">Frame</span>
+                <div class="dp-model-swatches" id="dpModelSwatches">
+                  <button class="dp-swatch active" data-color="#1A1714" style="background:#1A1714" title="Ebony"></button>
+                  <button class="dp-swatch"        data-color="#C0392B" style="background:#C0392B" title="Red"></button>
+                  <button class="dp-swatch"        data-color="#F5F5F5" style="background:#F5F5F5;border-color:#ccc" title="White"></button>
+                  <button class="dp-swatch"        data-color="#1A3A5C" style="background:#1A3A5C" title="Navy"></button>
+                </div>
+              </div>
+
+              <!-- model-viewer (GLB) or Three.js canvas fallback -->
+              <div class="dp-3d-stage" id="dp3dStage">
+                <!-- model-viewer injected here by viewer3d.js when GLB exists -->
+                <!-- Three.js canvas fallback injected here when no GLB -->
+                <p class="dp-3d-hint">Drag to rotate · Scroll to zoom</p>
               </div>
             </div>
 
-            <div class="detail-price">
-              <span class="price-main" id="detailPrice">₹0</span>
-              <span class="price-note">Free shipping above ₹1,499</span>
+          </div><!-- /detail-left -->
+
+          <!-- ════════ RIGHT: product info ════════ -->
+          <div class="detail-right">
+
+            <p class="dp-category" id="detailCategory"></p>
+            <h1 class="dp-name"    id="detailName"></h1>
+            <p class="dp-desc"     id="detailDesc"></p>
+
+            <!-- Specs grid -->
+            <div class="dp-specs">
+              <div class="dp-spec"><span class="dp-spec-label">Size</span><span id="detailSize"></span></div>
+              <div class="dp-spec"><span class="dp-spec-label">Material</span><span id="detailMaterial"></span></div>
+              <div class="dp-spec"><span class="dp-spec-label">Finish</span><span id="detailFinish"></span></div>
+              <div class="dp-spec">
+                <span class="dp-spec-label">Stock</span>
+                <span id="detailStock" class="dp-stock"></span>
+              </div>
             </div>
 
-            <div class="detail-actions">
-              <button class="btn-gold full" id="detailAddCart">Add to Cart</button>
-              <button class="btn-ghost-gold" id="detailWishlist">♡ Wishlist</button>
+            <!-- Print colour selector -->
+            <div class="dp-colour-row">
+              <span class="dp-field-label">Colour — <strong id="selectedColorLabel">—</strong></span>
+              <div class="dp-colour-dots" id="colorDots"></div>
             </div>
 
-            <div class="detail-whatsapp">
-              <a id="detailWhatsApp" href="#" target="_blank" rel="noopener" class="wa-link">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                Order via WhatsApp
-              </a>
+            <!-- Quantity -->
+            <div class="dp-qty-row">
+              <span class="dp-field-label">Quantity</span>
+              <div class="dp-qty-ctrl">
+                <button class="dp-qty-btn" id="qtyDec">−</button>
+                <span class="dp-qty-val"   id="qtyVal">1</span>
+                <button class="dp-qty-btn" id="qtyInc">+</button>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Reviews placeholder -->
-        <div class="reviews-section">
+            <!-- Price -->
+            <div class="dp-price-block">
+              <span class="dp-price"      id="detailPrice">₹0</span>
+              <span class="dp-price-note">Free shipping above ₹1,499</span>
+            </div>
+
+            <!-- CTAs -->
+            <div class="dp-ctas">
+              <button class="btn-gold dp-cta-main" id="detailAddCart">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                Add to Cart
+              </button>
+              <button class="btn-ghost-gold dp-cta-wl" id="detailWishlist">♡ Wishlist</button>
+            </div>
+
+            <!-- WhatsApp order -->
+            <a id="detailWhatsApp" href="#" target="_blank" rel="noopener" class="dp-wa-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order via WhatsApp
+            </a>
+
+            <!-- Trust badges -->
+            <div class="dp-trust">
+              <span>🌿 Eco Packaging</span>
+              <span>🖼 Archival Inks</span>
+              <span>📦 Ships 3–4 Days</span>
+              <span>↩ Easy Returns</span>
+            </div>
+
+          </div><!-- /detail-right -->
+        </div><!-- /detail-grid -->
+
+        <!-- Reviews -->
+        <div class="dp-reviews">
           <h3>Customer Reviews</h3>
-          <div id="reviewsList" class="reviews-list"></div>
+          <div id="reviewsList" class="dp-reviews-grid"></div>
         </div>
 
-      </div>
+      </div><!-- /detail-wrap -->
     </div><!-- /pageDetail -->
 
   </div><!-- /pagesWrapper -->
@@ -340,6 +404,7 @@
   <script src="js/api-integration.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/debug.js"></script>
+  <script src="js/detail-page.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
