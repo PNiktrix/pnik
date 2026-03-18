@@ -18,7 +18,7 @@
         "data/Art1s2.jpeg",
         "data/Art1s3.jpeg"
       ],
-      "model": null,
+      "model": "data/Art1.glb",
       "colors": ["Gold", "Black", "White"],
       "tags": ["abstract", "warm", "gold"]
     },
@@ -39,7 +39,7 @@
         "data/Art2s1.jpeg",
         "data/Art2s2.jpeg"
       ],
-      "model": null,
+      "model": "data/Art2.glb",
       "colors": ["Black", "Gray"],
       "tags": ["botanical", "dark", "moody"]
     },
