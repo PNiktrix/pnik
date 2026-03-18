@@ -256,12 +256,12 @@ const DetailPage = (() => {
     _bound = true;
 
     /* Back button */
-    document.getElementById('backBtn')?.addEventListener('click', () => {
-      _showPage('pageHome');
-      Viewer3D.destroy();
-      try { SEO.resetToHome(); } catch (_) {}
-      window.scrollTo({ top: 0 });
-    });
+        document.getElementById('backBtn')?.addEventListener('click', () => {
+  _showPage('pageHome');
+  Viewer3D.destroy();
+  try { SEO.resetToHome(); } catch (_) {}
+  document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+});
 
     /* Photo / 3D tabs */
     document.getElementById('tabPhoto')?.addEventListener('click', () => _switchView('photo'));
