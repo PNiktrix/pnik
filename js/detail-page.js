@@ -85,7 +85,7 @@ const DetailPage = (() => {
     _setText('detailCategory', p.category    || '');
     _setText('detailName',     p.name        || '');
     _setText('detailDesc',     p.description || '');
-    _setText('detailSize',     p.size        || '—');
+    _setText('detailType',     p.type        || '—');
     _setText('detailMaterial', p.material    || '—');
     _setText('detailFinish',   p.finish      || '—');
     _setText('detailPrice',    Utils.formatPrice(p.price));
@@ -238,7 +238,7 @@ const DetailPage = (() => {
       ``,
       `I'm interested in ordering:`,
       `• *${p.name}*`,
-      `  Size: ${p.size}`,
+      `  Type: ${p.type}`,
       `  Material: ${p.material}`,
       `  Finish: ${p.finish}`,
       ``,

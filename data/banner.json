@@ -2,7 +2,7 @@
   "slides": [
     {
       "id": 1,
-      "image": "https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=1280&h=720&fit=crop&q=90",
+      "image": "data/Banner1.jpg",
       "alt": "Premium Wall Art Collection",
       "link": null
     },
@@ -32,12 +32,11 @@
     }
   ],
   "autoplay": true,
-  "interval": 4000,
+  "interval": 1600,
   "marquee": [
     "🌿 100% Biodegradable Packaging",
-    "🎨 Premium 3D Wall Art",
+    "🎨 Premium 3D Art",
     "✦ Free Delivery Above ₹1,499",
-    "🖼 used in big mnc",
     "📦 Ships in 3–4 Days",
     "♻️ Eco-Friendly Materials",
     "✦ Handchecked Before Dispatch"

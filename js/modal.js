@@ -21,7 +21,7 @@ const Modal = (() => {
     // Populate fields
     document.getElementById('modalProductName').textContent    = product.name;
     document.getElementById('modalProductDescription').textContent = product.description || '';
-    document.getElementById('modalSize').textContent           = product.size     || '—';
+    document.getElementById('modaltype').textContent           = product.type     || '—';
     document.getElementById('modalMaterial').textContent       = product.material || '—';
     document.getElementById('modalFinish').textContent         = product.finish   || '—';
     document.getElementById('modalPrice').textContent          = Utils.formatPrice(product.price || 0);

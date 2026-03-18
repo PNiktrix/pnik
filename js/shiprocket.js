@@ -194,7 +194,7 @@ const Shiprocket = (() => {
       `• ${i.name} × ${i.qty}${i.color ? ' (' + i.color + ')' : ''} — ${Utils.formatPrice(i.price * i.qty)}`
     ).join('\n');
     const total = Cart.getTotal();
-    const msg   = `Hello Pniktrix 👋\n\nI'd like to order:\n\n${lines}\n\nTotal: ${Utils.formatPrice(total)}\n\nPlease confirm and share payment details. Thank you!`;
+    const msg   = `Hello Pniktrix 👋\n\nI'd like to order:\n\n${lines}\n\ncan you share more details.`;
     const url   = `https://wa.me/${Config.WHATSAPP}?text=${encodeURIComponent(msg)}`;
     Analytics.initiateCheckout(total, Cart.getCount());
     window.open(url, '_blank', 'noopener,noreferrer');

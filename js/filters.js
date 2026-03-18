@@ -1,9 +1,9 @@
 /**
  * filters.js
- * Manages category, size, finish, color, and PRICE range filters + search.
+ * Manages category, type, finish, color, and PRICE range filters + search.
  */
 const Filters = (() => {
-  let _state    = { cat: '', size: '', finish: '', color: '', price: 2500, search: '' };
+  let _state    = { cat: '', type: '', finish: '', color: '', price: 2500, search: '' };
   let _onChange = null;
   let _all      = [];
 
@@ -11,7 +11,7 @@ const Filters = (() => {
     _all      = products;
     _onChange = onChange;
     _populate('catFilter',    products, 'category');
-    _populate('sizeFilter',   products, 'size');
+    _populate('typeFilter',   products, 'type');
     _populate('finishFilter', products, 'finish');
     _populate('colorFilter',  products, 'color');
     _bindEvents();
@@ -28,7 +28,7 @@ const Filters = (() => {
   function _bindEvents() {
     const run = () => _onChange && _onChange(apply(_all));
 
-    [['catFilter','cat'],['sizeFilter','size'],['finishFilter','finish'],['colorFilter','color']].forEach(([id, key]) => {
+    [['catFilter','cat'],['typeFilter','type'],['finishFilter','finish'],['colorFilter','color']].forEach(([id, key]) => {
       document.getElementById(id)?.addEventListener('change', e => { _state[key] = e.target.value; run(); });
     });
 
@@ -53,7 +53,7 @@ const Filters = (() => {
   function apply(products) {
     return products.filter(p => {
       if (_state.cat    && p.category !== _state.cat)    return false;
-      if (_state.size   && p.size     !== _state.size)   return false;
+      if (_state.type   && p.type     !== _state.type)   return false;
       if (_state.finish && p.finish   !== _state.finish) return false;
       if (_state.color  && p.color    !== _state.color)  return false;
       if (p.price > _state.price)                        return false;
@@ -66,8 +66,8 @@ const Filters = (() => {
   }
 
   function reset() {
-    _state = { cat: '', size: '', finish: '', color: '', price: 2500, search: '' };
-    ['catFilter','sizeFilter','finishFilter','colorFilter'].forEach(id => {
+    _state = { cat: '', type: '', finish: '', color: '', price: 2500, search: '' };
+    ['catFilter','typeFilter','finishFilter','colorFilter'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
     });
     const price = document.getElementById('priceFilter');

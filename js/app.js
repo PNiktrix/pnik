@@ -61,7 +61,7 @@ function renderGrid(products) {
       </div>
       <div class="card-body">
         <h3 class="card-name">${p.name}</h3>
-        <p class="card-meta">${p.size} · ${p.finish}</p>
+        <p class="card-meta">${p.type} · ${p.finish}</p>
         <p class="card-price">${Utils.formatPrice(p.price)}</p>
         <div class="card-actions" style="position:relative;z-index:2">
           <button class="btn-gold js-add-cart" data-id="${p.id}">Add to Cart</button>
@@ -255,7 +255,7 @@ function openFilterDrawer()  { document.getElementById('filterDrawer').classList
 function closeFilterDrawer() { document.getElementById('filterDrawer').classList.remove('open'); document.body.style.overflow = ''; }
 
 function _updateFilterIcon() {
-  const hasActive = ['catFilter','sizeFilter','finishFilter','colorFilter'].some(id => {
+  const hasActive = ['catFilter','typeFilter','finishFilter','colorFilter'].some(id => {
     const el = document.getElementById(id);
     return el && el.value !== '';
   });
