@@ -2,13 +2,13 @@
   "products": [
     {
       "id": 1,
-      "name": "",
+      "name": "botanical Art",
       "description": "A luminous abstract composition in warm gold and amber tones. Printed on premium 300gsm archival matte paper with inks that resist fading for over 75 years. Each print is individually inspected before dispatch.",
       "type": "Wall",
       "material": "300gsm Matte Paper",
       "finish": "Matte",
       "color": "Gold",
-      "price": 1299,
+      "price": 300,
       "stock": 12,
       "category": "Abstract",
       "image": "data/Art1.jpeg",
@@ -24,13 +24,13 @@
     },
     {
       "id": 2,
-      "name": "Obsidian Bloom",
+      "name": "Blooming Home",
       "description": "Dark botanical forms emerge from a rich obsidian background. A statement piece for those who appreciate dramatic contrast and botanical elegance. Canvas stretched over a solid pine frame.",
       "type": "desk",
       "material": "Stretched Canvas",
       "finish": "Gloss",
       "color": "Black",
-      "price": 999,
+      "price": 300,
       "stock": 8,
       "category": "Botanical",
       "image": "data/Art2.jpeg",
@@ -51,7 +51,7 @@
       "material": "Stretched Canvas",
       "finish": "Gloss",
       "color": "White",
-      "price": 1799,
+      "price": 143,
       "stock": 5,
       "category": "Minimal",
       "image": "data/Art3.jpeg",
@@ -72,7 +72,7 @@
       "material": "300gsm Matte Paper",
       "finish": "Matte",
       "color": "Navy",
-      "price": 1299,
+      "price": 200,
       "stock": 15,
       "category": "Geometric",
       "image": "data/Art4.jpeg",
@@ -94,7 +94,7 @@
       "material": "300gsm Matte Paper",
       "finish": "Matte",
       "color": "Black",
-      "price": 899,
+      "price": 360,
       "stock": 20,
       "category": "Floral",
       "image": "data/Art5.jpeg",
@@ -110,13 +110,13 @@
     },
     {
       "id": 6,
-      "name": "Azure Silence",
+      "name": "R350 Horizon",
       "description": "A vast, serene landscape of blue and sky. For rooms that deserve a breath of calm and expansive tranquillity. Our largest format print — truly immersive.",
       "type": "Wall",
       "material": "Stretched Canvas",
       "finish": "Gloss",
       "color": "Navy",
-      "price": 1999,
+      "price": 180,
       "stock": 3,
       "category": "Landscape",
       "image": "data/Art6.jpeg",
@@ -132,13 +132,13 @@
     },
     {
       "id": 7,
-      "name": "Ember Study",
-      "description": "Abstract flames and heat captured in deep sienna and charcoal. Raw energy, refined. The warm tones complement natural wood, leather, and stone interiors perfectly.",
+      "name": "Tree of Lovely Life",
+      "description": "An elegant depiction of the Tree of Life, symbolizing growth, connection, and continuity. Intricate branching forms create a balanced, organic composition that brings depth and meaning to any space. The earthy tones and structured design pair beautifully with wood, stone, and neutral interiors, making it a timeless centerpiece for modern and classic settings alike.",
       "type": "Wall",
       "material": "300gsm Matte Paper",
       "finish": "Matte",
       "color": "Gold",
-      "price": 1299,
+      "price": 330,
       "stock": 9,
       "category": "Abstract",
       "image": "data/Art7.jpeg",
@@ -152,27 +152,30 @@
       "colors": ["Gold", "Black"],
       "tags": ["abstract", "warm", "fire"]
     },
-    {
-      "id": 8,
-      "name": "Ivory Drift",
-      "description": "Soft, luminous whites and creams in an ethereal composition. The definition of quiet luxury. Pairs beautifully with neutral interiors, linen, and natural textures.",
+    
+        {
+      "id": 9,
+      "name": "Porsche 911 GT3 – Rear View",
+      "description": "A striking rear-view capture of the Porsche 911 GT3, showcasing its aggressive stance, iconic wing, and precision engineering. Designed for automotive enthusiasts, this piece blends performance aesthetics with minimal composition. Perfect for modern interiors, studios, or garages that celebrate speed, design, and engineering excellence.",
       "type": "Wall",
       "material": "300gsm Matte Paper",
       "finish": "Matte",
-      "color": "White",
-      "price": 899,
+      "color": "Gray",
+      "price": 130,
       "stock": 25,
-      "category": "Minimal",
+      "category": "Automotive",
       "image": "data/Art8.jpeg",
       "images": [
         "data/Art8.jpeg",
         "data/Art8s1.jpeg",
         "data/Art8s2.jpeg",
         "data/Art8s3.jpeg"
-      ],
-      "model": null,
-      "colors": ["White", "Gray"],
-      "tags": ["minimal", "white", "calm"]
-    }
+  ],
+  "model": null,
+  "colors": ["Gray", "Black", "White"],
+  "tags": ["porsche", "gt3", "car", "rear view", "automotive", "performance"]
+}
+
+
   ]
 }
