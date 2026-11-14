@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgk2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#211824"/>
+      <stop offset="100%" stop-color="#120c14"/>
+    </linearGradient>
+    <linearGradient id="roseGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbc2eb"/>
+      <stop offset="100%" stop-color="#a6c1ee"/>
+    </linearGradient>
+    <filter id="shadowk2" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" fill="url(#bgk2)"/>
+  <!-- Keyring chain -->
+  <g transform="translate(300, 110)">
+    <circle cx="0" cy="0" r="48" fill="none" stroke="#e0e0e0" stroke-width="10"/>
+    <rect x="-8" y="48" width="16" height="30" rx="8" fill="none" stroke="#e0e0e0" stroke-width="6"/>
+  </g>
+  <!-- Keychain Tag -->
+  <g transform="translate(100, 200)" filter="url(#shadowk2)">
+    <rect width="400" height="200" rx="36" fill="#2d1f33" stroke="#483252" stroke-width="3"/>
+    <circle cx="200" cy="-5" r="16" fill="#2d1f33" stroke="#483252" stroke-width="3"/>
+    <circle cx="200" cy="-5" r="8" fill="#120c14"/>
+    <!-- Embossed Name -->
+    <text x="200" y="115" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-size="52" font-weight="600" fill="url(#roseGold)">Your Name</text>
+    <text x="200" y="150" text-anchor="middle" font-family="'Jost', sans-serif" font-size="13" font-weight="600" fill="#ffffff" letter-spacing="4">CUSTOM 3D NAMEPLATE</text>
+  </g>
+  <rect x="30" y="30" width="180" height="34" rx="17" fill="#fbc2eb" opacity="0.9"/>
+  <text x="120" y="52" text-anchor="middle" font-family="'Jost', sans-serif" font-size="13" font-weight="700" fill="#211824" letter-spacing="1">CUSTOM KEYCHAIN</text>
+</svg>

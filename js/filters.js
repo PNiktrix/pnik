@@ -52,13 +52,13 @@ const Filters = (() => {
 
   function apply(products) {
     return products.filter(p => {
-      if (_state.cat    && p.category !== _state.cat)    return false;
-      if (_state.type   && p.type     !== _state.type)   return false;
-      if (_state.finish && p.finish   !== _state.finish) return false;
-      if (_state.color  && p.color    !== _state.color)  return false;
-      if (p.price > _state.price)                        return false;
+      if (_state.cat && p.category !== _state.cat && p.mainCategory !== _state.cat) return false;
+      if (_state.type && p.type !== _state.type) return false;
+      if (_state.finish && p.finish !== _state.finish) return false;
+      if (_state.color && p.color !== _state.color && !p.colors?.includes(_state.color)) return false;
+      if (p.price > _state.price) return false;
       if (_state.search) {
-        const hay = `${p.name} ${p.description} ${p.tags?.join(' ')||''}`.toLowerCase();
+        const hay = `${p.name} ${p.description} ${p.tags?.join(' ')||''} ${p.mainCategory||''} ${p.category||''}`.toLowerCase();
         if (!hay.includes(_state.search)) return false;
       }
       return true;

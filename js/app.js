@@ -34,7 +34,7 @@ function renderGrid(products) {
   const counter = document.getElementById('productCount');
   if (!grid) return;
 
-  if (counter) counter.textContent = `${products.length} print${products.length !== 1 ? 's' : ''}`;
+  if (counter) counter.textContent = `${products.length} 3D item${products.length !== 1 ? 's' : ''}`;
 
   if (!products.length) {
     grid.innerHTML = '';
@@ -43,7 +43,13 @@ function renderGrid(products) {
   }
   noRes?.classList.add('hidden');
 
-  grid.innerHTML = products.map(p => `
+  grid.innerHTML = products.map(p => {
+    const isSale = p.originalPrice && p.originalPrice > p.price;
+    const disc = isSale ? (p.discountPercent || Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100)) : 0;
+    const savings = isSale ? (p.originalPrice - p.price) : 0;
+    const catLabel = p.mainCategory || p.category || '3D Print';
+
+    return `
     <article
       class="product-card"
       data-id="${p.id}"
@@ -52,6 +58,8 @@ function renderGrid(products) {
       aria-label="View ${p.name}"
     >
       <div class="card-img-wrap">
+        ${isSale ? `<span class="card-badge-sale">SALE ${disc}% OFF</span>` : ''}
+        <span class="card-badge-cat">${catLabel}</span>
         <img
           src="${ImageOptimizer.optimizeUrl(p.image, 400)}"
           alt="${p.name}"
@@ -61,8 +69,14 @@ function renderGrid(products) {
       </div>
       <div class="card-body">
         <h3 class="card-name">${p.name}</h3>
-        <p class="card-meta">${p.type} · ${p.finish}</p>
-        <p class="card-price">${Utils.formatPrice(p.price)}</p>
+        <p class="card-meta">${p.type || '3D Print'} · ${p.finish || 'Eco PLA'}</p>
+        <div class="card-price-row">
+          <span class="card-price">${Utils.formatPrice(p.price)}</span>
+          ${isSale ? `
+            <span class="card-price-orig">${Utils.formatPrice(p.originalPrice)}</span>
+            <span class="card-save-tag">Save ${Utils.formatPrice(savings)}</span>
+          ` : ''}
+        </div>
         <div class="card-actions" style="position:relative;z-index:2">
           <button class="btn-gold js-add-cart" data-id="${p.id}">Add to Cart</button>
           <button
@@ -73,7 +87,8 @@ function renderGrid(products) {
         </div>
       </div>
     </article>
-  `).join('');
+    `;
+  }).join('');
 }
 
 /* ── Grid click listener — bound ONCE at boot ── */
@@ -286,6 +301,158 @@ function _bindContactForm() {
 }
 
 /* ══════════════════════════════════════════════════════════
+   CATEGORY TABS NAVIGATION
+══════════════════════════════════════════════════════════ */
+function _initCategoryTabs(allProducts) {
+  const tabs = document.querySelectorAll('.cat-pill');
+  if (!tabs.length) return;
+
+  // Set counts
+  const setTxt = (id, count) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = count;
+  };
+  setTxt('countAll', allProducts.length);
+  setTxt('countHomeDecor', allProducts.filter(p => (p.mainCategory === 'Home Decor' || p.category === 'Home Decor')).length);
+  setTxt('countFlashcards', allProducts.filter(p => (p.mainCategory === 'Flashcards' || p.category === 'Flashcards')).length);
+  setTxt('countKeychains', allProducts.filter(p => (p.mainCategory === 'Keychains' || p.category === 'Keychains')).length);
+  setTxt('countSale', allProducts.filter(p => p.originalPrice && p.originalPrice > p.price).length);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const cat = tab.dataset.cat;
+      const customSec = document.getElementById('customOrderSection');
+      const prodSec   = document.getElementById('products');
+
+      if (cat === 'custom') {
+        customSec?.classList.remove('hidden');
+        customSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      customSec?.classList.add('hidden');
+      let filtered = [];
+      if (cat === 'all') {
+        filtered = allProducts;
+      } else if (cat === 'sale') {
+        filtered = allProducts.filter(p => p.originalPrice && p.originalPrice > p.price);
+      } else {
+        filtered = allProducts.filter(p => 
+          (p.mainCategory && p.mainCategory.toLowerCase() === cat.toLowerCase()) ||
+          (p.category && p.category.toLowerCase() === cat.toLowerCase())
+        );
+      }
+
+      renderGrid(filtered);
+      prodSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   CUSTOM 3D PRINT STUDIO
+══════════════════════════════════════════════════════════ */
+function _initCustomOrderStudio() {
+  const state = {
+    type: 'Personalized Name Keychain',
+    text: 'Alex',
+    color: 'Silk Gold',
+    material: 'Eco PLA (Standard Indoor, 100% Biodegradable)',
+    size: 'Pocket Size (~6-8 cm)',
+    notes: ''
+  };
+
+  function updatePreview() {
+    const setVal = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+    setVal('cpValType', state.type);
+    setVal('cpValText', state.text || '—');
+    setVal('cpValColor', state.color);
+    setVal('cpValMaterial', state.material.split('(')[0].trim());
+    setVal('cpValSize', state.size.split('(')[0].trim());
+    const titleEl = document.getElementById('cpPreviewTitle');
+    if (titleEl) titleEl.textContent = state.text ? `Custom: ${state.text}` : state.type;
+  }
+
+  // Type selection
+  const typeChoices = document.querySelectorAll('#customTypeSelector .type-choice');
+  typeChoices.forEach(choice => {
+    choice.addEventListener('click', () => {
+      typeChoices.forEach(c => c.classList.remove('active'));
+      choice.classList.add('active');
+      state.type = choice.dataset.type;
+      updatePreview();
+    });
+  });
+
+  // Text input
+  const textInput = document.getElementById('customText');
+  textInput?.addEventListener('input', e => {
+    state.text = e.target.value.trim();
+    updatePreview();
+  });
+
+  // Color swatches
+  const swatches = document.querySelectorAll('#customColorSwatches .custom-swatch');
+  swatches.forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('active'));
+      swatch.classList.add('active');
+      state.color = swatch.dataset.color;
+      updatePreview();
+    });
+  });
+
+  // Material select
+  const matSelect = document.getElementById('customMaterial');
+  matSelect?.addEventListener('change', e => {
+    state.material = e.target.value;
+    updatePreview();
+  });
+
+  // Size select
+  const sizeSelect = document.getElementById('customSize');
+  sizeSelect?.addEventListener('change', e => {
+    state.size = e.target.value;
+    updatePreview();
+  });
+
+  // Notes
+  const notesEl = document.getElementById('customNotes');
+  notesEl?.addEventListener('input', e => {
+    state.notes = e.target.value.trim();
+  });
+
+  // WhatsApp button
+  document.getElementById('sendCustomWhatsApp')?.addEventListener('click', () => {
+    const msg = [
+      `Hello Pniktrix! 🚀`,
+      ``,
+      `I would like to place a Custom 3D Print order:`,
+      `• *Item Type:* ${state.type}`,
+      `• *Custom Text/Name:* ${state.text || 'N/A'}`,
+      `• *Filament Colour:* ${state.color}`,
+      `• *Material:* ${state.material}`,
+      `• *Approximate Size:* ${state.size}`,
+      state.notes ? `• *Special Requests / 3D File Link:* ${state.notes}` : ``,
+      ``,
+      `Could you please share the estimate and timeline? Thank you!`
+    ].filter(Boolean).join('\n');
+
+    const url = `https://wa.me/${Config.WHATSAPP}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+    Utils.toast('Opening WhatsApp with your custom 3D order…');
+  });
+
+  updatePreview();
+}
+
+/* ══════════════════════════════════════════════════════════
    BOOT
 ══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', async () => {
@@ -306,10 +473,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 4. Render initial grid (HTML only — no listeners yet)
   renderGrid(products);
 
-  // 5. Bind grid click listener ONCE on the container
+  // 5. Category Tabs Navigation & Custom 3D Print Studio
+  try {
+    _initCategoryTabs(products);
+    _initCustomOrderStudio();
+  } catch (e) { console.error('[Boot] Tabs/CustomStudio:', e); }
+
+  // 6. Bind grid click listener ONCE on the container
   _bindGridListener();
 
-  // 6. Filters
+  // 7. Filters
   try {
     Filters.init(products, filtered => {
       renderGrid(filtered);

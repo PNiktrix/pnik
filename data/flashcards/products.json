@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": 101,
+      "name": "Tactile Alphabet 3D Flashcards (26 Letters)",
+      "description": "Sensory embossed 3D printed alphabet learning tiles. Features raised tactile letters and tactile borders in durable dual-tone eco PLA. Perfect for toddlers, early phonics learning, and Montessori sensory education.",
+      "mainCategory": "Flashcards",
+      "category": "Flashcards",
+      "subCategory": "Alphabet",
+      "type": "Sensory 3D Flashcard Set",
+      "material": "Eco-Friendly PLA (BPA Free)",
+      "finish": "Dual-Color Layered Print",
+      "color": "Gold",
+      "price": 399,
+      "originalPrice": 599,
+      "stock": 14,
+      "image": "data/flashcards/card1.svg",
+      "images": ["data/flashcards/card1.svg"],
+      "model": null,
+      "colors": ["Gold", "White", "Navy"],
+      "tags": ["flashcards", "kids", "alphabet", "sensory", "montessori", "3d print", "tactile"]
+    },
+    {
+      "id": 102,
+      "name": "Number & Math Tactile 3D Learning Tiles",
+      "description": "Embossed numerals 0–9 and mathematical operators with 3D raised count dots. Helps children feel numbers physically while learning counting and simple arithmetic. Washable and durable.",
+      "mainCategory": "Flashcards",
+      "category": "Flashcards",
+      "subCategory": "Math",
+      "type": "Tactile 3D Math Tiles",
+      "material": "Eco-Friendly PLA (BPA Free)",
+      "finish": "Matte High-Contrast",
+      "color": "Navy",
+      "price": 299,
+      "originalPrice": 450,
+      "stock": 20,
+      "image": "data/flashcards/card2.svg",
+      "images": ["data/flashcards/card2.svg"],
+      "model": null,
+      "colors": ["Navy", "White", "Gold"],
+      "tags": ["math", "numbers", "flashcards", "educational", "3d print", "tactile"]
+    }
+  ]
+}

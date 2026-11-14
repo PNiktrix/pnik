@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": 201,
+      "name": "Porsche 911 GT3 Silhouette 3D Keychain",
+      "description": "Precision 3D printed GT3 profile with distinctive rear wing and aerodynamic lines. Printed in tough, impact-resistant PETG with a premium stainless steel key ring. Durable, scratch-resistant, and featherlight.",
+      "mainCategory": "Keychains",
+      "category": "Keychains",
+      "subCategory": "Automotive",
+      "type": "Precision 3D Keychain",
+      "material": "Tough PETG / Silk PLA",
+      "finish": "Silk Gold / Carbon Black",
+      "color": "Gold",
+      "price": 149,
+      "originalPrice": 249,
+      "stock": 35,
+      "image": "data/keychains/keychain1.svg",
+      "images": ["data/keychains/keychain1.svg"],
+      "model": null,
+      "colors": ["Gold", "Black", "Gray", "Red"],
+      "tags": ["keychain", "porsche", "gt3", "car", "automotive", "3d print", "edc"]
+    },
+    {
+      "id": 202,
+      "name": "Custom Dual-Color Nameplate 3D Keychain",
+      "description": "Personalized 3D printed keychain customized with your name, initials, or vehicle registration number. Multi-filament layered printing with raised lettering and rounded tactile edges. The ultimate gift or personal accessory.",
+      "mainCategory": "Keychains",
+      "category": "Keychains",
+      "subCategory": "Personalized",
+      "type": "Custom Name Keychain",
+      "material": "Eco-Friendly PLA / PETG",
+      "finish": "Dual-Tone Raised Text",
+      "color": "Gold",
+      "price": 179,
+      "originalPrice": 299,
+      "stock": 50,
+      "image": "data/keychains/keychain2.svg",
+      "images": ["data/keychains/keychain2.svg"],
+      "model": null,
+      "colors": ["Gold", "Black", "White", "Navy", "Red"],
+      "tags": ["custom", "keychain", "nameplate", "personalized", "gift", "3d print"]
+    }
+  ]
+}

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Pniktrix — Premium 3D Wall Art Prints. 100% Biodegradable. Luxury curated collection."/>
+  <meta name="description" content="Pniktrix — Precision 3D Printed Home Decor, Tactile Flashcards, Keychains & Custom Orders. 100% Eco-Friendly Biodegradable PLA."/>
   <meta name="theme-color" content="#1a1a1a"/>
-  <title>Pniktrix — Premium Wall Art</title>
+  <title>Pniktrix — 3D Prints, Decor, Flashcards & Keychains</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
   <!-- Three.js for 3D frame fallback -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -22,16 +22,16 @@
 <body>
 
   <!-- ═══════════════════════════════════════════ SPLASH -->
-  <div id="splashScreen" class="splash">
+  <div id="splashScreen" class="splash" title="Click anywhere to skip">
     <canvas id="splashCanvas" class="splash-canvas"></canvas>
     <div class="splash-content">
       <div class="splash-logo">
         <span class="splash-p">P</span><span class="splash-rest">NIKTRIX</span>
       </div>
       <div class="splash-pills">
-        <span class="pill" style="animation-delay:.4s">✦ Premium 3D Art</span>
-        <span class="pill" style="animation-delay:.7s">♻ 100% Biodegradable</span>
-        <span class="pill" style="animation-delay:1s">🖼 Newest Art</span>
+        <span class="pill" style="animation-delay:.3s">✦ Precision 3D Printed</span>
+        <span class="pill" style="animation-delay:.5s">♻ 100% Eco-Friendly PLA</span>
+        <span class="pill" style="animation-delay:.7s">✨ Custom 3D Orders</span>
       </div>
       <div class="splash-line"></div>
     </div>
@@ -47,7 +47,7 @@
     <div class="header-inner">
       <a href="#" class="logo" id="logoLink">
         <span class="logo-name">PNIKTRIX</span>
-        <span class="logo-sub">Curated Wall Art</span>
+        <span class="logo-sub">3D Studio &amp; Decor</span>
       </a>
 
       <!-- Filter icon sits right next to brand name -->
@@ -61,7 +61,7 @@
       </button>
 
       <div class="header-search">
-        <input type="text" id="searchInput" placeholder="Search prints…" autocomplete="off"/>
+        <input type="text" id="searchInput" placeholder="Search 3D decor, flashcards, keychains…" autocomplete="off"/>
         <button class="search-btn" aria-label="Search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
@@ -85,29 +85,29 @@
     <div class="drawer-overlay" id="filterOverlay"></div>
     <div class="drawer-panel filter-panel">
       <div class="drawer-head">
-        <h3>Filter Prints</h3>
+        <h3>Filter 3D Items</h3>
         <button class="close-x" id="closeFilter">&times;</button>
       </div>
       <div class="filter-drawer-body">
         <div class="fd-group">
           <label>Category</label>
-          <select id="catFilter"><option value="">All</option></select>
+          <select id="catFilter"><option value="">All Categories</option></select>
         </div>
         <div class="fd-group">
-          <label>type</label>
+          <label>3D Print Type</label>
           <select id="typeFilter"><option value="">All Types</option></select>
         </div>
         <div class="fd-group">
-          <label>Finish</label>
+          <label>Finish / Texture</label>
           <select id="finishFilter"><option value="">All Finishes</option></select>
         </div>
         <div class="fd-group">
-          <label>Colour</label>
+          <label>Primary Colour</label>
           <select id="colorFilter"><option value="">All Colours</option></select>
         </div>
         <div class="fd-group">
           <label>Max Price: <strong id="priceLabel">₹2,500</strong></label>
-          <input type="range" id="priceFilter" min="500" max="2500" value="2500" step="100"/>
+          <input type="range" id="priceFilter" min="100" max="2500" value="2500" step="50"/>
         </div>
         <button class="btn-ghost full" id="clearFilters" style="margin-top:8px">Clear All Filters</button>
       </div>
@@ -120,7 +120,7 @@
     <!-- ── PAGE: Home ── -->
     <div id="pageHome" class="page active">
 
-      <!-- Hero Slider — YouTube banner ratio (16:9), images only -->
+      <!-- Hero Slider — Compact Banner, images + sale highlights -->
       <section class="hero-slider-section">
         <div class="hero-slider-wrap">
           <div id="heroSlider" class="hero-slider"></div>
@@ -134,7 +134,130 @@
         </div>
       </section>
 
-      <!-- Products grid — no heading -->
+      <!-- Category Navigation Bar -->
+      <nav class="cat-nav-bar" id="catNavBar">
+        <div class="cat-nav-inner">
+          <button class="cat-pill active" data-cat="all">
+            <span class="cat-emoji">🏷️</span> All Items <span class="cat-count" id="countAll">0</span>
+          </button>
+          <button class="cat-pill" data-cat="Home Decor">
+            <span class="cat-emoji">🏠</span> Home Decor <span class="cat-count" id="countHomeDecor">0</span>
+          </button>
+          <button class="cat-pill" data-cat="Flashcards">
+            <span class="cat-emoji">🎴</span> Flashcards <span class="cat-count" id="countFlashcards">0</span>
+          </button>
+          <button class="cat-pill" data-cat="Keychains">
+            <span class="cat-emoji">🔑</span> Keychains <span class="cat-count" id="countKeychains">0</span>
+          </button>
+          <button class="cat-pill cat-pill-sale" data-cat="sale">
+            <span class="cat-emoji">🔥</span> On Sale <span class="cat-count" id="countSale">0</span>
+          </button>
+          <button class="cat-pill cat-pill-custom" id="customOrderTabBtn" data-cat="custom">
+            <span class="cat-emoji">✨</span> Custom Orders <span class="custom-badge">Request</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Custom 3D Print Studio Section (For custom orders) -->
+      <section id="customOrderSection" class="custom-order-section hidden">
+        <div class="custom-studio-card">
+          <div class="custom-header">
+            <h2>Custom 3D Printing Studio</h2>
+            <p>Looking for a custom name keychain, bespoke wall plaque, glowing lithophane, or your own 3D model (STL) printed? Configure your order and message us directly on WhatsApp.</p>
+          </div>
+          <div class="custom-grid">
+            <div class="custom-form">
+              <div class="custom-form-group">
+                <label>1. Select Item to 3D Print</label>
+                <div class="custom-type-pills" id="customTypeSelector">
+                  <div class="type-choice active" data-type="Personalized Name Keychain" data-icon="🔑">
+                    <span class="type-choice-icon">🔑</span>
+                    <span class="type-choice-name">Custom Keychain</span>
+                  </div>
+                  <div class="type-choice" data-type="3D Wall Art & Plaque" data-icon="🖼️">
+                    <span class="type-choice-icon">🖼️</span>
+                    <span class="type-choice-name">3D Wall Plaque</span>
+                  </div>
+                  <div class="type-choice" data-type="Backlit Lithophane Photo" data-icon="💡">
+                    <span class="type-choice-icon">💡</span>
+                    <span class="type-choice-name">Lithophane Photo</span>
+                  </div>
+                  <div class="type-choice" data-type="STL 3D Model Print" data-icon="🖨️">
+                    <span class="type-choice-icon">🖨️</span>
+                    <span class="type-choice-name">Print Your STL File</span>
+                  </div>
+                  <div class="type-choice" data-type="Tactile Educational Card / Toy" data-icon="🎲">
+                    <span class="type-choice-icon">🎲</span>
+                    <span class="type-choice-name">Custom Card / Toy</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="custom-form-group">
+                <label for="customText">2. Custom Text / Name / Vehicle Reg #</label>
+                <input type="text" id="customText" class="custom-input" placeholder="e.g. Alex, GT3 RS, MH12 AB 1234, My Brand" value="Alex" />
+              </div>
+
+              <div class="custom-form-group">
+                <label>3. Primary Filament Colour</label>
+                <div class="custom-color-swatches" id="customColorSwatches">
+                  <button class="custom-swatch active" data-color="Silk Gold" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Silk Gold"></button>
+                  <button class="custom-swatch" data-color="Matte Black" style="background:#1a1a1a" title="Matte Black"></button>
+                  <button class="custom-swatch" data-color="Pure White" style="background:#f5f5f5;border-color:#ccc" title="Pure White"></button>
+                  <button class="custom-swatch" data-color="Crimson Red" style="background:#c0392b" title="Crimson Red"></button>
+                  <button class="custom-swatch" data-color="Galaxy Navy" style="background:#1a3a5c" title="Galaxy Navy"></button>
+                  <button class="custom-swatch" data-color="Dual-Tone Gold & Black" style="background:linear-gradient(90deg, #1a1a1a 50%, #d4af37 50%)" title="Dual-Tone"></button>
+                </div>
+              </div>
+
+              <div class="custom-form-group">
+                <label for="customMaterial">4. Material Grade</label>
+                <select id="customMaterial" class="custom-input">
+                  <option value="Eco PLA (Standard Indoor, 100% Biodegradable)">Eco PLA (Standard Indoor, 100% Biodegradable)</option>
+                  <option value="Tough PETG (Durable, Heat & Weather Resistant)">Tough PETG (Durable, Heat & Weather Resistant)</option>
+                  <option value="Silk PLA (Ultra-Gloss Metallic Finish)">Silk PLA (Ultra-Gloss Metallic Finish)</option>
+                </select>
+              </div>
+
+              <div class="custom-form-group">
+                <label for="customSize">5. Approximate Size</label>
+                <select id="customSize" class="custom-input">
+                  <option value="Pocket Size (~6-8 cm)">Pocket Size (~6–8 cm) — Ideal for Keychains</option>
+                  <option value="Standard Desk Size (~12-15 cm)">Standard Desk Size (~12–15 cm)</option>
+                  <option value="Large Statement Piece (20+ cm)">Large Statement Piece (20+ cm) — Wall Art</option>
+                  <option value="Custom Dimensions Specified in Notes">Custom Dimensions Specified in Notes</option>
+                </select>
+              </div>
+
+              <div class="custom-form-group">
+                <label for="customNotes">6. Special Requests / 3D File Link (Optional)</label>
+                <textarea id="customNotes" class="custom-textarea" rows="2" placeholder="Describe any font preference, dimensions, or paste a link to your 3D model (Thingiverse, Printables, Google Drive)..."></textarea>
+              </div>
+            </div>
+
+            <!-- Live Summary Card -->
+            <div class="custom-preview-card">
+              <span class="cp-badge">✦ Instant Live Spec</span>
+              <h3 class="cp-title" id="cpPreviewTitle">Custom 3D Print Order</h3>
+              <div class="cp-specs">
+                <div class="cp-row"><span class="cp-label">Item</span><span class="cp-val" id="cpValType">Personalized Name Keychain</span></div>
+                <div class="cp-row"><span class="cp-label">Custom Text</span><span class="cp-val" id="cpValText">Alex</span></div>
+                <div class="cp-row"><span class="cp-label">Colour</span><span class="cp-val" id="cpValColor">Silk Gold</span></div>
+                <div class="cp-row"><span class="cp-label">Material</span><span class="cp-val" id="cpValMaterial">Eco PLA</span></div>
+                <div class="cp-row"><span class="cp-label">Size</span><span class="cp-val" id="cpValSize">Pocket (~6–8 cm)</span></div>
+                <div class="cp-row"><span class="cp-label">Turnaround</span><span class="cp-val" style="color:var(--gold)">1–2 Business Days</span></div>
+              </div>
+              <button id="sendCustomWhatsApp" class="btn-wa-custom">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Order via WhatsApp
+              </button>
+              <p style="text-align:center;font-size:.74rem;color:var(--gray);margin-top:10px">Quotes usually shared within 1 hour · 3D files welcome</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products grid -->
       <section id="products" class="products-section">
         <div class="products-count-bar">
           <span id="productCount" class="product-count"></span>
@@ -179,15 +302,20 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <span class="logo-name">PNIKTRIX</span>
-            <p>Premium wall art. Sustainably crafted.<br/>Ships across India.</p>
+            <p>Precision 3D printed decor, tactile flashcards &amp; custom keychains. 100% Eco-Friendly Biodegradable PLA.<br/>Ships across India.</p>
           </div>
           <div>
             <h5>Shop</h5>
-            <ul><li><a href="#products">All Prints</a></li><li><a href="#products">Abstract</a></li><li><a href="#products">Botanical</a></li></ul>
+            <ul>
+              <li><a href="#products">Home Decor</a></li>
+              <li><a href="#products">Tactile Flashcards</a></li>
+              <li><a href="#products">3D Keychains</a></li>
+              <li><a href="#customOrderSection">Custom Orders</a></li>
+            </ul>
           </div>
           <div>
             <h5>Support</h5>
-            <ul><li><a href="#contact">Shipping Info</a></li><li><a href="#contact">Returns</a></li><li><a href="#contact">FAQ</a></li></ul>
+            <ul><li><a href="#contact">Shipping Info</a></li><li><a href="#contact">Custom Printing FAQ</a></li><li><a href="#contact">Returns</a></li></ul>
           </div>
           <div>
             <h5>Follow</h5>
@@ -275,7 +403,7 @@
 
             <!-- Specs grid -->
             <div class="dp-specs">
-              <div class="dp-spec"><span class="dp-spec-label">Type</span><span id="detailtype"></span></div>
+              <div class="dp-spec"><span class="dp-spec-label">3D Type</span><span id="detailType"></span></div>
               <div class="dp-spec"><span class="dp-spec-label">Material</span><span id="detailMaterial"></span></div>
               <div class="dp-spec"><span class="dp-spec-label">Finish</span><span id="detailFinish"></span></div>
               <div class="dp-spec">
@@ -302,8 +430,12 @@
 
             <!-- Price -->
             <div class="dp-price-block">
-              <span class="dp-price"      id="detailPrice">₹0</span>
-              <span class="dp-price-note">Free shipping above ₹1,499</span>
+              <div class="dp-price-row">
+                <span class="dp-price" id="detailPrice">₹0</span>
+                <span class="dp-price-orig" id="detailPriceOrig"></span>
+                <span class="dp-sale-pill" id="detailSalePill">SALE</span>
+              </div>
+              <span class="dp-price-note">Free delivery across India above ₹1,499</span>
             </div>
 
             <!-- CTAs -->
@@ -323,10 +455,10 @@
 
             <!-- Trust badges -->
             <div class="dp-trust">
-              <span>🌿 Eco Packaging</span>
-              <span>🖼 Newest Art</span>
-              <span>📦 Ships 3–4 Days</span>
-              <span>↩ Easy Returns</span>
+              <span>🌱 100% Eco PLA</span>
+              <span>⚡ 0.16mm Layering</span>
+              <span>📦 Ships 2–4 Days</span>
+              <span>↩ Quality Guaranteed</span>
             </div>
 
           </div><!-- /detail-right -->

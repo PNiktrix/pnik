@@ -2,33 +2,66 @@
  * banner.js
  * Handles two separate banner elements:
  *  1. Top marquee strip — text items from banner.json "marquee" array
- *  2. Hero image slider — 16:9 YouTube-banner-ratio slides from banner.json "slides" array
+ *  2. Compact Hero image slider with sales tags & CTA links
  *
- * Data source: data/banner.json (separate from products.json)
+ * Resilient loader with automatic fallback and hover pause.
  */
 const Banner = {
   _slides:   [],
   _current:  0,
   _timer:    null,
-  _interval: 4000,
+  _interval: 4500,
+
+  _normalizeUrl(url) {
+    if (!url || typeof url !== 'string') return url;
+    if (url.toLowerCase().includes('banner1.jpg') && !url.includes('home decor')) {
+      return 'data/home decor/banner1.jpg';
+    }
+    return url;
+  },
 
   /* ── Load ──────────────────────────────────────── */
   async load() {
     try {
-      const res  = await fetch('data/banner.json');
+      let res = await fetch('data/banner.json');
+      if (!res.ok) {
+        res = await fetch('data/home decor/banner.json');
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.json();
     } catch (e) {
-      console.error('[Banner] Failed to load banner.json:', e);
-      return { slides: [], marquee: [], autoplay: true, interval: 4000 };
+      console.warn('[Banner] Using fallback banner data:', e);
+      return {
+        slides: [
+          {
+            id: 1,
+            image: "data/home decor/banner1.jpg",
+            alt: "Precision 3D Printed Home Decor, Flashcards & Keychains",
+            title: "Precision 3D Printed Collections",
+            tag: "NEW ARRIVALS · UP TO 45% OFF",
+            link: "#products"
+          }
+        ],
+        marquee: [
+          "🌱 100% Eco-Friendly Biodegradable PLA",
+          "⚡ Precision 0.16mm Layer 3D Printing",
+          "🔥 LAUNCH SALE: Up to 50% OFF All Collections",
+          "✨ Custom 3D Printing on Demand (WhatsApp Us)"
+        ],
+        autoplay: true,
+        interval: 4500
+      };
     }
   },
 
   /* ── Init ──────────────────────────────────────── */
   async init() {
     const data     = await this.load();
-    this._slides   = data.slides   || [];
-    this._interval = data.interval || 4000;
+    this._slides   = (data.slides || []).map(s => ({
+      ...s,
+      image: this._normalizeUrl(s.image)
+    }));
+    this._interval = Math.max(data.interval || 4500, 3500);
 
     this._renderMarquee(data.marquee || []);
     this._renderSlider();
@@ -42,40 +75,64 @@ const Banner = {
   _renderMarquee(items) {
     const track = document.getElementById('marqueeTrack');
     if (!track || !items.length) return;
-    // Duplicate for seamless infinite loop
     const doubled = [...items, ...items];
     track.innerHTML = doubled.map(t => `<span class="marquee-item">${t}</span>`).join('');
   },
 
-  /* ── Image Slider (16:9) ───────────────────────── */
+  /* ── Image Slider ──────────────────────────────── */
   _renderSlider() {
     const wrap = document.getElementById('heroSlider');
     if (!wrap || !this._slides.length) return;
 
     wrap.innerHTML = this._slides.map((s, i) => `
       <div class="slide${i === 0 ? ' active' : ''}" data-idx="${i}">
-        <img src="${s.image}" alt="${s.alt}" loading="${i === 0 ? 'eager' : 'lazy'}"/>
+        <img src="${s.image}" alt="${s.alt || ''}" loading="${i === 0 ? 'eager' : 'lazy'}"/>
+        ${(s.title || s.tag) ? `
+          <div class="slide-overlay">
+            ${s.tag ? `<span class="slide-tag">${s.tag}</span>` : ''}
+            ${s.title ? `<h2 class="slide-title">${s.title}</h2>` : ''}
+            ${s.link ? `<a href="${s.link}" class="slide-cta btn-gold">Explore Collection</a>` : ''}
+          </div>
+        ` : ''}
       </div>
     `).join('');
 
     // Dots
     const dotsWrap = document.getElementById('sliderDots');
-    if (dotsWrap && this._slides.length > 1) {
-      dotsWrap.innerHTML = this._slides.map((_, i) =>
-        `<button class="slider-dot${i === 0 ? ' active' : ''}" data-idx="${i}" aria-label="Slide ${i + 1}"></button>`
-      ).join('');
-      dotsWrap.querySelectorAll('.slider-dot').forEach(btn => {
-        btn.addEventListener('click', () => this.goTo(parseInt(btn.dataset.idx)));
-      });
+    if (dotsWrap) {
+      if (this._slides.length > 1) {
+        dotsWrap.innerHTML = this._slides.map((_, i) =>
+          `<button class="slider-dot${i === 0 ? ' active' : ''}" data-idx="${i}" aria-label="Slide ${i + 1}"></button>`
+        ).join('');
+        dotsWrap.querySelectorAll('.slider-dot').forEach(btn => {
+          btn.addEventListener('click', () => this.goTo(parseInt(btn.dataset.idx)));
+        });
+      } else {
+        dotsWrap.innerHTML = '';
+      }
     }
 
     // Arrows
-    document.getElementById('sliderPrev')?.addEventListener('click', () => {
-      this.goTo((this._current - 1 + this._slides.length) % this._slides.length);
-    });
-    document.getElementById('sliderNext')?.addEventListener('click', () => {
-      this.goTo((this._current + 1) % this._slides.length);
-    });
+    const prevBtn = document.getElementById('sliderPrev');
+    const nextBtn = document.getElementById('sliderNext');
+    if (this._slides.length <= 1) {
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+    } else {
+      prevBtn?.addEventListener('click', () => {
+        this.goTo((this._current - 1 + this._slides.length) % this._slides.length);
+      });
+      nextBtn?.addEventListener('click', () => {
+        this.goTo((this._current + 1) % this._slides.length);
+      });
+    }
+
+    // Pause on hover
+    const parentWrap = wrap.closest('.hero-slider-wrap');
+    if (parentWrap) {
+      parentWrap.addEventListener('mouseenter', () => clearInterval(this._timer));
+      parentWrap.addEventListener('mouseleave', () => this._restartAutoplay());
+    }
 
     // Touch swipe
     this._bindSwipe(wrap);
@@ -92,6 +149,7 @@ const Banner = {
   },
 
   _startAutoplay() {
+    clearInterval(this._timer);
     this._timer = setInterval(() => {
       this.goTo((this._current + 1) % this._slides.length);
     }, this._interval);

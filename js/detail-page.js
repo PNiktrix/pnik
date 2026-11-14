@@ -90,6 +90,24 @@ const DetailPage = (() => {
     _setText('detailFinish',   p.finish      || '—');
     _setText('detailPrice',    Utils.formatPrice(p.price));
 
+    // Original price & Sale Pill
+    const origEl = document.getElementById('detailPriceOrig');
+    const saleEl = document.getElementById('detailSalePill');
+    if (p.originalPrice && p.originalPrice > p.price) {
+      if (origEl) {
+        origEl.textContent = Utils.formatPrice(p.originalPrice);
+        origEl.style.display = 'inline';
+      }
+      if (saleEl) {
+        const disc = p.discountPercent || Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+        saleEl.textContent = `SALE ${disc}% OFF`;
+        saleEl.style.display = 'inline-block';
+      }
+    } else {
+      if (origEl) origEl.style.display = 'none';
+      if (saleEl) saleEl.style.display = 'none';
+    }
+
     // Stock label + colour class
     const stockEl = document.getElementById('detailStock');
     if (stockEl) {

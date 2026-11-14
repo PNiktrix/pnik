@@ -1,0 +1,192 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Botanical 3D Relief Wall Art",
+      "description": "A luminous organic composition rendered in warm gold and amber tones. Precision 3D printed with eco-friendly biodegradable PLA, creating stunning tactile depth and shadow interplay. Lightweight, durable, and ready to mount on any wall.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Wall Art",
+      "type": "Wall Mounted 3D Art",
+      "material": "Eco-Friendly PLA (Plant-based)",
+      "finish": "Silk Gold / Matte",
+      "color": "Gold",
+      "price": 300,
+      "originalPrice": 499,
+      "stock": 12,
+      "image": "data/home decor/Art1.jpeg",
+      "images": [
+        "data/home decor/Art1.jpeg",
+        "data/home decor/Art1s1.jpeg",
+        "data/home decor/Art1s2.jpeg",
+        "data/home decor/Art1s3.jpeg"
+      ],
+      "model": "data/home decor/Art1.glb",
+      "colors": ["Gold", "Black", "White"],
+      "tags": ["abstract", "warm", "gold", "wall art", "3d print", "home decor"]
+    },
+    {
+      "id": 2,
+      "name": "Blooming Flora 3D Desk Sculpture",
+      "description": "Dark botanical forms emerge in high-precision sculptural relief. A standout statement piece for desks, coffee tables, or shelves, 3D printed with layered high-density eco-PLA for an organic tactile finish.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Desk Decor",
+      "type": "Free-standing Desk Decor",
+      "material": "Eco-Friendly PLA (Plant-based)",
+      "finish": "Gloss / Matte Duo",
+      "color": "Black",
+      "price": 300,
+      "originalPrice": 450,
+      "stock": 8,
+      "image": "data/home decor/Art2.jpeg",
+      "images": [
+        "data/home decor/Art2.jpeg",
+        "data/home decor/Art2s1.jpeg",
+        "data/home decor/Art2s2.jpeg"
+      ],
+      "model": "data/home decor/Art2.glb",
+      "colors": ["Black", "Gray", "White"],
+      "tags": ["botanical", "dark", "moody", "desk", "sculpture", "3d print"]
+    },
+    {
+      "id": 3,
+      "name": "Marble Hour Architectural Sculpt",
+      "description": "Minimal geometric curves and fluid architectural lines rendered in ice-white and pale grey. 3D printed with 0.16mm ultra-fine layers for a smooth, stone-like aesthetic. Perfect for modern minimalist interiors.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Desk Decor",
+      "type": "Architectural Desk Decor",
+      "material": "Eco-Friendly PLA (Plant-based)",
+      "finish": "Satin Matte",
+      "color": "White",
+      "price": 143,
+      "originalPrice": 249,
+      "stock": 5,
+      "image": "data/home decor/Art3.jpeg",
+      "images": [
+        "data/home decor/Art3.jpeg",
+        "data/home decor/Art3s1.jpeg",
+        "data/home decor/Art3s2.jpeg"
+      ],
+      "model": "data/home decor/Art1.glb",
+      "colors": ["White", "Gray"],
+      "tags": ["minimal", "marble", "white", "architecture", "3d print"]
+    },
+    {
+      "id": 4,
+      "name": "Dusk Architecture 3D Wall Plaque",
+      "description": "Crisp geometric lines dissolving into twilight layered elevations. 3D printed with deep midnight navy filament with subtle matte light absorption. Commands attention in living rooms and home offices.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Wall Art",
+      "type": "Wall Mounted 3D Art",
+      "material": "Eco-Friendly PLA (Plant-based)",
+      "finish": "Matte Navy",
+      "color": "Navy",
+      "price": 200,
+      "originalPrice": 350,
+      "stock": 15,
+      "image": "data/home decor/Art4.jpeg",
+      "images": [
+        "data/home decor/Art4.jpeg",
+        "data/home decor/Art4s1.jpeg",
+        "data/home decor/Art4s2.jpeg"
+      ],
+      "model": null,
+      "colors": ["Navy", "Black", "White"],
+      "tags": ["geometric", "navy", "dusk", "wall plaque", "3d print"]
+    },
+    {
+      "id": 5,
+      "name": "Sable Gardens Layered 3D Art",
+      "description": "Moody layered floral profiles in deep organic earth tones. 3D printed with multi-layer depth transitions that capture ambient room lighting from different angles.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Wall Art",
+      "type": "Wall Mounted 3D Art",
+      "material": "Eco-Friendly PLA (Plant-based)",
+      "finish": "Textured Matte",
+      "color": "Black",
+      "price": 360,
+      "originalPrice": 599,
+      "stock": 20,
+      "image": "data/home decor/Art5.jpeg",
+      "images": [
+        "data/home decor/Art5.jpeg",
+        "data/home decor/Art5s1.jpeg",
+        "data/home decor/Art5s2.jpeg",
+        "data/home decor/Art5s3.jpeg"
+      ],
+      "model": null,
+      "colors": ["Black", "Gold", "Gray"],
+      "tags": ["floral", "dark", "botanical", "3d art", "decor"]
+    },
+    {
+      "id": 6,
+      "name": "R350 Horizon 3D Panoramic Art",
+      "description": "An expansive multi-depth mountain and horizon landscape. 3D printed with undulating topographic layers that give real physical relief to your wall. Lightweight and easy to hang with command strips.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Wall Art",
+      "type": "Wall Mounted 3D Art",
+      "material": "Eco-Friendly PLA (Plant-based)",
+      "finish": "Silk Gloss & Matte",
+      "color": "Navy",
+      "price": 180,
+      "originalPrice": 299,
+      "stock": 3,
+      "image": "data/home decor/Art6.jpeg",
+      "images": [
+        "data/home decor/Art6.jpeg"
+      ],
+      "model": null,
+      "colors": ["Navy", "White", "Black"],
+      "tags": ["landscape", "blue", "horizon", "topographic", "3d art"]
+    },
+    {
+      "id": 7,
+      "name": "Tree of Life 3D Geometric Art",
+      "description": "An intricate depiction of the Tree of Life with interlocking branch geometry. High-detail 3D printed with gold Silk PLA, symbolizing growth, harmony, and resilience. Beautiful against wood or stone walls.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Wall Art",
+      "type": "Wall Mounted 3D Art",
+      "material": "Silk PLA (Plant-based)",
+      "finish": "Metallic Silk Gold",
+      "color": "Gold",
+      "price": 330,
+      "originalPrice": 499,
+      "stock": 9,
+      "image": "data/home decor/Art7.jpeg",
+      "images": [
+        "data/home decor/Art7.jpeg"
+      ],
+      "model": null,
+      "colors": ["Gold", "Black"],
+      "tags": ["abstract", "warm", "tree of life", "silk gold", "3d print"]
+    },
+    {
+      "id": 9,
+      "name": "Porsche 911 GT3 – 3D Wall Silhouette",
+      "description": "A striking rear-view silhouette of the legendary Porsche 911 GT3 with aggressive aero wing, quad exhaust styling, and precision body contours. 3D printed in matte carbon gray for automotive enthusiasts, studios, and garages.",
+      "mainCategory": "Home Decor",
+      "category": "Home Decor",
+      "subCategory": "Automotive Art",
+      "type": "Wall Mounted 3D Art",
+      "material": "Tough PETG / Matte PLA",
+      "finish": "Matte Carbon",
+      "color": "Gray",
+      "price": 130,
+      "originalPrice": 220,
+      "stock": 25,
+      "image": "data/home decor/Art8.jpeg",
+      "images": [
+        "data/home decor/Art8.jpeg"
+      ],
+      "model": null,
+      "colors": ["Gray", "Black", "White"],
+      "tags": ["porsche", "gt3", "car", "rear view", "automotive", "motorsport", "3d print"]
+    }
+  ]
+}

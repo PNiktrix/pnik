@@ -2,43 +2,38 @@
   "slides": [
     {
       "id": 1,
-      "image": "data/Banner1.jpg",
-      "alt": "Premium Wall Art Collection",
-      "link": null
+      "image": "data/home decor/banner1.jpg",
+      "alt": "Precision 3D Printed Home Decor, Flashcards & Keychains",
+      "title": "Precision 3D Printed Collections",
+      "tag": "NEW ARRIVALS · UP TO 45% OFF",
+      "link": "#products"
     },
     {
       "id": 2,
-      "image": "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1280&h=720&fit=crop&q=90",
-      "alt": "Golden Reverie — Abstract Art",
-      "link": null
+      "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1280&h=400&fit=crop&q=85",
+      "alt": "100% Eco-Friendly PLA Studio — Crafted with Precision",
+      "title": "Eco-Friendly PLA & Precision Craft",
+      "tag": "BIODEGRADABLE & NON-TOXIC",
+      "link": "#products"
     },
     {
       "id": 3,
-      "image": "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1280&h=720&fit=crop&q=90",
-      "alt": "Obsidian Bloom — Botanical Art",
-      "link": null
-    },
-    {
-      "id": 4,
-      "image": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=1280&h=720&fit=crop&q=90",
-      "alt": "Dusk Architecture — Geometric Art",
-      "link": null
-    },
-    {
-      "id": 5,
-      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1280&h=720&fit=crop&q=90",
-      "alt": "Azure Silence — Landscape Art",
-      "link": null
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&h=400&fit=crop&q=85",
+      "alt": "Custom 3D Printing on Demand — Keychains, Signs & STL Files",
+      "title": "Custom 3D Prints on Demand",
+      "tag": "ORDER VIA WHATSAPP",
+      "link": "#customOrderSection"
     }
   ],
   "autoplay": true,
-  "interval": 1600,
+  "interval": 4500,
   "marquee": [
-    "🌿 100% Biodegradable Packaging",
-    "🎨 Premium 3D Art",
-    "✦ Free Delivery Above ₹1,499",
-    "📦 Ships in 3–4 Days",
-    "♻️ Eco-Friendly Materials",
-    "✦ Handchecked Before Dispatch"
+    "🌱 100% Eco-Friendly Biodegradable PLA",
+    "⚡ Precision 0.16mm Layer 3D Printing",
+    "🔥 LAUNCH SALE: Up to 50% OFF All Collections",
+    "✨ Custom 3D Printing on Demand (Order via WhatsApp)",
+    "✦ Free Delivery Across India Above ₹1,499",
+    "📦 Ships in 2–4 Business Days",
+    "🛡️ Durable, Featherlight & Shatter-Resistant"
   ]
 }
