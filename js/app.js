@@ -324,16 +324,34 @@ function _initCategoryTabs(allProducts) {
       tab.classList.add('active');
 
       const cat = tab.dataset.cat;
-      const customSec = document.getElementById('customOrderSection');
-      const prodSec   = document.getElementById('products');
+      const customSec   = document.getElementById('customOrderSection');
+      const kcStudioSec = document.getElementById('keychainStudioSection');
+      const prodSec     = document.getElementById('products');
 
       if (cat === 'custom') {
+        kcStudioSec?.classList.add('hidden');
         customSec?.classList.remove('hidden');
         customSec?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
 
+      if (cat === 'Keychains') {
+        customSec?.classList.add('hidden');
+        kcStudioSec?.classList.remove('hidden');
+        KeychainStudio.show();
+        // Also show keychain catalog below the maker studio
+        const filtered = allProducts.filter(p => 
+          (p.mainCategory && p.mainCategory.toLowerCase() === 'keychains') ||
+          (p.category && p.category.toLowerCase() === 'keychains')
+        );
+        renderGrid(filtered);
+        return;
+      }
+
+      // Other categories: Home Decor, Flashcards, All, Sale
+      kcStudioSec?.classList.add('hidden');
       customSec?.classList.add('hidden');
+
       let filtered = [];
       if (cat === 'all') {
         filtered = allProducts;
@@ -477,6 +495,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     _initCategoryTabs(products);
     _initCustomOrderStudio();
+    // Initialize 3D Keychain Studio
+    if (window.KeychainStudio) {
+      KeychainStudio.init('keychainStudioSection');
+    }
   } catch (e) { console.error('[Boot] Tabs/CustomStudio:', e); }
 
   // 6. Bind grid click listener ONCE on the container
@@ -533,11 +555,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fy = document.getElementById('footerYear');
   if (fy) fy.textContent = new Date().getFullYear();
 
-  // 15. Deep link: ?product=ID
+  // 15. Deep link: ?product=ID or ?maker=keychain
   const qp = new URLSearchParams(window.location.search);
   if (qp.has('product')) {
     const p = ProductManager.getById(qp.get('product'));
     if (p) DetailPage.show(p);
+  } else if (qp.get('maker') === 'keychain' || window.location.hash === '#keychainStudio') {
+    document.getElementById('keychainStudioTabBtn')?.click();
   }
 
   // 16. Analytics

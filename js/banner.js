@@ -91,7 +91,11 @@ const Banner = {
           <div class="slide-overlay">
             ${s.tag ? `<span class="slide-tag">${s.tag}</span>` : ''}
             ${s.title ? `<h2 class="slide-title">${s.title}</h2>` : ''}
-            ${s.link ? `<a href="${s.link}" class="slide-cta btn-gold">Explore Collection</a>` : ''}
+            ${s.link ? `
+              <a href="${s.link}" class="slide-cta btn-gold js-banner-link" data-link="${s.link}">
+                ${s.link === '#keychainStudio' ? '🎨 Design in 3D (₹99)' : 'Explore Collection'}
+              </a>
+            ` : ''}
           </div>
         ` : ''}
       </div>
@@ -133,6 +137,20 @@ const Banner = {
       parentWrap.addEventListener('mouseenter', () => clearInterval(this._timer));
       parentWrap.addEventListener('mouseleave', () => this._restartAutoplay());
     }
+
+    // Banner CTA clicks
+    wrap.querySelectorAll('.js-banner-link').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const link = btn.dataset.link;
+        if (link === '#keychainStudio') {
+          e.preventDefault();
+          document.getElementById('keychainStudioTabBtn')?.click();
+        } else if (link === '#customOrderSection') {
+          e.preventDefault();
+          document.getElementById('customOrderTabBtn')?.click();
+        }
+      });
+    });
 
     // Touch swipe
     this._bindSwipe(wrap);

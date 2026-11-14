@@ -10,30 +10,30 @@
     },
     {
       "id": 2,
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&h=400&fit=crop&q=85",
+      "alt": "Parametric 3D Keychain Maker — Design Your Own for ₹99",
+      "title": "Design Your Own 3D Keychain",
+      "tag": "ONLY ₹99 · DUAL-COLOR 3MF",
+      "link": "#keychainStudio"
+    },
+    {
+      "id": 3,
       "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1280&h=400&fit=crop&q=85",
       "alt": "100% Eco-Friendly PLA Studio — Crafted with Precision",
       "title": "Eco-Friendly PLA & Precision Craft",
       "tag": "BIODEGRADABLE & NON-TOXIC",
       "link": "#products"
-    },
-    {
-      "id": 3,
-      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&h=400&fit=crop&q=85",
-      "alt": "Custom 3D Printing on Demand — Keychains, Signs & STL Files",
-      "title": "Custom 3D Prints on Demand",
-      "tag": "ORDER VIA WHATSAPP",
-      "link": "#customOrderSection"
     }
   ],
   "autoplay": true,
   "interval": 4500,
   "marquee": [
+    "🔑 Design Your Own 3D Keychain for Just ₹99 (Download .3MF & WhatsApp)",
     "🌱 100% Eco-Friendly Biodegradable PLA",
     "⚡ Precision 0.16mm Layer 3D Printing",
     "🔥 LAUNCH SALE: Up to 50% OFF All Collections",
     "✨ Custom 3D Printing on Demand (Order via WhatsApp)",
     "✦ Free Delivery Across India Above ₹1,499",
-    "📦 Ships in 2–4 Business Days",
-    "🛡️ Durable, Featherlight & Shatter-Resistant"
+    "📦 Ships in 2–4 Business Days"
   ]
 }

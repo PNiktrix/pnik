@@ -146,8 +146,8 @@
           <button class="cat-pill" data-cat="Flashcards">
             <span class="cat-emoji">🎴</span> Flashcards <span class="cat-count" id="countFlashcards">0</span>
           </button>
-          <button class="cat-pill" data-cat="Keychains">
-            <span class="cat-emoji">🔑</span> Keychains <span class="cat-count" id="countKeychains">0</span>
+          <button class="cat-pill cat-pill-keychain" id="keychainStudioTabBtn" data-cat="Keychains">
+            <span class="cat-emoji">🔑</span> 3D Keychains (₹99 Maker) <span class="custom-badge" style="background:#25D366;color:#fff">3MF</span>
           </button>
           <button class="cat-pill cat-pill-sale" data-cat="sale">
             <span class="cat-emoji">🔥</span> On Sale <span class="cat-count" id="countSale">0</span>
@@ -157,6 +157,210 @@
           </button>
         </div>
       </nav>
+
+      <!-- ═══════════════════════════════════════════ PARAMETRIC 3D KEYCHAIN MAKER STUDIO -->
+      <section id="keychainStudioSection" class="kc-section hidden">
+        <div class="kc-studio-wrap">
+          
+          <!-- Studio Header -->
+          <div class="kc-header">
+            <div class="kc-header-badges">
+              <span class="kc-pill-badge">⚡ Parametric MakerLab</span>
+              <span class="kc-pill-price">₹99 Special</span>
+              <span class="kc-pill-badge">📦 Dual-Color 3MF Export</span>
+              <span class="kc-pill-badge">📱 Mobile Optimized</span>
+            </div>
+            <h2>Design Your Custom 3D Keychain</h2>
+            <p>Type your name or car plate, choose your favorite shape, font, and dual filament colors. Preview in 360° 3D, download the print-ready <strong>.3MF</strong> file (Bambu/Orca compatible), and order for just <strong>₹99</strong>!</p>
+          </div>
+
+          <div class="kc-studio-grid">
+            
+            <!-- LEFT / TOP (Sticky on Phone): 3D Viewport -->
+            <div class="kc-viewport-card">
+              <div class="kc-viewport-header">
+                <span class="kc-dim-badge" id="kcDimBadge">75 mm × 26 mm × 5.0 mm</span>
+                <div class="kc-cam-controls">
+                  <button id="kcView3D" class="kc-cam-btn active" title="3D Isometric Angle">3D View</button>
+                  <button id="kcViewTop" class="kc-cam-btn" title="Top Down View">Top View</button>
+                </div>
+              </div>
+              <div id="kc3dStage" class="kc-3d-wrap">
+                <!-- Three.js Canvas injected here -->
+              </div>
+              <div class="kc-viewport-footer">
+                <span class="kc-viewport-hint">👆 Drag to rotate 360° · Pinch to zoom</span>
+                <span class="kc-price-pill">₹99 only</span>
+              </div>
+            </div>
+
+            <!-- RIGHT / BOTTOM: Mobile-Optimized Parametric Controls -->
+            <div class="kc-controls-card">
+
+              <!-- Subtabs for Phone navigation -->
+              <div class="kc-subtabs">
+                <button class="kc-subtab active" data-panel="kcPanelText">✏️ Text</button>
+                <button class="kc-subtab" data-panel="kcPanelColors">🎨 Colors</button>
+                <button class="kc-subtab" data-panel="kcPanelShape">📐 Shape</button>
+                <button class="kc-subtab" data-panel="kcPanelHole">⭕ Specs</button>
+              </div>
+
+              <!-- PANEL 1: Text & Font -->
+              <div class="kc-tab-panel active" id="kcPanelText">
+                <div class="kc-group">
+                  <label for="kcTextInput">Custom Name / Text (Max 14 chars)</label>
+                  <input type="text" id="kcTextInput" class="kc-text-input" value="ALEX" maxlength="14" placeholder="Type text..." autocomplete="off"/>
+                  <div class="kc-chips">
+                    <button class="kc-chip" onclick="const i=document.getElementById('kcTextInput'); i.value='ALEX'; i.dispatchEvent(new Event('input'))">ALEX</button>
+                    <button class="kc-chip" onclick="const i=document.getElementById('kcTextInput'); i.value='GT3 RS'; i.dispatchEvent(new Event('input'))">GT3 RS</button>
+                    <button class="kc-chip" onclick="const i=document.getElementById('kcTextInput'); i.value='PNIK'; i.dispatchEvent(new Event('input'))">PNIK</button>
+                    <button class="kc-chip" onclick="const i=document.getElementById('kcTextInput'); i.value='MOM'; i.dispatchEvent(new Event('input'))">MOM</button>
+                    <button class="kc-chip" onclick="const i=document.getElementById('kcTextInput'); i.value='VIP'; i.dispatchEvent(new Event('input'))">VIP</button>
+                  </div>
+                </div>
+
+                <div class="kc-group">
+                  <label>Typography Style</label>
+                  <div class="kc-btn-grid kc-btn-grid-3">
+                    <button class="kc-font-btn active" data-font="helvetiker">
+                      <span class="kc-btn-title">Modern Bold</span>
+                      <span class="kc-btn-sub">Helvetiker</span>
+                    </button>
+                    <button class="kc-font-btn" data-font="gentilis">
+                      <span class="kc-btn-title">Tech Aero</span>
+                      <span class="kc-btn-sub">Gentilis</span>
+                    </button>
+                    <button class="kc-font-btn" data-font="optimer">
+                      <span class="kc-btn-title">Classic Sharp</span>
+                      <span class="kc-btn-sub">Optimer</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 2: Dual Colors (Base Plate & Raised Letters) -->
+              <div class="kc-tab-panel" id="kcPanelColors">
+                <div class="kc-group">
+                  <div class="kc-label-row">
+                    <label>Base Plate Filament</label>
+                    <button id="kcSwapColors" class="kc-swap-btn" title="Swap colors">🔄 Swap Base &amp; Text</button>
+                  </div>
+                  <div class="kc-swatch-row" id="kcBaseSwatches">
+                    <button class="kc-swatch active" data-color="#1A1A1A" style="background:#1A1A1A" title="Matte Black"></button>
+                    <button class="kc-swatch" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Silk Gold"></button>
+                    <button class="kc-swatch" data-color="#F5F5F5" style="background:#F5F5F5;border-color:#ccc" title="Pure White"></button>
+                    <button class="kc-swatch" data-color="#C0392B" style="background:#C0392B" title="Crimson Red"></button>
+                    <button class="kc-swatch" data-color="#1A3A5C" style="background:#1A3A5C" title="Galaxy Navy"></button>
+                    <button class="kc-swatch" data-color="#27AE60" style="background:#27AE60" title="Emerald Green"></button>
+                    <button class="kc-swatch" data-color="#E84393" style="background:#E84393" title="Barbie Pink"></button>
+                    <button class="kc-swatch" data-color="#7F8C8D" style="background:#7F8C8D" title="Slate Gray"></button>
+                  </div>
+                </div>
+
+                <div class="kc-group">
+                  <label>Raised Text Filament</label>
+                  <div class="kc-swatch-row" id="kcTextSwatches">
+                    <button class="kc-swatch active" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Silk Gold"></button>
+                    <button class="kc-swatch" data-color="#F5F5F5" style="background:#F5F5F5;border-color:#ccc" title="Pure White"></button>
+                    <button class="kc-swatch" data-color="#1A1A1A" style="background:#1A1A1A" title="Matte Black"></button>
+                    <button class="kc-swatch" data-color="#E74C3C" style="background:#E74C3C" title="Ruby Red"></button>
+                    <button class="kc-swatch" data-color="#00F2FE" style="background:#00F2FE" title="Electric Cyan"></button>
+                    <button class="kc-swatch" data-color="#2ECC71" style="background:#2ECC71" title="Lime Green"></button>
+                    <button class="kc-swatch" data-color="#F1C40F" style="background:#F1C40F" title="Neon Yellow"></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 3: Shape & Style -->
+              <div class="kc-tab-panel" id="kcPanelShape">
+                <div class="kc-group">
+                  <label>Base Plate Shape</label>
+                  <div class="kc-btn-grid kc-btn-grid-2">
+                    <button class="kc-shape-btn active" data-shape="contour">
+                      <span class="kc-shape-icon">〰️</span>
+                      <div>
+                        <span class="kc-btn-title">Contour Outline</span>
+                        <span class="kc-btn-sub">Hugs text (MakerWorld)</span>
+                      </div>
+                    </button>
+                    <button class="kc-shape-btn" data-shape="pill">
+                      <span class="kc-shape-icon">💊</span>
+                      <div>
+                        <span class="kc-btn-title">Pill / Capsule</span>
+                        <span class="kc-btn-sub">Smooth rounded stadium</span>
+                      </div>
+                    </button>
+                    <button class="kc-shape-btn" data-shape="tag">
+                      <span class="kc-shape-icon">🏷️</span>
+                      <div>
+                        <span class="kc-btn-title">Rounded Tag</span>
+                        <span class="kc-btn-sub">Chamfered clean edges</span>
+                      </div>
+                    </button>
+                    <button class="kc-shape-btn" data-shape="hex">
+                      <span class="kc-shape-icon">🛡️</span>
+                      <div>
+                        <span class="kc-btn-title">Hex Shield</span>
+                        <span class="kc-btn-sub">Sporty angular badge</span>
+                      </div>
+                    </button>
+                    <button class="kc-shape-btn" data-shape="heart">
+                      <span class="kc-shape-icon">❤️</span>
+                      <div>
+                        <span class="kc-btn-title">Heart Tag</span>
+                        <span class="kc-btn-sub">Heart motif silhouette</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PANEL 4: Hole & Size -->
+              <div class="kc-tab-panel" id="kcPanelHole">
+                <div class="kc-group">
+                  <label>Keyring Loop Position</label>
+                  <div class="kc-btn-grid kc-btn-grid-4">
+                    <button class="kc-hole-btn active" data-pos="left">Left</button>
+                    <button class="kc-hole-btn" data-pos="top">Top</button>
+                    <button class="kc-hole-btn" data-pos="right">Right</button>
+                    <button class="kc-hole-btn" data-pos="none">None</button>
+                  </div>
+                </div>
+
+                <div class="kc-group">
+                  <label>Overall Length</label>
+                  <div class="kc-btn-grid kc-btn-grid-3">
+                    <button class="kc-size-btn" data-size="compact">Compact (55mm)</button>
+                    <button class="kc-size-btn active" data-size="standard">Standard (75mm)</button>
+                    <button class="kc-size-btn" data-size="large">Large (95mm)</button>
+                  </div>
+                </div>
+
+                <div class="kc-spec-box">
+                  <div class="kc-spec-item"><span>Base Depth</span><strong>3.0 mm</strong></div>
+                  <div class="kc-spec-item"><span>Text Height</span><strong>2.0 mm</strong></div>
+                  <div class="kc-spec-item"><span>Ring Hole</span><strong>Ø 4.8 mm</strong></div>
+                  <div class="kc-spec-item"><span>Material</span><strong>Eco PLA</strong></div>
+                </div>
+              </div>
+
+              <!-- ACTION BAR (Mobile-First Sticky CTAs) -->
+              <div class="kc-actions">
+                <button id="kcDownload3MF" class="btn-kc-3mf" title="Download Print-Ready 3MF File">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Download .3MF</span>
+                </button>
+                <button id="kcOrderWhatsApp" class="btn-kc-wa" title="Order via WhatsApp">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  <span>Order via WhatsApp (₹99)</span>
+                </button>
+              </div>
+              <p class="kc-help-note">💡 Zero backend needed. Downloads 3MF file with color data. Attach it in WhatsApp chat to print!</p>
+
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Custom 3D Print Studio Section (For custom orders) -->
       <section id="customOrderSection" class="custom-order-section hidden">
@@ -536,6 +740,8 @@
   <script src="js/api-integration.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/debug.js"></script>
+  <script src="js/jszip.min.js"></script>
+  <script src="js/keychain-studio.js"></script>
   <script src="js/detail-page.js"></script>
   <script src="js/app.js"></script>
 </body>
