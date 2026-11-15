@@ -25,7 +25,18 @@
 /* ── Reset ─────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--fb);font-weight:300;background:var(--light);color:var(--dark);line-height:1.65;-webkit-font-smoothing:antialiased}
+body{
+  font-family:var(--fb);font-weight:300;background:var(--light);color:var(--dark);line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+}
+input, textarea, select {
+  -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;
+}
+img, canvas {
+  -webkit-user-drag:none;user-drag:none;
+}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--fb);cursor:pointer;border:none;background:none}
@@ -1057,15 +1068,15 @@ button{font-family:var(--fb);cursor:pointer;border:none;background:none}
 .kc-btn-grid-3{grid-template-columns:repeat(3, 1fr)}
 .kc-btn-grid-4{grid-template-columns:repeat(4, 1fr)}
 
-.kc-font-btn, .kc-shape-btn, .kc-hole-btn, .kc-size-btn{
+.kc-font-btn, .kc-shape-btn, .kc-style-btn, .kc-charm-btn, .kc-hole-btn, .kc-size-btn{
   background:var(--white);border:1.5px solid var(--border);border-radius:8px;
   padding:10px 8px;cursor:pointer;transition:all var(--tr);text-align:center;
   font-family:var(--fb);font-size:.8rem;color:var(--dark);
 }
-.kc-font-btn:hover, .kc-shape-btn:hover, .kc-hole-btn:hover, .kc-size-btn:hover{
+.kc-font-btn:hover, .kc-shape-btn:hover, .kc-style-btn:hover, .kc-charm-btn:hover, .kc-hole-btn:hover, .kc-size-btn:hover{
   border-color:var(--gold);transform:translateY(-1px);
 }
-.kc-font-btn.active, .kc-shape-btn.active, .kc-hole-btn.active, .kc-size-btn.active{
+.kc-font-btn.active, .kc-shape-btn.active, .kc-style-btn.active, .kc-charm-btn.active, .kc-hole-btn.active, .kc-size-btn.active{
   border-color:var(--gold);background:var(--gold-dim);box-shadow:0 2px 8px rgba(212,175,55,.2);
 }
 .kc-btn-title{font-weight:700;display:block;font-size:.82rem}

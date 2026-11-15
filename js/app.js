@@ -555,12 +555,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fy = document.getElementById('footerYear');
   if (fy) fy.textContent = new Date().getFullYear();
 
-  // 15. Deep link: ?product=ID or ?maker=keychain
+  // 15. Deep link: ?product=ID or default to 3D Keychain Studio
   const qp = new URLSearchParams(window.location.search);
   if (qp.has('product')) {
     const p = ProductManager.getById(qp.get('product'));
     if (p) DetailPage.show(p);
-  } else if (qp.get('maker') === 'keychain' || window.location.hash === '#keychainStudio') {
+  } else {
+    // Open Keychain Studio by default on landing
     document.getElementById('keychainStudioTabBtn')?.click();
   }
 
