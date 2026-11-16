@@ -14,6 +14,9 @@
 
   <!-- Three.js for 3D frame fallback -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Three.js FontLoader + TextGeometry for proper glyph rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
   <!-- model-viewer for GLB / GLTF 3D models -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
@@ -198,11 +201,11 @@
 
               <!-- Subtabs for Phone navigation -->
               <div class="kc-subtabs">
-                <button class="kc-subtab active" data-panel="kcPanelText">✏️ Text</button>
-                <button class="kc-subtab" data-panel="kcPanelColors">🎨 Colors</button>
-                <button class="kc-subtab" data-panel="kcPanelShape">📐 Shape</button>
-                <button class="kc-subtab" data-panel="kcPanelCharm">🌸 Charm</button>
-                <button class="kc-subtab" data-panel="kcPanelHole">⭕ Specs</button>
+                <button class="kc-subtab active" data-panel="kcPanelText"><span class="kc-tab-icon">✏️</span><span class="kc-tab-label"> Text</span></button>
+                <button class="kc-subtab" data-panel="kcPanelColors"><span class="kc-tab-icon">🎨</span><span class="kc-tab-label"> Colors</span></button>
+                <button class="kc-subtab" data-panel="kcPanelShape"><span class="kc-tab-icon">📐</span><span class="kc-tab-label"> Shape</span></button>
+                <button class="kc-subtab" data-panel="kcPanelCharm"><span class="kc-tab-icon">🌸</span><span class="kc-tab-label"> Charm</span></button>
+                <button class="kc-subtab" data-panel="kcPanelHole"><span class="kc-tab-icon">⭕</span><span class="kc-tab-label"> Specs</span></button>
               </div>
 
               <!-- PANEL 1: Text & Font -->
@@ -213,7 +216,7 @@
 
                 <div class="kc-group">
                   <label>Typography Style (5 Fonts)</label>
-                  <div class="kc-btn-grid" style="grid-template-columns:repeat(auto-fit, minmax(130px, 1fr))">
+                  <div class="kc-btn-grid kc-grid-fonts">
                     <button class="kc-font-btn active" data-font="helvetiker">
                       <span class="kc-btn-title">Modern Bold</span>
                       <span class="kc-btn-sub">Helvetiker</span>
@@ -346,7 +349,7 @@
               <div class="kc-tab-panel" id="kcPanelCharm">
                 <div class="kc-group">
                   <label>Attach Decorative Charm (Side Icon)</label>
-                  <div class="kc-btn-grid" style="grid-template-columns:repeat(auto-fit, minmax(130px, 1fr))">
+                  <div class="kc-btn-grid kc-grid-charms">
                     <button class="kc-charm-btn active" data-charm="none">
                       <span class="kc-btn-title">None</span>
                       <span class="kc-btn-sub">Text Only</span>

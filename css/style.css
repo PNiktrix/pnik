@@ -1014,17 +1014,19 @@ button{font-family:var(--fb);cursor:pointer;border:none;background:none}
 
 /* Subtabs for Mobile & Desktop */
 .kc-subtabs{
-  display:flex;gap:6px;margin-bottom:18px;border-bottom:1px solid var(--border);
-  padding-bottom:12px;overflow-x:auto;scrollbar-width:none;
+  display:flex;gap:5px;margin-bottom:18px;border-bottom:1px solid var(--border);
+  padding-bottom:12px;overflow-x:hidden;
 }
-.kc-subtabs::-webkit-scrollbar{display:none}
 .kc-subtab{
-  flex:1;min-width:70px;
-  padding:8px 12px;border:1px solid var(--border);border-radius:8px;
-  background:var(--white);font-family:var(--fb);font-size:.8rem;font-weight:600;
+  flex:1 1 0;min-width:0;
+  padding:9px 6px;border:1.5px solid var(--border);border-radius:9px;
+  background:var(--white);font-family:var(--fb);font-size:.78rem;font-weight:600;
   color:var(--gray);cursor:pointer;transition:all var(--tr);white-space:nowrap;
-  text-align:center;
+  text-align:center;overflow:hidden;text-overflow:ellipsis;
+  display:flex;align-items:center;justify-content:center;gap:4px;
 }
+.kc-tab-icon{font-size:1rem;flex-shrink:0;line-height:1}
+.kc-tab-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .kc-subtab:hover{border-color:var(--gold);color:var(--gold)}
 .kc-subtab.active{
   background:var(--dark);color:var(--white);border-color:var(--dark);
@@ -1067,6 +1069,9 @@ button{font-family:var(--fb);cursor:pointer;border:none;background:none}
 .kc-btn-grid-2{grid-template-columns:1fr 1fr}
 .kc-btn-grid-3{grid-template-columns:repeat(3, 1fr)}
 .kc-btn-grid-4{grid-template-columns:repeat(4, 1fr)}
+/* Named grid variants — desktop defaults */
+.kc-grid-fonts{grid-template-columns:1fr 1fr 1fr}  /* 5 fonts: 3+2 rows */
+.kc-grid-charms{grid-template-columns:repeat(4, 1fr)} /* 8 charms: 4+4 rows */
 
 .kc-font-btn, .kc-shape-btn, .kc-style-btn, .kc-charm-btn, .kc-hole-btn, .kc-size-btn{
   background:var(--white);border:1.5px solid var(--border);border-radius:8px;
@@ -1151,16 +1156,38 @@ button{font-family:var(--fb);cursor:pointer;border:none;background:none}
   .custom-preview-card{position:static}
 }
 @media(max-width:768px){
-  .kc-section{padding:14px 12px 36px}
-  .kc-studio-wrap{padding:18px 14px}
-  .kc-studio-grid{grid-template-columns:1fr;gap:16px}
-  .kc-3d-wrap{height:260px}
-  .kc-controls-card{padding:16px 12px}
-  .kc-actions{flex-direction:column}
+  .kc-section{padding:10px 10px 32px}
+  .kc-studio-wrap{padding:14px 12px;border-radius:12px;overflow:hidden}
+  .kc-studio-grid{grid-template-columns:1fr;gap:14px}
+  .kc-3d-wrap{height:240px}
+  .kc-controls-card{padding:14px 10px;overflow:hidden;max-width:100%;box-sizing:border-box}
+  .kc-actions{flex-direction:column;margin-top:14px;padding-top:12px}
   .btn-kc-3mf,.btn-kc-wa{width:100%}
-  .kc-btn-grid-3{grid-template-columns:1fr}
-  .kc-btn-grid-2{grid-template-columns:1fr}
+  /* All 5 subtabs visible — no overflow */
+  .kc-subtabs{gap:4px;padding-bottom:10px;margin-bottom:14px}
+  .kc-subtab{font-size:.7rem;padding:8px 3px}
+  /* 2-col font grid on mobile */
+  .kc-grid-fonts{grid-template-columns:1fr 1fr}
+  /* 4-col charm grid (compact buttons) on mobile */
+  .kc-grid-charms{grid-template-columns:repeat(4, 1fr)}
+  /* other grids */
+  .kc-btn-grid-3{grid-template-columns:1fr 1fr}
+  .kc-btn-grid-2{grid-template-columns:1fr 1fr}
   .kc-btn-grid-4{grid-template-columns:repeat(4, 1fr)}
+  .kc-header{margin-bottom:16px}
+  .kc-header h2{font-size:1.4rem;margin-bottom:4px}
+  .kc-header p{font-size:.8rem}
+  .kc-header-badges{gap:5px}
+  .kc-pill-badge{font-size:.6rem;padding:3px 8px}
+  .kc-group{margin-bottom:14px}
+  .kc-group label{font-size:.68rem;margin-bottom:6px}
+  .kc-text-input{font-size:1rem;padding:10px 12px}
+  .kc-swatch{width:30px;height:30px}
+  .kc-spec-box{gap:8px;padding:10px 12px}
+  .kc-spec-item{font-size:.74rem}
+  .kc-btn-title{font-size:.76rem}
+  .kc-btn-sub{font-size:.62rem}
+  .kc-font-btn,.kc-charm-btn{padding:8px 5px}
   .hero-slider-section{padding:8px 12px 0}
   .slide-overlay{padding:14px 18px}
   .slide-title{font-size:1.15rem;margin-bottom:8px}
@@ -1185,6 +1212,21 @@ button{font-family:var(--fb);cursor:pointer;border:none;background:none}
   .filter-drawer .drawer-panel{max-width:100%}
   .dp-ctas{flex-direction:column}
   .dp-cta-main,.dp-cta-wl{width:100%}
+  .detail-grid{grid-template-columns:1fr;gap:32px}
+  .detail-left{position:static}
+  .custom-grid{grid-template-columns:1fr;gap:24px}
+  .custom-preview-card{position:static}
+}
+
+/* ── Extra-small phones: icon-only subtabs ─────────── */
+@media(max-width:500px){
+  .kc-tab-label{display:none}
+  .kc-subtab{font-size:1.1rem;padding:10px 2px}
+  .kc-tab-icon{font-size:1.15rem}
+  /* Charm grid 4-col still OK; font grid stays 2-col */
+  .kc-grid-charms{grid-template-columns:repeat(4, 1fr);gap:6px}
+  .kc-grid-fonts{grid-template-columns:1fr 1fr;gap:6px}
+  .kc-btn-grid-3{grid-template-columns:1fr 1fr 1fr}
 }
 @media(max-width:400px){
   .splash-p{font-size:3.5rem}

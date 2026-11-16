@@ -44,8 +44,9 @@ const KeychainStudio = (() => {
   let _prevMouse = { x: 0, y: 0 };
   let _rot = { x: 0.32, y: -0.22 };
   let _targetRot = { x: 0.32, y: -0.22 };
-  let _zoom = 85;
-  let _targetZoom = 85;
+  const _isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  let _zoom = _isMobile ? 100 : 85;
+  let _targetZoom = _isMobile ? 100 : 85;
   let _animId = null;
   let _isInitialized = false;
 
@@ -78,6 +79,13 @@ const KeychainStudio = (() => {
 
     _initThree();
     _bindUI();
+
+    // Adapt camera zoom for mobile
+    if (window.innerWidth < 600) {
+      _zoom = 105;
+      _targetZoom = 105;
+    }
+
     _rebuildMesh();
 
     _isInitialized = true;
@@ -86,17 +94,27 @@ const KeychainStudio = (() => {
 
   async function _loadFont(key) {
     if (FONTS_DATA[key]) return FONTS_DATA[key];
-    try {
+    return new Promise((resolve) => {
+      if (!THREE.FontLoader) {
+        // FontLoader CDN not yet ready — try again in 500ms
+        setTimeout(() => _loadFont(key).then(resolve), 500);
+        return;
+      }
       const url = FONT_URLS[key] || FONT_URLS['helvetiker'];
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      FONTS_DATA[key] = json;
-      return json;
-    } catch (e) {
-      console.warn(`[KeychainStudio] Failed loading font ${key}:`, e);
-      return FONTS_DATA['helvetiker'] || null;
-    }
+      const loader = new THREE.FontLoader();
+      loader.load(url, font => {
+        FONTS_DATA[key] = font;
+        resolve(font);
+      }, undefined, (err) => {
+        console.warn(`[KeychainStudio] Font load failed: ${key}`, err);
+        // If key wasn't helvetiker, try to serve helvetiker as fallback
+        if (key !== 'helvetiker' && FONTS_DATA['helvetiker']) {
+          resolve(FONTS_DATA['helvetiker']);
+        } else {
+          resolve(null);
+        }
+      });
+    });
   }
 
   /* ══════════════════════════════════════════════════════════
@@ -155,6 +173,9 @@ const KeychainStudio = (() => {
     _animate();
 
     window.addEventListener('resize', _onResize);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(_onResize, 300);
+    });
   }
 
   function _onResize() {
@@ -224,9 +245,9 @@ const KeychainStudio = (() => {
   function _animate() {
     _animId = requestAnimationFrame(_animate);
 
-    _rot.x += (_targetRot.x - _rot.x) * 0.12;
-    _rot.y += (_targetRot.y - _rot.y) * 0.12;
-    _zoom  += (_targetZoom - _zoom) * 0.15;
+    _rot.x += (_targetRot.x - _rot.x) * 0.10;
+    _rot.y += (_targetRot.y - _rot.y) * 0.10;
+    _zoom  += (_targetZoom - _zoom) * 0.12;
 
     const r = _zoom;
     _camera.position.x = r * Math.sin(_rot.y) * Math.cos(_rot.x);
@@ -237,136 +258,9 @@ const KeychainStudio = (() => {
     _renderer.render(_scene, _camera);
   }
 
-  /* ══════════════════════════════════════════════════════════
-     GLYPH CONTOUR TO THREE.SHAPE PARSER
-  ══════════════════════════════════════════════════════════ */
-  function _parseGlyphContours(glyph, scale, cursorX) {
-    if (!glyph || !glyph.o) return [];
-    const parts = glyph.o.trim().split(/\s+/);
-    const contours = [];
-    let curr = { x: 0, y: 0 };
-    let current = null;
-
-    for (let i = 0; i < parts.length; ) {
-      const cmd = parts[i++];
-      if (cmd === 'm') {
-        if (current && current.sampledPoints.length > 2) contours.push(current);
-        curr = { x: parseFloat(parts[i++]) * scale + cursorX, y: parseFloat(parts[i++]) * scale };
-        current = { start: { ...curr }, segments: [], sampledPoints: [{ ...curr }] };
-      } else if (cmd === 'l') {
-        const p = { x: parseFloat(parts[i++]) * scale + cursorX, y: parseFloat(parts[i++]) * scale };
-        current.segments.push({ type: 'l', p });
-        current.sampledPoints.push({ ...p });
-        curr = p;
-      } else if (cmd === 'q') {
-        const endX = parseFloat(parts[i++]) * scale + cursorX;
-        const endY = parseFloat(parts[i++]) * scale;
-        const cpX  = parseFloat(parts[i++]) * scale + cursorX;
-        const cpY  = parseFloat(parts[i++]) * scale;
-        current.segments.push({ type: 'q', cp: { x: cpX, y: cpY }, p: { x: endX, y: endY } });
-        for (let s = 1; s <= 5; s++) {
-          const t = s / 5;
-          const x = (1 - t) * (1 - t) * curr.x + 2 * (1 - t) * t * cpX + t * t * endX;
-          const y = (1 - t) * (1 - t) * curr.y + 2 * (1 - t) * t * cpY + t * t * endY;
-          current.sampledPoints.push({ x, y });
-        }
-        curr = { x: endX, y: endY };
-      } else if (cmd === 'b') {
-        const endX = parseFloat(parts[i++]) * scale + cursorX;
-        const endY = parseFloat(parts[i++]) * scale;
-        const cp1X = parseFloat(parts[i++]) * scale + cursorX;
-        const cp1Y = parseFloat(parts[i++]) * scale;
-        const cp2X = parseFloat(parts[i++]) * scale + cursorX;
-        const cp2Y = parseFloat(parts[i++]) * scale;
-        current.segments.push({ type: 'b', cp1: { x: cp1X, y: cp1Y }, cp2: { x: cp2X, y: cp2Y }, p: { x: endX, y: endY } });
-        for (let s = 1; s <= 5; s++) {
-          const t = s / 5;
-          const x = Math.pow(1 - t, 3) * curr.x + 3 * Math.pow(1 - t, 2) * t * cp1X + 3 * (1 - t) * t * t * cp2X + Math.pow(t, 3) * endX;
-          const y = Math.pow(1 - t, 3) * curr.y + 3 * Math.pow(1 - t, 2) * t * cp1Y + 3 * (1 - t) * t * t * cp2Y + Math.pow(t, 3) * endY;
-          current.sampledPoints.push({ x, y });
-        }
-        curr = { x: endX, y: endY };
-      }
-    }
-    if (current && current.sampledPoints.length > 2) contours.push(current);
-
-    // Compute signed area for hole detection
-    contours.forEach(c => {
-      let a = 0;
-      const pts = c.sampledPoints;
-      for (let i = 0; i < pts.length; i++) {
-        const j = (i + 1) % pts.length;
-        a += pts[i].x * pts[j].y - pts[j].x * pts[i].y;
-      }
-      c.area = a / 2;
-      c.isOuter = c.area < 0; // Clockwise in typeface.json = outer
-    });
-
-    return contours;
-  }
-
-  function _pointInPoly(pt, poly) {
-    let inside = false;
-    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-      const xi = poly[i].x, yi = poly[i].y;
-      const xj = poly[j].x, yj = poly[j].y;
-      const intersect = ((yi > pt.y) !== (yj > pt.y)) &&
-        (pt.x < (xj - xi) * (pt.y - yi) / (yj - yi + 1e-12) + xi);
-      if (intersect) inside = !inside;
-    }
-    return inside;
-  }
-
-  function _generateTextShapes(text, fontData, targetWidth) {
-    let totalAdvance = 0;
-    for (let i = 0; i < text.length; i++) {
-      const glyph = fontData.glyphs[text[i]] || fontData.glyphs['?'] || { ha: 600 };
-      totalAdvance += glyph.ha || 600;
-    }
-    if (totalAdvance === 0) totalAdvance = 1000;
-    const scale = targetWidth / totalAdvance;
-
-    const shapes = [];
-    let cursorX = 0;
-
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      const glyph = fontData.glyphs[char] || fontData.glyphs['?'];
-      if (glyph && glyph.o) {
-        const contours = _parseGlyphContours(glyph, scale, cursorX);
-        const outers = contours.filter(c => c.isOuter);
-        const holes  = contours.filter(c => !c.isOuter);
-
-        outers.forEach(out => {
-          const s = new THREE.Shape();
-          s.moveTo(out.start.x, out.start.y);
-          out.segments.forEach(seg => {
-            if (seg.type === 'l') s.lineTo(seg.p.x, seg.p.y);
-            else if (seg.type === 'q') s.quadraticCurveTo(seg.cp.x, seg.cp.y, seg.p.x, seg.p.y);
-            else if (seg.type === 'b') s.bezierCurveTo(seg.cp1.x, seg.cp1.y, seg.cp2.x, seg.cp2.y, seg.p.x, seg.p.y);
-          });
-
-          holes.forEach(hole => {
-            if (_pointInPoly(hole.sampledPoints[0], out.sampledPoints)) {
-              const hPath = new THREE.Path();
-              hPath.moveTo(hole.start.x, hole.start.y);
-              hole.segments.forEach(seg => {
-                if (seg.type === 'l') hPath.lineTo(seg.p.x, seg.p.y);
-                else if (seg.type === 'q') hPath.quadraticCurveTo(seg.cp.x, seg.cp.y, seg.p.x, seg.p.y);
-                else if (seg.type === 'b') hPath.bezierCurveTo(seg.cp1.x, seg.cp1.y, seg.cp2.x, seg.cp2.y, seg.p.x, seg.p.y);
-              });
-              s.holes.push(hPath);
-            }
-          });
-
-          shapes.push(s);
-        });
-      }
-      cursorX += (glyph.ha || 600) * scale;
-    }
-
-    return { textShapes: shapes, scale };
-  }
+  /* Text geometry is now handled by THREE.TextGeometry + THREE.FontLoader (CDN).
+     The custom parser below was removed — THREE.TextGeometry gives watertight,
+     properly-wound glyphs for all letters including P, R, B, O, D etc.      */
 
   /* ── Decorative Charm 2D Shape Generator ── */
   function _generateCharmShape(charmType, size = 12.0) {
@@ -462,34 +356,30 @@ const KeychainStudio = (() => {
     if (_charmMesh) { _scene.remove(_charmMesh); _charmMesh.geometry.dispose(); }
     if (_ringMesh)  { _scene.remove(_ringMesh);  _ringMesh.geometry.dispose(); }
 
-    const fontData = FONTS_DATA[state.fontKey] || FONTS_DATA['helvetiker'];
-    if (!fontData) return;
+    const font = FONTS_DATA[state.fontKey] || FONTS_DATA['helvetiker'];
+    if (!font) return;
 
-    const textRaw = (state.text || 'NIKTRIX').trim();
+    const textRaw = (state.text || 'NIKTRIX').trim().toUpperCase();
     const targetLengthMap = { compact: 55, standard: 75, large: 95 };
     const targetLength = targetLengthMap[state.sizePreset] || 75;
-
-    // ── 1. Build text shapes
-    const { textShapes } = _generateTextShapes(textRaw, fontData, targetLength * 0.68);
 
     let textBounds = { width: 45, height: 14 };
     let charmBounds = { width: 0, height: 0, x: 0 };
 
-    // Determine Z height by Text Style (Raised vs Flush vs Engraved)
-    let totalDepth = 3.0;
-    let textZ = 0;
+    // Z positioning by text style
     const embeddedDepth = 1.6;
+    let totalDepth = 3.0;
+    let textZCenter;
 
     if (state.textStyle === 'flush') {
-      totalDepth = embeddedDepth; // 1.6mm depth
-      textZ = state.baseThickness - (embeddedDepth * 0.5); // Top is flush with base plate top
+      totalDepth = embeddedDepth;
+      textZCenter = state.baseThickness - totalDepth * 0.5;
     } else if (state.textStyle === 'engraved') {
       totalDepth = 1.2;
-      textZ = state.baseThickness - 0.6; // Debossed below surface
-    } else {
-      // embossed (raised)
-      totalDepth = embeddedDepth + state.textHeight; // 3.0mm
-      textZ = (state.baseThickness - embeddedDepth) + (totalDepth * 0.5); // Protrudes +1.4mm
+      textZCenter = state.baseThickness - 0.3;
+    } else { // embossed
+      totalDepth = embeddedDepth + state.textHeight;
+      textZCenter = state.baseThickness + state.textHeight * 0.3;
     }
 
     const extrudeSettings = {
@@ -500,33 +390,51 @@ const KeychainStudio = (() => {
       bevelSegments: 2,
     };
 
-    // ── 2. Extrude Text
-    if (textShapes.length > 0) {
-      const textGeo = new THREE.ExtrudeGeometry(textShapes, extrudeSettings);
-      textGeo.computeBoundingBox();
-      textGeo.center();
+    // ── 1. Build text using THREE.TextGeometry (proper glyph rendering)
+    if (THREE.TextGeometry && font) {
+      try {
+        const tGeo = new THREE.TextGeometry(textRaw || 'A', {
+          font: font,
+          size: 20,
+          height: totalDepth,
+          curveSegments: 10,
+          bevelEnabled: true,
+          bevelThickness: 0.22,
+          bevelSize: 0.12,
+          bevelSegments: 2,
+        });
+        tGeo.computeBoundingBox();
+        const rawW = Math.max(tGeo.boundingBox.max.x - tGeo.boundingBox.min.x, 1);
 
-      textGeo.computeBoundingBox();
-      const b = textGeo.boundingBox;
-      textBounds = { width: b.max.x - b.min.x, height: b.max.y - b.min.y };
+        // Scale X+Y to fit target text width; Z (extrusion depth) stays unchanged
+        const sf = (targetLength * 0.70) / rawW;
+        tGeo.applyMatrix4(new THREE.Matrix4().makeScale(sf, sf, 1));
 
-      // Shift text left slightly if charm is on the right
-      const textShiftX = state.charm !== 'none' ? -6.0 : 0.0;
-      textGeo.translate(textShiftX, 0, textZ);
+        tGeo.computeBoundingBox();
+        const bb = tGeo.boundingBox;
+        const cx = (bb.min.x + bb.max.x) * 0.5;
+        const cy = (bb.min.y + bb.max.y) * 0.5;
+        const cz = (bb.min.z + bb.max.z) * 0.5;
+        textBounds = { width: bb.max.x - bb.min.x, height: bb.max.y - bb.min.y };
 
-      const isGold = state.textColor.toLowerCase() === '#d4af37' || state.textColor.toLowerCase() === '#ffd700';
-      const textMat = new THREE.MeshStandardMaterial({
-        color: new THREE.Color(state.textColor),
-        roughness: isGold ? 0.22 : 0.35,
-        metalness: isGold ? 0.48 : 0.08,
-      });
+        const textShiftX = state.charm !== 'none' ? -(textBounds.width * 0.08) : 0;
+        tGeo.translate(-cx + textShiftX, -cy, -cz + textZCenter);
 
-      _textMesh = new THREE.Mesh(textGeo, textMat);
-      _textMesh.castShadow = true;
-      _scene.add(_textMesh);
+        const isGold = state.textColor.toLowerCase() === '#d4af37' || state.textColor.toLowerCase() === '#ffd700';
+        const textMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(state.textColor),
+          roughness: isGold ? 0.22 : 0.35,
+          metalness: isGold ? 0.48 : 0.08,
+        });
+        _textMesh = new THREE.Mesh(tGeo, textMat);
+        _textMesh.castShadow = true;
+        _scene.add(_textMesh);
+      } catch (e) {
+        console.warn('[KeychainStudio] TextGeometry error:', e);
+      }
     }
 
-    // ── 3. Extrude Decorative Charm (if selected)
+    // ── 2. Extrude Decorative Charm (if selected)
     const charmShape = _generateCharmShape(state.charm, Math.max(textBounds.height * 0.88, 12.0));
     if (charmShape) {
       const charmGeo = new THREE.ExtrudeGeometry(charmShape, extrudeSettings);
@@ -534,7 +442,7 @@ const KeychainStudio = (() => {
       charmGeo.center();
 
       const charmX = (textBounds.width * 0.5) + (state.charm !== 'none' ? -6.0 : 0.0) + 9.5;
-      charmGeo.translate(charmX, 0, textZ);
+      charmGeo.translate(charmX, 0, textZCenter);
 
       const isCharmGold = state.charmColor.toLowerCase() === '#d4af37' || state.charmColor.toLowerCase() === '#ffd700';
       const charmMat = new THREE.MeshStandardMaterial({

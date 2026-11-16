@@ -977,10 +977,15 @@ class KeychainApp:
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw", width=440)
-        canvas.configure(yview_command=scrollbar.set)
+        canvas.configure(yscrollcommand=scrollbar.set)
 
         canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Enable mousewheel scrolling on the controls panel
+        def _on_mousewheel(event):
+            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+        canvas.bind_all("<MouseWheel>", _on_mousewheel, add="+")
 
         pad = {'padx': 16, 'pady': 6}
 
