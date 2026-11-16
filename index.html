@@ -20,7 +20,12 @@
   <!-- model-viewer for GLB / GLTF 3D models -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
-  <link rel="stylesheet" href="css/style.css"/>
+  <!-- Core & Modular Stylesheets (Divided for easy maintenance & learning) -->
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+  <link rel="stylesheet" href="css/products.css"/>
+  <link rel="stylesheet" href="css/custom-studio.css"/>
+  <link rel="stylesheet" href="css/keychain-studio.css"/>
 </head>
 <body oncontextmenu="return false" style="-webkit-user-select:none;user-select:none">
 
@@ -150,7 +155,7 @@
             <span class="cat-emoji">🎴</span> Flashcards <span class="cat-count" id="countFlashcards">0</span>
           </button>
           <button class="cat-pill cat-pill-keychain" id="keychainStudioTabBtn" data-cat="Keychains">
-            <span class="cat-emoji">🔑</span> 3D Keychains (₹99 Maker) <span class="custom-badge" style="background:#25D366;color:#fff">MAKER</span>
+            <span class="cat-emoji">🔑</span> 3D Keychains (₹99 Maker) <span class="custom-badge" style="background:#128c7e;color:#fff">MAKER</span>
           </button>
           <button class="cat-pill cat-pill-sale" data-cat="sale">
             <span class="cat-emoji">🔥</span> On Sale <span class="cat-count" id="countSale">0</span>
@@ -781,21 +786,21 @@
   <!-- ═══════════════════════════════════════════ TOAST -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <!-- ═══════════════════════════════════════════ JS — load order matters -->
+  <!-- ═══════════════════════════════════════════ JAVASCRIPT MODULES ══ -->
+  <!-- 1. Configuration & Core Utilities -->
   <script src="js/config.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/analytics.js"></script>
   <script src="js/pixel.js"></script>
   <script src="js/seo.js"></script>
+
+  <!-- 2. State & E-Commerce Logic -->
   <script src="js/cart.js"></script>
   <script src="js/wishlist.js"></script>
   <script src="js/product.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/banner.js"></script>
   <script src="js/splash.js"></script>
-  <script src="js/viewer3d.js"></script>
-  <script src="js/reviews.js"></script>
-  <script src="js/recommendations.js"></script>
   <script src="js/inventory.js"></script>
   <script src="js/shiprocket.js"></script>
   <script src="js/metrics.js"></script>
@@ -807,8 +812,15 @@
   <script src="js/api-integration.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/debug.js"></script>
+
+  <!-- 3. 3D Viewers & Parametric Studios -->
+  <script src="js/viewer3d.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/recommendations.js"></script>
   <script src="js/keychain-studio.js"></script>
   <script src="js/detail-page.js"></script>
+
+  <!-- 4. Main Application Entry Point -->
   <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,603 @@
+/* ══════════════════════════════════════════════════════════
+   Pniktrix — css/products.css
+   Product Cards, Badges, Grid, Detail View, 3D Stage & Reviews
+   ══════════════════════════════════════════════════════════ */
+
+/* ── 1. Products Grid Section ──────────────────────────── */
+.products-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 32px 60px;
+}
+.products-count-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.product-count {
+  font-size: .8rem;
+  color: var(--gray);
+  letter-spacing: .5px;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.no-results {
+  text-align: center;
+  color: var(--gray);
+  padding: 48px;
+  font-size: 1rem;
+}
+
+/* ── 2. Product Card ───────────────────────────────────── */
+.product-card {
+  position: relative;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  transition: transform var(--tr), box-shadow var(--tr);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+.card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: #f2efe9;
+}
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+  display: block;
+}
+.product-card:hover .card-img-wrap img {
+  transform: scale(1.05);
+}
+
+/* Card Badges (High Contrast - SonarLint S7924) */
+.card-badge-sale {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #b02a1b;
+  background: linear-gradient(135deg, #c0392b, #962d22);
+  color: #ffffff;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(192,57,43,.4);
+  text-transform: uppercase;
+}
+.card-badge-cat {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(20,20,25,.75);
+  backdrop-filter: blur(4px);
+  color: #e0e0e0;
+  font-size: .64rem;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 4px;
+  z-index: 3;
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.card-body {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.card-name {
+  font-family: var(--fd);
+  font-size: 1.05rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.card-meta {
+  font-size: .75rem;
+  color: var(--gray);
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+
+.card-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.card-price {
+  font-size: 1.18rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+.card-price-orig {
+  font-size: .85rem;
+  color: var(--gray);
+  text-decoration: line-through;
+  opacity: .75;
+}
+
+/* Save Tag (High Contrast Green on Light Background - SonarLint S7924) */
+.card-save-tag {
+  font-size: .68rem;
+  color: #1b6e40;
+  font-weight: 700;
+  background: rgba(39,174,96,.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+.card-actions .btn-gold {
+  flex: 1;
+  padding: 10px;
+  font-size: .78rem;
+}
+.btn-wl {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--gray);
+  transition: all var(--tr);
+  flex-shrink: 0;
+}
+.btn-wl:hover, .btn-wl.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ── 3. Product Detail Page (dp-* prefix) ──────────────── */
+.detail-wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 40px 80px;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .82rem;
+  color: var(--gray);
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  transition: all var(--tr);
+}
+.back-btn:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.detail-left {
+  position: sticky;
+  top: 140px;
+}
+
+.dp-view-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.dp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--gray);
+  transition: all var(--tr);
+}
+.dp-tab:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.dp-tab.active {
+  background: var(--dark);
+  color: var(--white);
+  border-color: var(--dark);
+}
+
+.dp-panel {
+  display: flex;
+  flex-direction: column;
+}
+.dp-main-img {
+  aspect-ratio: 1;
+  background: #f2efe9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.dp-main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dp-thumbs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+.dp-thumb {
+  width: 68px;
+  height: 68px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color var(--tr);
+}
+.dp-thumb.active {
+  border-color: var(--gold);
+}
+.dp-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 3D Stage in Detail View (No !important - SonarLint S9423) */
+.dp-3d-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.dp-ctrl-label {
+  font-size: .7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.dp-wall-swatches, .dp-model-swatches {
+  display: flex;
+  gap: 6px;
+}
+.dp-wall-btn, .dp-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: border-color var(--tr), transform var(--tr);
+  flex-shrink: 0;
+  padding: 0;
+}
+.dp-wall-btn:hover, .dp-swatch:hover {
+  transform: scale(1.15);
+}
+.dp-wall-btn.active, .dp-swatch.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(212,175,55,.35);
+}
+
+.dp-3d-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: #1a1a1a;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.dp-3d-stage model-viewer {
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+}
+.dp-3d-stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.dp-3d-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .7rem;
+  color: rgba(255,255,255,.45);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Product Info (Right Column) */
+.dp-category {
+  font-size: .72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.dp-name {
+  font-family: var(--fd);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 14px;
+}
+.dp-desc {
+  color: var(--gray);
+  font-size: .93rem;
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+
+.dp-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--white);
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.dp-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.dp-spec-label {
+  font-size: .68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.dp-spec span:last-child {
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--dark);
+}
+.dp-stock.stock-low { color: #e67e22; font-weight: 600; }
+.dp-stock.stock-out { color: #e74c3c; font-weight: 600; }
+.dp-stock.stock-ok  { color: #27ae60; font-weight: 500; }
+
+.dp-field-label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+.dp-colour-row {
+  margin-bottom: 20px;
+}
+.dp-colour-dots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dp-colour-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all var(--tr);
+}
+.dp-colour-dot:hover, .dp-colour-dot.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212,175,55,.25);
+}
+
+.dp-qty-row {
+  margin-bottom: 20px;
+}
+.dp-qty-ctrl {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.dp-qty-btn {
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  color: var(--dark);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr);
+}
+.dp-qty-btn:hover {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+.dp-qty-val {
+  width: 48px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  line-height: 40px;
+}
+
+.dp-price-block {
+  margin-bottom: 24px;
+}
+.dp-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.dp-price {
+  font-family: var(--fd);
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+}
+.dp-price-orig {
+  font-size: 1.25rem;
+  color: var(--gray);
+  text-decoration: line-through;
+  opacity: .7;
+}
+
+/* High Contrast Sale Pill (SonarLint S7924) */
+.dp-sale-pill {
+  font-size: .75rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #b02a1b;
+  background: linear-gradient(135deg, #c0392b, #962d22);
+  padding: 4px 9px;
+  border-radius: 4px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(192,57,43,.3);
+}
+.dp-price-note {
+  font-size: .78rem;
+  color: var(--gray);
+  display: block;
+  margin-top: 4px;
+}
+
+.dp-ctas {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.dp-cta-main {
+  flex: 1;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.dp-cta-wl {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* WhatsApp CTA Button with High Contrast (SonarLint S7924) */
+.dp-wa-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--gray);
+  font-size: .88rem;
+  transition: all var(--tr);
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: center;
+}
+.dp-wa-btn:hover {
+  border-color: #15803d;
+  color: #15803d;
+  background: rgba(21,128,61,.08);
+}
+.dp-wa-btn svg {
+  fill: #15803d;
+}
+
+.dp-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: .75rem;
+  color: var(--gray);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.dp-trust span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Reviews */
+.dp-reviews {
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.dp-reviews h3 {
+  font-family: var(--fd);
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.dp-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.review-stars {
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.review-text {
+  font-size: .87rem;
+  color: var(--gray);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.review-author {
+  font-size: .8rem;
+  font-weight: 600;
+}
