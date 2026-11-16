@@ -286,8 +286,8 @@
   font-family: var(--fb);
   font-size: 1.15rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-transform: none !important;
   background: var(--white);
   transition: border-color var(--tr);
 }
@@ -408,12 +408,42 @@
   color: var(--dark);
 }
 
+/* Delivery Notice Banner (5-Day Delivery & Free in Mumbai) */
+.kc-delivery-notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1.5px solid #16a34a;
+  color: #14532d;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: .84rem;
+  line-height: 1.4;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, .12);
+}
+.kc-delivery-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.kc-delivery-text {
+  font-size: .83rem;
+  color: #14532d;
+}
+.kc-delivery-text strong {
+  color: #15803d;
+  font-weight: 800;
+}
+
 /* Action CTAs (High Contrast - SonarLint S7924) */
 .kc-actions {
   display: flex;
   gap: 10px;
-  margin-top: 20px;
-  padding-top: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid var(--border);
 }
 .btn-kc-wa {

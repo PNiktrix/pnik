@@ -216,7 +216,7 @@
               <!-- PANEL 1: Text & Font -->
               <div class="kc-tab-panel active" id="kcPanelText">
                 <div class="kc-group">
-                  <input type="text" id="kcTextInput" class="kc-text-input" value="NIKTRIX" maxlength="14" placeholder="Type your name…" autocomplete="off" style="-webkit-user-select:text;user-select:text"/>
+                  <input type="text" id="kcTextInput" class="kc-text-input" value="" maxlength="14" placeholder="Add your name…" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" style="-webkit-user-select:text;user-select:text"/>
                 </div>
 
                 <div class="kc-group">
@@ -254,43 +254,69 @@
                     <button id="kcSwapColors" class="kc-swap-btn" title="Swap colors">🔄 Swap Base &amp; Text</button>
                   </div>
                   <div class="kc-swatch-row" id="kcBaseSwatches">
-                    <button class="kc-swatch active" data-color="#1A1A1A" style="background:#1A1A1A" title="Matte Black"></button>
-                    <button class="kc-swatch" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Silk Gold"></button>
-                    <button class="kc-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border-color:#ccc" title="Pure White"></button>
-                    <button class="kc-swatch" data-color="#FFB6C1" style="background:#FFB6C1" title="Pastel Pink"></button>
-                    <button class="kc-swatch" data-color="#E84393" style="background:#E84393" title="Barbie Pink"></button>
-                    <button class="kc-swatch" data-color="#C0392B" style="background:#C0392B" title="Crimson Red"></button>
-                    <button class="kc-swatch" data-color="#FFD700" style="background:#FFD700" title="Daisy Yellow"></button>
-                    <button class="kc-swatch" data-color="#2ECC71" style="background:#2ECC71" title="Mint Green"></button>
-                    <button class="kc-swatch" data-color="#00F2FE" style="background:#00F2FE" title="Electric Cyan"></button>
-                    <button class="kc-swatch" data-color="#1A3A5C" style="background:#1A3A5C" title="Galaxy Navy"></button>
+                    <button class="kc-swatch active" data-color="#1A1A1A" style="background:#1A1A1A" title="Black"></button>
+                    <button class="kc-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border-color:#ccc" title="White"></button>
+                    <button class="kc-swatch" data-color="#808080" style="background:#808080" title="Grey"></button>
+                    <button class="kc-swatch" data-color="#C0C0C0" style="background:#C0C0C0" title="Silver"></button>
+                    <button class="kc-swatch" data-color="#D32F2F" style="background:#D32F2F" title="Red"></button>
+                    <button class="kc-swatch" data-color="#1976D2" style="background:#1976D2" title="Blue"></button>
+                    <button class="kc-swatch" data-color="#2E7D32" style="background:#2E7D32" title="Green"></button>
+                    <button class="kc-swatch" data-color="#FBC02D" style="background:#FBC02D" title="Yellow"></button>
+                    <button class="kc-swatch" data-color="#F57C00" style="background:#F57C00" title="Orange"></button>
+                    <button class="kc-swatch" data-color="#F48FB1" style="background:#F48FB1" title="Pink"></button>
+                    <button class="kc-swatch" data-color="#7B1FA2" style="background:#7B1FA2" title="Purple"></button>
+                    <button class="kc-swatch" data-color="#E8BEAC" style="background:#E8BEAC" title="Skin"></button>
+                    <button class="kc-swatch" data-color="#F3EFE0" style="background:#F3EFE0;border-color:#dcd7c9" title="Natural"></button>
+                    <button class="kc-swatch" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Gold"></button>
+                    <button class="kc-swatch" data-color="#B87333" style="background:#B87333" title="Metallic Copper"></button>
+                    <button class="kc-swatch" data-color="#E5E4E2" style="background:#E5E4E2;border-color:#d0d0ce" title="Marble"></button>
+                    <button class="kc-swatch" data-color="#C19A6B" style="background:#C19A6B" title="Wood"></button>
                   </div>
                 </div>
 
                 <div class="kc-group">
                   <label>Text Filament</label>
                   <div class="kc-swatch-row" id="kcTextSwatches">
-                    <button class="kc-swatch active" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Silk Gold"></button>
-                    <button class="kc-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border-color:#ccc" title="Pure White"></button>
-                    <button class="kc-swatch" data-color="#1A1A1A" style="background:#1A1A1A" title="Matte Black"></button>
-                    <button class="kc-swatch" data-color="#E84393" style="background:#E84393" title="Barbie Pink"></button>
-                    <button class="kc-swatch" data-color="#E74C3C" style="background:#E74C3C" title="Ruby Red"></button>
-                    <button class="kc-swatch" data-color="#00F2FE" style="background:#00F2FE" title="Electric Cyan"></button>
-                    <button class="kc-swatch" data-color="#2ECC71" style="background:#2ECC71" title="Lime Green"></button>
-                    <button class="kc-swatch" data-color="#FFD700" style="background:#FFD700" title="Neon Yellow"></button>
+                    <button class="kc-swatch" data-color="#1A1A1A" style="background:#1A1A1A" title="Black"></button>
+                    <button class="kc-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border-color:#ccc" title="White"></button>
+                    <button class="kc-swatch" data-color="#808080" style="background:#808080" title="Grey"></button>
+                    <button class="kc-swatch" data-color="#C0C0C0" style="background:#C0C0C0" title="Silver"></button>
+                    <button class="kc-swatch" data-color="#D32F2F" style="background:#D32F2F" title="Red"></button>
+                    <button class="kc-swatch" data-color="#1976D2" style="background:#1976D2" title="Blue"></button>
+                    <button class="kc-swatch" data-color="#2E7D32" style="background:#2E7D32" title="Green"></button>
+                    <button class="kc-swatch" data-color="#FBC02D" style="background:#FBC02D" title="Yellow"></button>
+                    <button class="kc-swatch" data-color="#F57C00" style="background:#F57C00" title="Orange"></button>
+                    <button class="kc-swatch" data-color="#F48FB1" style="background:#F48FB1" title="Pink"></button>
+                    <button class="kc-swatch" data-color="#7B1FA2" style="background:#7B1FA2" title="Purple"></button>
+                    <button class="kc-swatch" data-color="#E8BEAC" style="background:#E8BEAC" title="Skin"></button>
+                    <button class="kc-swatch" data-color="#F3EFE0" style="background:#F3EFE0;border-color:#dcd7c9" title="Natural"></button>
+                    <button class="kc-swatch active" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Gold"></button>
+                    <button class="kc-swatch" data-color="#B87333" style="background:#B87333" title="Metallic Copper"></button>
+                    <button class="kc-swatch" data-color="#E5E4E2" style="background:#E5E4E2;border-color:#d0d0ce" title="Marble"></button>
+                    <button class="kc-swatch" data-color="#C19A6B" style="background:#C19A6B" title="Wood"></button>
                   </div>
                 </div>
 
                 <div class="kc-group">
                   <label>Charm / Icon Filament</label>
                   <div class="kc-swatch-row" id="kcCharmSwatches">
-                    <button class="kc-swatch active" data-color="#FFD700" style="background:#FFD700" title="Daisy Yellow"></button>
-                    <button class="kc-swatch" data-color="#E84393" style="background:#E84393" title="Pastel Pink"></button>
-                    <button class="kc-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border-color:#ccc" title="Pure White"></button>
-                    <button class="kc-swatch" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Silk Gold"></button>
-                    <button class="kc-swatch" data-color="#00F2FE" style="background:#00F2FE" title="Electric Cyan"></button>
-                    <button class="kc-swatch" data-color="#E74C3C" style="background:#E74C3C" title="Ruby Red"></button>
-                    <button class="kc-swatch" data-color="#2ECC71" style="background:#2ECC71" title="Mint Green"></button>
+                    <button class="kc-swatch" data-color="#1A1A1A" style="background:#1A1A1A" title="Black"></button>
+                    <button class="kc-swatch" data-color="#FFFFFF" style="background:#FFFFFF;border-color:#ccc" title="White"></button>
+                    <button class="kc-swatch" data-color="#808080" style="background:#808080" title="Grey"></button>
+                    <button class="kc-swatch" data-color="#C0C0C0" style="background:#C0C0C0" title="Silver"></button>
+                    <button class="kc-swatch" data-color="#D32F2F" style="background:#D32F2F" title="Red"></button>
+                    <button class="kc-swatch" data-color="#1976D2" style="background:#1976D2" title="Blue"></button>
+                    <button class="kc-swatch" data-color="#2E7D32" style="background:#2E7D32" title="Green"></button>
+                    <button class="kc-swatch active" data-color="#FBC02D" style="background:#FBC02D" title="Yellow"></button>
+                    <button class="kc-swatch" data-color="#F57C00" style="background:#F57C00" title="Orange"></button>
+                    <button class="kc-swatch" data-color="#F48FB1" style="background:#F48FB1" title="Pink"></button>
+                    <button class="kc-swatch" data-color="#7B1FA2" style="background:#7B1FA2" title="Purple"></button>
+                    <button class="kc-swatch" data-color="#E8BEAC" style="background:#E8BEAC" title="Skin"></button>
+                    <button class="kc-swatch" data-color="#F3EFE0" style="background:#F3EFE0;border-color:#dcd7c9" title="Natural"></button>
+                    <button class="kc-swatch" data-color="#D4AF37" style="background:linear-gradient(135deg, #ffd700, #b8860b)" title="Gold"></button>
+                    <button class="kc-swatch" data-color="#B87333" style="background:#B87333" title="Metallic Copper"></button>
+                    <button class="kc-swatch" data-color="#E5E4E2" style="background:#E5E4E2;border-color:#d0d0ce" title="Marble"></button>
+                    <button class="kc-swatch" data-color="#C19A6B" style="background:#C19A6B" title="Wood"></button>
                   </div>
                 </div>
               </div>
@@ -418,6 +444,14 @@
                   <div class="kc-spec-item"><span>Ring Hole</span><strong>Ø 4.4 mm</strong></div>
                   <div class="kc-spec-item"><span>Material</span><strong>100% Eco PLA</strong></div>
                 </div>
+              </div>
+
+              <!-- Fast Delivery Notice (5 Days & Free in Mumbai) -->
+              <div class="kc-delivery-notice">
+                <span class="kc-delivery-icon">🚚</span>
+                <span class="kc-delivery-text">
+                  <strong>Delivery in 5 Days</strong> · <strong>FREE Delivery within Mumbai</strong> (₹0 Extra Charge)!
+                </span>
               </div>
 
               <!-- ACTION BAR (Mobile-First Sticky CTA — WhatsApp Only) -->

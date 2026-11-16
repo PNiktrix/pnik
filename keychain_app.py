@@ -82,18 +82,23 @@ CHARM_DISPLAY_NAMES = {
 }
 
 COLOR_PRESETS = [
-    ('Matte Black',   '#1A1A1A'),
-    ('Silk Gold',     '#D4AF37'),
-    ('Pure White',    '#FFFFFF'),
-    ('Pastel Pink',   '#FFB6C1'),
-    ('Barbie Pink',   '#E84393'),
-    ('Crimson Red',   '#C0392B'),
-    ('Daisy Yellow',  '#FFD700'),
-    ('Mint Green',    '#2ECC71'),
-    ('Sky Blue',      '#3498DB'),
-    ('Electric Cyan', '#00F2FE'),
-    ('Galaxy Navy',   '#1A3A5C'),
-    ('Lavender',      '#9B59B6'),
+    ('Black',           '#1A1A1A'),
+    ('White',           '#FFFFFF'),
+    ('Grey',            '#808080'),
+    ('Silver',          '#C0C0C0'),
+    ('Red',             '#D32F2F'),
+    ('Blue',            '#1976D2'),
+    ('Green',           '#2E7D32'),
+    ('Yellow',          '#FBC02D'),
+    ('Orange',          '#F57C00'),
+    ('Pink',            '#F48FB1'),
+    ('Purple',          '#7B1FA2'),
+    ('Skin',            '#E8BEAC'),
+    ('Natural',         '#F3EFE0'),
+    ('Gold',            '#D4AF37'),
+    ('Metallic Copper', '#B87333'),
+    ('Marble',          '#E5E4E2'),
+    ('Wood',            '#C19A6B'),
 ]
 
 SIZE_PRESETS = {
@@ -833,14 +838,14 @@ def parse_full_message(raw_text):
     """
     raw = (raw_text or "").strip()
     config = {
-        'text':        'NIKTRIX',
+        'text':        '',
         'font':        'helvetiker',
         'shape':       'contour',
         'style':       'embossed',
         'base_color':  '#1A1A1A',
         'text_color':  '#D4AF37',
         'charm':       'none',
-        'charm_color': '#FFD700',
+        'charm_color': '#FBC02D',
         'hole_pos':    'left',
         'size':        'standard',
     }
@@ -919,7 +924,7 @@ class KeychainApp:
         self.root.configure(bg=self.bg_dark)
 
         # State Variables
-        self.text_var = tk.StringVar(value="NIKTRIX")
+        self.text_var = tk.StringVar(value="")
         self.font_var = tk.StringVar(value="helvetiker")
         self.shape_var = tk.StringVar(value="contour")
         self.style_var = tk.StringVar(value="embossed")
@@ -996,7 +1001,7 @@ class KeychainApp:
 
         self.txt_wa = tk.Text(sec1, height=3, bg="#18191E", fg="#FFFFFF", insertbackground="#FFF", font=("Consolas", 8), bd=1, relief="solid")
         self.txt_wa.pack(fill=tk.X, padx=10, pady=2)
-        self.txt_wa.insert("1.0", "Custom 3D Keychain Order\n*Name:* Sanjana\n*Font:* bubbly | *Charm:* flower\nCode: `KC|Sanjana|bubbly|contour|embossed|#FFFFFF|#E84393|flower|#FFD700|left|standard`")
+        self.txt_wa.insert("1.0", "Hi, I want to order from your website:\n\nProduct: Custom 3D Keychain (Sanjana)\nQuantity: 1\nKeychain Code: `KC|Sanjana|bubbly|contour|embossed|#FFFFFF|#E84393|flower|#FBC02D|left|standard`\n\nShare total price and delivery details.")
 
         btn_parse = tk.Button(sec1, text="⚡ Decode & Populate Options", bg=self.accent_green, fg="#FFF", font=("Segoe UI", 9, "bold"), bd=0, padx=12, pady=4, cursor="hand2", command=self.parse_wa_input)
         btn_parse.pack(anchor="e", padx=10, pady=(4, 8))
@@ -1175,7 +1180,7 @@ class KeychainApp:
         target_w = SIZE_PRESETS.get(self.size_var.get(), 75.0)
 
         self.last_geom = generate_keychain_geometry(
-            text=self.text_var.get().strip() or "NIKTRIX",
+            text=self.text_var.get().strip() or "Your Name",
             font_data=font_data,
             shape_type=self.shape_var.get(),
             text_style=self.style_var.get(),

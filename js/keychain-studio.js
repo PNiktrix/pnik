@@ -21,14 +21,14 @@
 const KeychainStudio = (() => {
   /* ── State ── */
   const state = {
-    text:          'NIKTRIX',
+    text:          '',          // Empty initially — placeholder 'Add your name' shown in input
     fontKey:       'helvetiker',
     shape:         'contour',   // 'contour' | 'pill' | 'tag' | 'hex'
     textStyle:     'embossed',  // 'embossed' | 'flush' | 'engraved'
-    baseColor:     '#1A1A1A',   // Matte Black
-    textColor:     '#D4AF37',   // Silk Gold
+    baseColor:     '#1A1A1A',   // Black
+    textColor:     '#D4AF37',   // Gold
     charm:         'none',      // 'none' | 'flower' | 'heart' | 'star' | 'crown' | 'paw' | 'bolt' | 'music'
-    charmColor:    '#FFD700',   // Daisy Yellow
+    charmColor:    '#FBC02D',   // Yellow
     holePos:       'left',      // 'left' | 'top' | 'right' | 'none'
     sizePreset:    'standard',  // 'compact' (55mm) | 'standard' (75mm) | 'large' (95mm)
     baseThickness: 3.2,         // mm
@@ -359,7 +359,8 @@ const KeychainStudio = (() => {
     const font = FONTS_DATA[state.fontKey] || FONTS_DATA['helvetiker'];
     if (!font) return;
 
-    const textRaw = (state.text || 'NIKTRIX').trim().toUpperCase();
+    // Preserve exact case (both upper case and lower case supported)
+    const textRaw = (state.text && state.text.trim()) ? state.text.trim() : 'Your Name';
     const targetLengthMap = { compact: 55, standard: 75, large: 95 };
     const targetLength = targetLengthMap[state.sizePreset] || 75;
 
@@ -664,65 +665,29 @@ const KeychainStudio = (() => {
   }
 
   /* ══════════════════════════════════════════════════════════
-     WHATSAPP ORDER DISPATCHER (Natural text + Compact Code)
+     WHATSAPP ORDER DISPATCHER (Clean, Compact & Easy)
   ══════════════════════════════════════════════════════════ */
   function orderViaWhatsApp() {
-    const shapeNames = {
-      contour: 'Ultra-Tight Contour (Sophia Style)',
-      pill:    'Pill / Capsule',
-      tag:     'Rounded Tag',
-      hex:     'Hexagon Shield',
-    };
-    const fontNames = {
-      bubbly:     'Bubbly Rounded (Sophia)',
-      helvetiker: 'Modern Bold',
-      impact:     'Impact Block',
-      gentilis:   'Tech Aero',
-      optimer:    'Classic Sharp',
-    };
-    const styleNames = {
-      embossed: 'Raised (+1.4mm)',
-      flush:    'Flush Infill (Smooth Surface)',
-      engraved: 'Debossed (-1.0mm)',
-    };
-    const charmNames = {
-      none:   'None',
-      flower: '🌸 Flower',
-      heart:  '❤️ Heart',
-      star:   '⭐ Star',
-      crown:  '👑 Crown',
-      paw:    '🐾 Paw',
-      bolt:   '⚡ Bolt',
-      music:  '🎵 Music',
-    };
+    const customerName = (state.text && state.text.trim()) ? state.text.trim() : 'Your Name';
 
     // Compact Reference Code for python desktop decoder
-    const designCode = `KC|${state.text}|${state.fontKey}|${state.shape}|${state.textStyle}|${state.baseColor}|${state.textColor}|${state.charm}|${state.charmColor}|${state.holePos}|${state.sizePreset}`;
+    const designCode = `KC|${customerName}|${state.fontKey}|${state.shape}|${state.textStyle}|${state.baseColor}|${state.textColor}|${state.charm}|${state.charmColor}|${state.holePos}|${state.sizePreset}`;
 
     const msg = [
-      `Hello Pniktrix! 🔑`,
+      `Hi, I want to order from your website:`,
       ``,
-      `I would like to order a custom 3D Keychain for *₹${state.price}*:`,
-      `• *Name:* ${state.text}`,
-      `• *Font:* ${fontNames[state.fontKey] || state.fontKey}`,
-      `• *Base Shape:* ${shapeNames[state.shape] || state.shape}`,
-      `• *Text Style:* ${styleNames[state.textStyle] || state.textStyle}`,
-      `• *Base Colour:* ${state.baseColor}`,
-      `• *Text Colour:* ${state.textColor}`,
-      `• *Side Charm:* ${charmNames[state.charm] || state.charm} (${state.charmColor})`,
-      `• *Keyring Hole:* ${state.holePos}`,
-      `• *Size:* ${state.sizePreset}`,
+      `Product: Custom 3D Keychain (${customerName})`,
+      `Quantity: 1`,
+      `Keychain Code: \`${designCode}\``,
       ``,
-      `Order Code: \`${designCode}\``,
-      ``,
-      `Please confirm payment and delivery timeline. Thank you!`
+      `Share total price and delivery details.`
     ].join('\n');
 
     const whatsappNumber = (typeof Config !== 'undefined' && Config.WHATSAPP) ? Config.WHATSAPP : '918433595240';
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     if (typeof Utils !== 'undefined' && Utils.toast) {
-      Utils.toast('Opening WhatsApp with your custom keychain order! 🚀');
+      Utils.toast('Opening WhatsApp with your order! 🚀');
     }
   }
 
@@ -730,10 +695,13 @@ const KeychainStudio = (() => {
      UI BINDINGS & CONTROLS
   ══════════════════════════════════════════════════════════ */
   function _bindUI() {
-    // Text input
+    // Text input (preserves both uppercase and lowercase)
     const textInput = document.getElementById('kcTextInput');
+    if (textInput) {
+      textInput.value = state.text;
+    }
     textInput?.addEventListener('input', e => {
-      state.text = e.target.value.trim() || 'NIKTRIX';
+      state.text = e.target.value;
       _rebuildMesh();
     });
 
